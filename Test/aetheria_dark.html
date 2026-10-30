@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aetheria | Enterprise Subscription Management &amp; Spend Intelligence</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-fixed": "#dde1ff",
+            "on-primary-fixed-variant": "#003fa5",
+            "surface-container-high": "#e4e9ed",
+            "glass-border-subtle": "rgba(255, 255, 255, 0.08)",
+            "on-primary-fixed": "#00184a",
+            "tertiary": "#50dfa4",
+            "surface-tint": "#8ccdff",
+            "secondary-container": "#0056dc",
+            "tertiary-container": "#28c38a",
+            "caution-rose": "#ff5b79",
+            "surface-container-low": "#161b29",
+            "surface-variant": "#2f3443",
+            "on-tertiary-fixed-variant": "#005236",
+            "secondary": "#b3c5ff",
+            "primary-fixed-dim": "#8ccdff",
+            "on-secondary-container": "#d2dbff",
+            "success-emerald": "#10b981",
+            "on-primary-container": "#004566",
+            "error": "#ffb4ab",
+            "on-error": "#690005",
+            "on-secondary-fixed": "#00184a",
+            "glass-border-light": "rgba(255, 255, 255, 0.12)",
+            "surface-bright": "#343948",
+            "surface": "#060B18",
+            "secondary-fixed-dim": "#b3c5ff",
+            "inverse-primary": "#006493",
+            "on-secondary": "#002a76",
+            "on-tertiary-fixed": "#002113",
+            "tertiary-fixed-dim": "#4edea3",
+            "inverse-surface": "#dde2f5",
+            "surface-container": "#1a1f2d",
+            "primary-container": "#38b6ff",
+            "outline": "#88929c",
+            "primary": "#90cfff",
+            "on-tertiary": "#003824",
+            "primary-fixed": "#cae6ff",
+            "surface-dim": "#0e1320",
+            "on-surface": "#dde2f5",
+            "outline-variant": "#3e4850",
+            "frosted-ice": "rgba(11, 19, 43, 0.7)",
+            "tertiary-fixed": "#6ffbbe",
+            "error-container": "#93000a",
+            "surface-container-lowest": "#080e1b",
+            "on-error-container": "#ffdad6",
+            "inverse-on-surface": "#2b303f",
+            "on-surface-variant": "#bec8d2",
+            "surface-container-highest": "#2f3443",
+            "on-primary": "#00344f",
+            "on-tertiary-container": "#004a31",
+            "on-secondary-fixed-variant": "#003fa5",
+            "pale-ether-mist": "#e6f3fd",
+            "on-background": "#dde2f5",
+            "background": "#060B18"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "3.5rem",
+            "space-sm": "0.75rem",
+            "space-xs": "0.375rem",
+            "margin": "3rem",
+            "gutter-mobile": "1rem",
+            "margin-mobile": "1.25rem",
+            "space-md": "1.25rem",
+            "space-lg": "2rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "display-hero": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .glass-card-ambient {
+      background: rgba(11, 20, 43, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.6);
+    }
+    .glass-card-ambient:hover {
+      border-color: rgba(56, 182, 255, 0.35);
+      box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 182, 255, 0.12);
+    }
+    .glass-card-interactive {
+      background: rgba(11, 20, 43, 0.8);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(56, 182, 255, 0.15);
+    }
+    .btn-gradient-primary {
+      background: linear-gradient(135deg, #38B6FF 0%, #1D61E7 100%);
+      box-shadow: 0 12px 28px -6px rgba(29, 97, 231, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    }
+    .btn-gradient-primary:hover {
+      box-shadow: 0 0 24px rgba(56, 182, 255, 0.5), 0 12px 28px -6px rgba(29, 97, 231, 0.6);
+    }
+  </style>
+</head>
+<body class="bg-[#060B18] text-white antialiased relative min-h-screen overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
+<!-- 1. Procedural Glassmorphism WebGL Shader Background -->
+<!-- STITCH_SHADER_START:ANIMATION_7 class="fixed inset-0 w-full h-full pointer-events-none -z-10" -->
+<div class="fixed inset-0 w-full h-full pointer-events-none -z-10" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_7" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_7');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+// Simplex-inspired organic fluid dark glassmorphic glow shader
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 ox = floor(x + 0.5);
+  vec3 a0 = x - ox;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy / u_resolution.xy;
+    vec2 mouse = u_mouse / u_resolution;
+    if(length(u_mouse) < 1.0) {
+        mouse = vec2(0.5, 0.5);
+    }
+    
+    float aspect = u_resolution.x / u_resolution.y;
+    vec2 p = st;
+    p.x *= aspect;
+    vec2 m = mouse;
+    m.x *= aspect;
+
+    float t = u_time * 0.16;
+    
+    // Slow undulating liquid noise
+    float n1 = snoise(p * 1.1 + vec2(t * 0.35, t * 0.25));
+    float n2 = snoise(p * 1.9 - vec2(t * 0.2, -t * 0.3) + vec2(n1 * 0.45));
+    float n3 = snoise(p * 3.2 + vec2(n2 * 0.35, t * 0.18));
+
+    // Interactive mouse attraction wave
+    float distMouse = length(p - m);
+    float mouseWave = smoothstep(0.7, 0.0, distMouse) * 0.4;
+
+    // Palette stops for Deep Midnight Obsidian Dark Mode
+    vec3 cBg = vec3(0.024, 0.043, 0.094);       // #060B18 ultra-deep midnight obsidian
+    vec3 cNavy = vec3(0.043, 0.078, 0.188);     // #0B1430 deep slate navy
+    vec3 cPrimary = vec3(0.114, 0.380, 0.906);  // #1D61E7 electric royal blue
+    vec3 cCyan = vec3(0.220, 0.714, 1.0);       // #38B6FF glowing sky cyan
+    vec3 cIndigo = vec3(0.149, 0.196, 0.451);   // luminous violet-indigo accent
+
+    // Dynamic blending factors
+    float blob1 = smoothstep(-0.25, 0.75, n1 + mouseWave);
+    float blob2 = smoothstep(-0.35, 0.8, n2);
+    float blob3 = smoothstep(-0.15, 0.65, n3);
+
+    vec3 col = mix(cBg, cNavy, st.y * 0.8);
+    // Layer glowing translucent orbs against midnight canvas
+    col = mix(col, cIndigo, blob1 * 0.45);
+    col = mix(col, cPrimary, blob2 * 0.42);
+    col = mix(col, cCyan, blob3 * 0.35);
+
+    // Subtle edge luminescence and radial ambient light
+    float vignette = smoothstep(1.2, 0.2, length(st - vec2(0.5, 0.3)));
+    col += cCyan * 0.06 * vignette;
+
+    gl_FragColor = vec4(col, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_7 -->
+<!-- Ambient Light Orbs for Additional Atmospheric Depth -->
+<div class="fixed top-0 left-1/4 w-[650px] h-[650px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10 transform -translate-y-1/2"></div>
+<div class="fixed bottom-1/3 right-10 w-[550px] h-[550px] bg-cyan-500/10 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+<!-- 2. Sticky Floating Pill Top Navigation (Brand Anchor Shared Component) -->
+<header class="sticky top-6 mx-auto rounded-full w-[calc(100%-3rem)] max-w-7xl z-50 bg-[#0B132B]/70 backdrop-blur-xl border border-white/10 text-white shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] transition-all">
+<div class="flex justify-between items-center px-6 py-3">
+<!-- Brand Logo Anchor -->
+<a class="flex items-center gap-3 text-headline-sm font-headline-sm text-white font-bold tracking-tight group" href="#">
+<div class="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/30 group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(56,182,255,0.6)] transition-all duration-200">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">cloud_sync</span>
+</div>
+<span class="tracking-tight font-extrabold text-white">Aetheria</span>
+</a>
+<!-- Desktop Nav Links -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-cyan-400 font-bold text-label-lg font-label-lg transition-colors hover:text-cyan-300 hover:drop-shadow-[0_0_8px_rgba(56,182,255,0.6)]" href="#features">Features</a>
+<a class="text-slate-300 font-label-lg text-label-lg hover:text-white transition-colors" href="#solutions">Solutions</a>
+<a class="text-slate-300 font-label-lg text-label-lg hover:text-white transition-colors" href="#pricing">Pricing</a>
+<a class="text-slate-300 font-label-lg text-label-lg hover:text-white transition-colors" href="#roi-calculator">Company</a>
+</nav>
+<!-- Trailing Action Buttons -->
+<div class="flex items-center gap-3">
+<button class="hidden sm:inline-flex items-center px-4 py-2 text-label-lg font-label-lg text-slate-300 hover:text-white transition-colors active:scale-[0.98]">
+          Log In
+        </button>
+<a class="btn-gradient-primary text-white font-label-lg text-label-lg px-5 py-2.5 rounded-full inline-flex items-center gap-2 hover:brightness-105 hover:shadow-[0_0_20px_rgba(56,182,255,0.4)] active:scale-[0.98] transition-all" href="#pricing">
+<span>Start Free Trial</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Main Canvas Wrapper -->
+<main class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pt-16 md:pt-24 space-y-28 md:space-y-36">
+<!-- 3. Hero Section -->
+<section class="text-center max-w-4xl mx-auto space-y-8">
+<!-- Release Announcement Pill Badge -->
+<div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0B142B]/80 border border-white/10 shadow-sm text-cyan-400 backdrop-blur-md hover:border-cyan-400/40 hover:shadow-[0_0_20px_rgba(56,182,255,0.3)] transition-all cursor-pointer group">
+<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(56,182,255,0.8)]"></span>
+<span class="font-label-md text-label-md font-semibold tracking-wide text-slate-200">✨ New: Autonomous SaaS License Reallocation 3.0</span>
+<span class="material-symbols-outlined text-[16px] text-cyan-400 group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+<!-- Main Headline -->
+<h1 class="font-display-hero text-display-hero text-white tracking-tight font-extrabold max-w-3xl mx-auto leading-[1.12]">
+        Master Corporate Subscriptions with <span class="bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">Pure Clarity</span>
+</h1>
+<!-- Supporting Narrative -->
+<p class="font-body-lg text-body-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        Aetheria eliminates ghost licenses, renegotiates renewals automatically, and centralizes company-wide software spend in one ethereal command center.
+      </p>
+<!-- CTA Cluster -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+<a class="w-full sm:w-auto btn-gradient-primary text-white font-label-lg text-label-lg px-8 py-4 rounded-full flex items-center justify-center gap-3 hover:shadow-[0_0_25px_rgba(56,182,255,0.5)] active:scale-[0.98] transition-all" href="#live-slate">
+<span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+<span>Launch 14-Day Audit</span>
+</a>
+<a class="w-full sm:w-auto bg-[#0B142B]/70 hover:bg-[#0B142B] text-slate-100 border border-white/10 hover:border-cyan-400/40 shadow-sm backdrop-blur-lg font-label-lg text-label-lg px-7 py-4 rounded-full flex items-center justify-center gap-2.5 active:scale-[0.98] transition-all hover:shadow-[0_0_20px_rgba(56,182,255,0.25)]" href="#live-slate">
+<span class="material-symbols-outlined text-cyan-400 text-[22px]">play_circle</span>
+<span>Watch Interactive Demo</span>
+</a>
+</div>
+<!-- Social Proof Enterprise Logos -->
+<div class="pt-10">
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-slate-400 mb-6 font-semibold">
+          Trusted by finance leaders at hypergrowth companies
+        </p>
+<div class="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-75">
+<div class="flex items-center gap-2 text-slate-200 font-headline-sm font-bold tracking-tight">
+<span class="material-symbols-outlined text-[22px] text-cyan-400">polyline</span> LINEAR
+          </div>
+<div class="flex items-center gap-2 text-slate-200 font-headline-sm font-bold tracking-tight">
+<span class="material-symbols-outlined text-[22px] text-emerald-400">interests</span> FIGMA
+          </div>
+<div class="flex items-center gap-2 text-slate-200 font-headline-sm font-bold tracking-tight">
+<span class="material-symbols-outlined text-[22px] text-blue-400">account_balance_wallet</span> RAMP
+          </div>
+<div class="flex items-center gap-2 text-slate-200 font-headline-sm font-bold tracking-tight">
+<span class="material-symbols-outlined text-[22px] text-cyan-300">change_history</span> VERCEL
+          </div>
+<div class="flex items-center gap-2 text-slate-200 font-headline-sm font-bold tracking-tight">
+<span class="material-symbols-outlined text-[22px] text-emerald-400">bolt</span> SUPABASE
+          </div>
+</div>
+</div>
+</section>
+<!-- 4. Hero Interactive Product Display (Live Subscription Command Slate) -->
+<section class="relative" id="live-slate">
+<div class="glass-card-interactive rounded-xl p-6 md:p-8 relative overflow-hidden bg-[#0B142B]/80 backdrop-blur-2xl border border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7),0_0_0_1px_rgba(56,182,255,0.15)] text-white">
+<!-- Slate Subtitle & Status Badge Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-white/10 gap-4">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.7)]"></div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-white font-bold tracking-tight">Global SaaS Telemetry &amp; Seat Harvest</h3>
+<p class="font-body-sm text-body-sm text-slate-300">Live audit snapshot across 114 connected SaaS services</p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start md:self-auto">
+<span class="px-3 py-1 rounded-full bg-blue-900/60 text-cyan-300 border border-cyan-400/20 font-label-sm text-label-sm">Continuous Sync: 4m ago</span>
+<button class="p-2 rounded-full hover:bg-white/10 transition-colors text-slate-300 hover:text-white">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+</button>
+</div>
+</div>
+<!-- Top Metric Highlights Strip -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+<div class="p-5 rounded-lg bg-[#101A38]/70 border border-white/5 hover:border-cyan-400/30 transition-all shadow-sm">
+<span class="font-label-md text-label-md text-slate-300 font-medium">Total Active SaaS Spend</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-headline-lg text-headline-lg font-bold text-white tabular-nums">$84,290</span>
+<span class="font-label-sm text-label-sm text-slate-400">/mo</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5 text-cyan-400 text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[15px]">insights</span>
+<span>114 verified contracts</span>
+</div>
+</div>
+<div class="p-5 rounded-lg bg-[#101A38]/70 border border-white/5 hover:border-rose-400/30 transition-all shadow-sm relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 bg-rose-500/10 rounded-full blur-xl pointer-events-none"></div>
+<span class="font-label-md text-label-md text-rose-400 font-semibold">Detected Waste &amp; Idle Seats</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-headline-lg text-headline-lg font-bold text-rose-400 tabular-nums">-$16,420</span>
+<span class="font-label-sm text-label-sm text-rose-400/80 font-medium">/mo (19.4%)</span>
+</div>
+<div class="mt-2 flex items-center gap-1 text-rose-400 font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+<span>42 dormant enterprise licenses</span>
+</div>
+</div>
+<div class="p-5 rounded-lg bg-[#101A38]/70 border border-white/5 hover:border-emerald-400/30 transition-all shadow-sm relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 bg-emerald-500/10 rounded-full blur-xl pointer-events-none"></div>
+<span class="font-label-md text-label-md text-emerald-400 font-semibold">Autonomous Savings YTD</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-headline-lg text-headline-lg font-bold text-emerald-400 tabular-nums">$148,900</span>
+<span class="font-label-sm text-label-sm text-emerald-300 font-bold">+28.4%</span>
+</div>
+<div class="mt-2 flex items-center gap-1 text-emerald-400 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>Audited by KPMG benchmark</span>
+</div>
+</div>
+</div>
+<!-- Real-Time Spend Forecast Trend Card -->
+<div class="p-5 rounded-lg bg-[#101A38]/70 border border-white/5 hover:border-cyan-400/30 transition-all mb-6">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-cyan-400 text-[20px]">ssid_chart</span>
+<span class="font-title-md text-title-md font-bold text-white">36-Month Spend &amp; Reallocation Trajectory</span>
+</div>
+<span class="font-label-sm text-label-sm text-cyan-300 bg-cyan-950/80 border border-cyan-400/20 px-3 py-1 rounded-full font-bold">Predictive AI Model</span>
+</div>
+<!-- SVG Line Chart Mockup -->
+<div class="h-28 w-full relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 800 120">
+<defs>
+<lineargradient id="curveGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#38B6FF" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#1D61E7" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="lineGrad" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0%" stop-color="#0071A5"></stop>
+<stop offset="50%" stop-color="#38B6FF"></stop>
+<stop offset="100%" stop-color="#10B981"></stop>
+</lineargradient>
+</defs>
+<path d="M 0,90 Q 200,85 400,60 T 800,20 L 800,120 L 0,120 Z" fill="url(#curveGradient)"></path>
+<path d="M 0,90 Q 200,85 400,60 T 800,20" fill="none" stroke="url(#lineGrad)" stroke-linecap="round" stroke-width="3.5"></path>
+<!-- Trajectory Target Dot -->
+<circle class="animate-ping" cx="800" cy="20" fill="#10B981" r="5"></circle>
+<circle cx="800" cy="20" fill="#10B981" r="4"></circle>
+</svg>
+<div class="absolute bottom-1 right-2 bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-bold">
+              -$41,200 Optimized Target
+            </div>
+</div>
+</div>
+<!-- Live Subscriptions Table Stream -->
+<div class="space-y-3">
+<!-- Item 1: Figma Enterprise -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-[#101A38]/70 border border-white/5 hover:border-cyan-400/30 transition-all shadow-sm gap-4">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-full bg-cyan-950/80 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold shadow-inner">
+<span class="material-symbols-outlined text-[24px]">design_services</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-white font-bold">Figma Enterprise</h4>
+<p class="font-body-sm text-body-sm text-slate-300">142 assigned seats • Renews Nov 2025</p>
+</div>
+</div>
+<div class="flex items-center justify-between sm:justify-end gap-6">
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm font-bold text-white tabular-nums">$10,650</span>
+<span class="font-body-sm text-body-sm text-slate-400">/mo</span>
+<p class="font-label-sm text-label-sm text-emerald-400 font-semibold">94% active utilization</p>
+</div>
+<span class="px-3 py-1.5 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-emerald-400 font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Optimized
+              </span>
+</div>
+</div>
+<!-- Item 2: Salesforce CRM -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-[#101A38]/70 border border-rose-500/20 hover:border-rose-400/40 transition-all shadow-sm gap-4">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-full bg-rose-950/60 border border-rose-500/20 flex items-center justify-center text-rose-400 font-bold shadow-inner">
+<span class="material-symbols-outlined text-[24px]">group_remove</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-title-md text-white font-bold">Salesforce CRM</h4>
+<span class="bg-rose-950/80 border border-rose-500/30 text-rose-400 px-2 py-0.5 rounded-full text-label-sm font-label-sm font-bold">31 Idle Seats</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-300">80 total licenses • 61% active rate</p>
+</div>
+</div>
+<div class="flex items-center justify-between sm:justify-end gap-6">
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm font-bold text-white tabular-nums">$24,000</span>
+<span class="font-body-sm text-body-sm text-slate-400">/mo</span>
+<p class="font-label-sm text-label-sm text-rose-400 font-semibold">Waste: $9,300/mo</p>
+</div>
+<button class="px-4 py-2 rounded-full bg-rose-600 hover:bg-rose-500 text-white font-label-sm text-label-sm font-bold shadow-md shadow-rose-900/40 hover:shadow-[0_0_15px_rgba(255,91,121,0.5)] active:scale-95 transition-all flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">person_remove</span>
+<span>Deprovision Idle</span>
+</button>
+</div>
+</div>
+<!-- Item 3: Slack Enterprise Grid -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-[#101A38]/70 border border-white/5 hover:border-cyan-400/30 transition-all shadow-sm gap-4">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-full bg-emerald-950/70 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold shadow-inner">
+<span class="material-symbols-outlined text-[24px]">forum</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-white font-bold">Slack Enterprise Grid</h4>
+<p class="font-body-sm text-body-sm text-slate-300">320 seats • Renews in 18 days</p>
+</div>
+</div>
+<div class="flex items-center justify-between sm:justify-end gap-6">
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm font-bold text-white tabular-nums">$4,800</span>
+<span class="font-body-sm text-body-sm text-slate-400">/mo</span>
+<p class="font-label-sm text-label-sm text-cyan-400 font-semibold">Contract renegotiation active</p>
+</div>
+<span class="px-3.5 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-400/30 text-cyan-300 font-label-sm text-label-sm font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] animate-spin text-cyan-400">sync</span>
+<span>Auto-Negotiating</span>
+</span>
+</div>
+</div>
+<!-- Item 4: AWS Cloud Infrastructure -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-[#101A38]/70 border border-white/5 hover:border-cyan-400/30 transition-all shadow-sm gap-4">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-full bg-blue-950/70 border border-blue-500/20 flex items-center justify-center text-blue-400 font-bold shadow-inner">
+<span class="material-symbols-outlined text-[24px]">cloud_circle</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-title-md text-white font-bold">AWS Cloud Infrastructure</h4>
+<span class="bg-blue-950/80 border border-blue-400/30 text-cyan-400 px-2 py-0.5 rounded-full text-label-sm font-label-sm font-bold">Surge (+14%)</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-300">Usage-based consumption billing</p>
+</div>
+</div>
+<div class="flex items-center justify-between sm:justify-end gap-6">
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm font-bold text-white tabular-nums">$38,120</span>
+<span class="font-body-sm text-body-sm text-slate-400">/mo</span>
+<p class="font-label-sm text-label-sm text-slate-400 font-semibold">EC2 unallocated reservations</p>
+</div>
+<button class="px-4 py-2 rounded-full bg-[#0B142B] border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_15px_rgba(56,182,255,0.3)] text-slate-100 font-label-sm text-label-sm font-bold active:scale-95 transition-all flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-cyan-400">visibility</span>
+<span>Inspect Anomalies</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. Core Features / Solution Pillars (Glassmorphic Bento Grid) -->
+<section class="space-y-12" id="features">
+<div class="text-center max-w-2xl mx-auto space-y-4">
+<h2 class="font-headline-lg text-headline-lg text-white font-bold tracking-tight">
+          Engineered for Total Financial Tranquility
+        </h2>
+<p class="font-body-lg text-body-lg text-slate-300">
+          Four interconnected intelligence layers replace chaotic procurement spreadsheets with serene real-time automation.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Card 1 -->
+<div class="bg-[#0B142B]/60 backdrop-blur-xl border border-white/10 text-slate-100 hover:border-cyan-400/40 shadow-lg rounded-xl p-8 transition-all duration-300 relative group hover:shadow-[0_0_30px_rgba(56,182,255,0.15)]">
+<div class="w-14 h-14 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white mb-6 shadow-md shadow-blue-500/30 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(56,182,255,0.5)] transition-all">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">person_search</span>
+</div>
+<h3 class="font-headline-md text-headline-md font-bold text-white mb-3">
+            Autonomous License Harvesting
+          </h3>
+<p class="font-body-md text-body-md text-slate-300 leading-relaxed mb-6">
+            Instantly identify unassigned, orphan, or dormant accounts across Google Workspace, GitHub, Slack, and Zoom. Automatically trigger reassignment workflows or one-click deprovisioning before the next invoice generates.
+          </p>
+<div class="flex items-center gap-3 pt-4 border-t border-white/10">
+<span class="material-symbols-outlined text-cyan-400 text-[20px]">check</span>
+<span class="font-label-md text-label-md text-slate-300 font-medium">Zero-touch employee offboarding integration</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-[#0B142B]/60 backdrop-blur-xl border border-white/10 text-slate-100 hover:border-cyan-400/40 shadow-lg rounded-xl p-8 transition-all duration-300 relative group hover:shadow-[0_0_30px_rgba(56,182,255,0.15)]">
+<div class="w-14 h-14 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white mb-6 shadow-md shadow-emerald-500/30 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">radar</span>
+</div>
+<h3 class="font-headline-md text-headline-md font-bold text-white mb-3">
+            Predictive Renewal Intelligence
+          </h3>
+<p class="font-body-md text-body-md text-slate-300 leading-relaxed mb-6">
+            A 60-day early warning radar tracks auto-renewal countdowns, compiles anonymized cross-company pricing benchmarks, and auto-generates data-backed vendor counter-offers for your procurement team.
+          </p>
+<div class="flex items-center gap-3 pt-4 border-t border-white/10">
+<span class="material-symbols-outlined text-emerald-400 text-[20px]">check</span>
+<span class="font-label-md text-label-md text-slate-300 font-medium">Aggregated leverage against 2,400+ SaaS vendors</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-[#0B142B]/60 backdrop-blur-xl border border-white/10 text-slate-100 hover:border-cyan-400/40 shadow-lg rounded-xl p-8 transition-all duration-300 relative group hover:shadow-[0_0_30px_rgba(56,182,255,0.15)]">
+<div class="w-14 h-14 rounded-full bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center text-white mb-6 shadow-md shadow-indigo-500/30 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] transition-all">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">credit_card</span>
+</div>
+<h3 class="font-headline-md text-headline-md font-bold text-white mb-3">
+            Shadow IT &amp; Virtual Cards
+          </h3>
+<p class="font-body-md text-body-md text-slate-300 leading-relaxed mb-6">
+            Issue dedicated biometric-authorized virtual spend cards with unbreakable monthly hard caps per tool. Subscriptions that hike rates or attempt rogue renewals are halted on the spot before a dollar leaks.
+          </p>
+<div class="flex items-center gap-3 pt-4 border-t border-white/10">
+<span class="material-symbols-outlined text-cyan-400 text-[20px]">check</span>
+<span class="font-label-md text-label-md text-slate-300 font-medium">Hardware-isolated dynamic CVV security</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-[#0B142B]/60 backdrop-blur-xl border border-white/10 text-slate-100 hover:border-cyan-400/40 shadow-lg rounded-xl p-8 transition-all duration-300 relative group hover:shadow-[0_0_30px_rgba(56,182,255,0.15)]">
+<div class="w-14 h-14 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white mb-6 shadow-md shadow-cyan-500/30 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(56,182,255,0.5)] transition-all">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+</div>
+<h3 class="font-headline-md text-headline-md font-bold text-white mb-3">
+            ERP &amp; Accounting Sync
+          </h3>
+<p class="font-body-md text-body-md text-slate-300 leading-relaxed mb-6">
+            Deep bidirectional synchronization with NetSuite, QuickBooks Online, and Workday. Every recurring invoice is mapped automatically to its correct General Ledger (GL) department code with zero manual entry.
+          </p>
+<div class="flex items-center gap-3 pt-4 border-t border-white/10">
+<span class="material-symbols-outlined text-cyan-400 text-[20px]">check</span>
+<span class="font-label-md text-label-md text-slate-300 font-medium">Automated accruals &amp; amortized prepaid expense schedules</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. Interactive ROI Calculator / Savings Slate -->
+<section class="max-w-4xl mx-auto" id="roi-calculator">
+<div class="bg-[#0B142B]/80 border border-white/10 backdrop-blur-2xl text-white rounded-xl p-8 md:p-12 relative overflow-hidden shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)]">
+<div class="text-center max-w-xl mx-auto mb-10">
+<span class="px-3.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/30 text-cyan-300 font-label-sm text-label-sm font-bold uppercase tracking-wider">
+            Quantifiable Impact
+          </span>
+<h2 class="font-headline-lg text-headline-lg font-bold text-white mt-3">
+            Estimate Your Annual SaaS Recovery
+          </h2>
+<p class="font-body-md text-body-md text-slate-300 mt-2">
+            Calculate the direct capital Aetheria reclaims within your first budget cycle based on verified customer telemetry.
+          </p>
+</div>
+<!-- Interactive Slider & Metric Panel -->
+<div class="space-y-8">
+<div>
+<div class="flex justify-between items-center mb-3">
+<label class="font-title-md text-title-md font-bold text-white" for="employee-slider">Company Headcount</label>
+<span class="font-headline-sm text-headline-sm text-cyan-400 font-bold tabular-nums" id="employee-count-label">250 Employees</span>
+</div>
+<input class="w-full h-3 bg-slate-800 rounded-full appearance-none cursor-pointer accent-cyan-400 focus:outline-none hover:shadow-[0_0_15px_rgba(56,182,255,0.4)] transition-shadow" id="employee-slider" max="1500" min="25" step="25" type="range" value="250"/>
+<div class="flex justify-between text-body-sm font-body-sm text-slate-400 mt-2">
+<span>25 (Early Stage)</span>
+<span>500 (Scaleup)</span>
+<span>1,500+ (Enterprise)</span>
+</div>
+</div>
+<!-- Dynamic Output Bento -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-white/10">
+<div class="p-6 rounded-lg bg-[#101A38]/70 border border-white/5 hover:border-cyan-400/30 transition-all">
+<span class="font-label-md text-label-md text-slate-300 font-medium">Estimated Annual SaaS Savings</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-display-hero text-[44px] leading-tight font-extrabold text-cyan-400 tabular-nums" id="savings-annual">$62,500</span>
+<span class="font-body-md text-body-md text-emerald-400 font-bold">/yr</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-400 mt-2">Recovered via unseated tier downgrades &amp; automatic negotiation briefs.</p>
+</div>
+<div class="p-6 rounded-lg bg-[#101A38]/70 border border-white/5 hover:border-cyan-400/30 transition-all">
+<span class="font-label-md text-label-md text-slate-300 font-medium">Finance Hours Salvaged</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-display-hero text-[44px] leading-tight font-extrabold text-emerald-400 tabular-nums" id="hours-annual">340 hrs</span>
+<span class="font-body-md text-body-md text-emerald-300 font-bold">/yr</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-400 mt-2">Eliminating spreadsheet reconciliation and rogue expense policing.</p>
+</div>
+</div>
+<div class="text-center pt-2">
+<a class="btn-gradient-primary text-white font-label-lg text-label-lg px-8 py-3.5 rounded-full inline-flex items-center gap-2 hover:shadow-[0_0_20px_rgba(56,182,255,0.5)] transition-all" href="#pricing">
+<span>Claim Your Audit Report</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. Testimonials & Social Validation -->
+<section class="space-y-12">
+<div class="text-center max-w-xl mx-auto space-y-3">
+<span class="px-3.5 py-1 rounded-full bg-blue-950/80 border border-cyan-400/30 text-cyan-300 font-label-sm text-label-sm font-bold uppercase tracking-wider">
+          Validated by Operators
+        </span>
+<h2 class="font-headline-lg text-headline-lg font-bold text-white">
+          What Modern Finance Chiefs Say
+        </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Testimonial 1 -->
+<div class="bg-[#0B142B]/60 border border-white/10 text-slate-100 rounded-xl p-7 flex flex-col justify-between hover:border-cyan-400/40 hover:shadow-[0_0_25px_rgba(56,182,255,0.15)] transition-all">
+<div class="space-y-4">
+<div class="flex text-cyan-400">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-slate-200 leading-relaxed italic">
+              "Aetheria trimmed $118k off our annual SaaS overhead in our first 45 days. We found 34 forgotten seats across Zoom and GitHub that had been billing us for nine months."
+            </p>
+</div>
+<div class="flex items-center gap-3.5 pt-6 mt-6 border-t border-white/10">
+<img class="w-11 h-11 rounded-full object-cover border border-white/20 shadow-sm" data-alt="Professional headshot of a female Chief Financial Officer in a sleek modern office setting with bright soft white studio lighting, sharp focus, serene fintech aesthetic with cool midnight navy and soft cyan color harmony." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXWwGCXZpKmU2i9vkmjtJqJ2hNo6v3z1LLMh62sK0qS3ywcINuFTTNgg3mB_Swh7V83gGos3gULdu6S_x1sW-pA-mq5xZ670gzQgJTn7J-DVxvcaLqrO-GU9FWUJCi3IIdbXoF2EYr3UgssZCktDPcA_ohq0P9PkaMdPveLozgApbVIqj5rk6j7pF8phD6_KumlpYw3jqWBeojBsoT8oLS_p1ylY9JmBiiGJbeVhXt"/>
+<div>
+<h4 class="font-title-md text-title-md font-bold text-white">Elena Rostova</h4>
+<p class="font-body-sm text-body-sm text-slate-400">VP of Finance • NovaTech</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-[#0B142B]/60 border border-white/10 text-slate-100 rounded-xl p-7 flex flex-col justify-between hover:border-cyan-400/40 hover:shadow-[0_0_25px_rgba(56,182,255,0.15)] transition-all">
+<div class="space-y-4">
+<div class="flex text-cyan-400">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-slate-200 leading-relaxed italic">
+              "The renewal intelligence alone paid for Aetheria for the next 10 years. We went into our Salesforce renewal armed with exact market rate percentiles and saved 22%."
+            </p>
+</div>
+<div class="flex items-center gap-3.5 pt-6 mt-6 border-t border-white/10">
+<img class="w-11 h-11 rounded-full object-cover border border-white/20 shadow-sm" data-alt="Portrait of an executive male finance director wearing a tailored navy blazer in an airy glass architectural environment bathed in diffused morning daylight with crisp clean focus and a high-tech modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSPe-D7CvYvGb2Qgbc2_WGEOdIMV-3CHHDhRaIfTRAdGbKRC4c45bS9UozMW2qsVRrTcSxn1si81MFSq4FVOcpB2f_vRlz8ChmmlP0McOBZewr5SWBA62DwQII-7Eu_x4HJ8rhVvfYSRNquUSqonmVZy36GmwNfYCfJxipQzq_O2N6EAe2Eaoiz69F9457QNztWLHx-RNsePcZJ661JBJTUqQ_IPpb4VFebeg6gDKU"/>
+<div>
+<h4 class="font-title-md text-title-md font-bold text-white">Marcus Vance</h4>
+<p class="font-body-sm text-body-sm text-slate-400">Head of Operations • HyperScale Inc</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-[#0B142B]/60 border border-white/10 text-slate-100 rounded-xl p-7 flex flex-col justify-between hover:border-cyan-400/40 hover:shadow-[0_0_25px_rgba(56,182,255,0.15)] transition-all">
+<div class="space-y-4">
+<div class="flex text-cyan-400">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-slate-200 leading-relaxed italic">
+              "Virtual cards with hard auto-renewal stops permanently killed our shadow IT headache. No more unapproved $200/mo AI tooling subscriptions slipping past credit reconciliation."
+            </p>
+</div>
+<div class="flex items-center gap-3.5 pt-6 mt-6 border-t border-white/10">
+<img class="w-11 h-11 rounded-full object-cover border border-white/20 shadow-sm" data-alt="Confident corporate controller woman sitting by large frosted glass architectural windows in a high-rise fintech headquarters with soft ambient lighting, clean modern tones, and crisp detailed focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDq9HvLOl7gi3355XQ4aPHY9o8GSVN98H7kgxdaHwDqdyzGYKzQRv0FGV-SHJedb3FopdsBz9eqmgC88X8geXtPwts45OC-3hEvJzwW_C7ijKyyI2JqJzLLFY0e9IIBB64XGTWWmxXeOVJl6n7x6fApNrMc_s9OISrzDJjlftFVhmZLZwMTevAiH1tGrkWBdiiMZdAhAb_DULCrFTP_9rRA2XJ4YzDfRHypiuBDg538"/>
+<div>
+<h4 class="font-title-md text-title-md font-bold text-white">Sophia Chen</h4>
+<p class="font-body-sm text-body-sm text-slate-400">Corporate Controller • Prism Labs</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 8. Transparent Pricing Section -->
+<section class="space-y-12" id="pricing">
+<div class="text-center max-w-xl mx-auto space-y-4">
+<h2 class="font-headline-lg text-headline-lg font-bold text-white">
+          Transparent, Self-Funding Investment
+        </h2>
+<p class="font-body-lg text-body-lg text-slate-300">
+          Every tier guarantees at least 4x ROI within 90 days or your full subscription is reimbursed.
+        </p>
+<!-- Pill Segmented Cadence Switcher -->
+<div class="inline-flex items-center p-1 rounded-full bg-[#0B142B]/80 border border-white/10 backdrop-blur-md">
+<button class="px-5 py-2 rounded-full font-label-lg text-label-lg transition-all text-slate-300 hover:text-white" id="toggle-monthly">
+            Monthly
+          </button>
+<button class="px-5 py-2 rounded-full font-label-lg text-label-lg transition-all bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-bold shadow-sm flex items-center gap-2" id="toggle-annual">
+<span>Annually</span>
+<span class="bg-cyan-950 border border-cyan-400/40 text-cyan-300 px-2 py-0.5 rounded-full text-label-sm font-label-sm font-bold">Save 20%</span>
+</button>
+</div>
+</div>
+<!-- Pricing Cards Cluster -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+<!-- Tier 1: Growth -->
+<div class="bg-[#0B142B]/60 backdrop-blur-xl border border-white/10 rounded-xl p-8 flex flex-col justify-between hover:border-cyan-400/40 hover:shadow-[0_0_25px_rgba(56,182,255,0.15)] transition-all">
+<div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-headline-md font-bold text-white">Growth</h3>
+<span class="px-3 py-1 rounded-full bg-slate-800/80 text-slate-300 border border-white/5 font-label-sm text-label-sm">Up to 75 Seats</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-400 mb-6">Core telemetry and license reclamation for scaling teams.</p>
+<div class="flex items-baseline gap-2 mb-8">
+<span class="tier-price font-display-hero text-[44px] font-bold text-white tabular-nums" data-annual="$299" data-monthly="$349">$299</span>
+<span class="font-body-md text-body-md text-slate-400">/month</span>
+</div>
+<ul class="space-y-3.5 mb-8">
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-200">
+<span class="material-symbols-outlined text-cyan-400 text-[18px]">check_circle</span>
+<span>Automated Google &amp; Slack harvesting</span>
+</li>
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-200">
+<span class="material-symbols-outlined text-cyan-400 text-[18px]">check_circle</span>
+<span>30-day renewal warnings</span>
+</li>
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-200">
+<span class="material-symbols-outlined text-cyan-400 text-[18px]">check_circle</span>
+<span>Up to 15 Virtual Spend Cards</span>
+</li>
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-200">
+<span class="material-symbols-outlined text-cyan-400 text-[18px]">check_circle</span>
+<span>QuickBooks &amp; Xero Sync</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3.5 rounded-full bg-[#101A38] border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(56,182,255,0.3)] text-white font-label-lg text-label-lg font-bold shadow-sm transition-all active:scale-[0.98]">
+            Start Free Trial
+          </button>
+</div>
+<!-- Tier 2: Scale (Featured Glow) -->
+<div class="bg-[#0B142B]/90 backdrop-blur-2xl rounded-xl p-8 flex flex-col justify-between relative border-2 border-cyan-400/50 shadow-[0_0_40px_-10px_rgba(56,182,255,0.25)]">
+<div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full btn-gradient-primary text-white font-label-sm text-label-sm font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(56,182,255,0.5)]">
+            Most Popular
+          </div>
+<div>
+<div class="flex items-center justify-between mb-4 mt-2">
+<h3 class="font-headline-md text-headline-md font-bold text-cyan-400">Scale</h3>
+<span class="px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/30 text-cyan-300 font-label-sm text-label-sm font-bold">Up to 350 Seats</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-300 mb-6">Complete autonomous optimization with vendor pricing leverage.</p>
+<div class="flex items-baseline gap-2 mb-8">
+<span class="tier-price font-display-hero text-[44px] font-bold text-white tabular-nums" data-annual="$699" data-monthly="$849">$699</span>
+<span class="font-body-md text-body-md text-slate-400">/month</span>
+</div>
+<ul class="space-y-3.5 mb-8">
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-100 font-medium">
+<span class="material-symbols-outlined text-cyan-400 text-[18px]">check_circle</span>
+<span>Full SaaS suite license deprovisioning</span>
+</li>
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-100 font-medium">
+<span class="material-symbols-outlined text-cyan-400 text-[18px]">check_circle</span>
+<span>60-day renewal intelligence &amp; pricing briefs</span>
+</li>
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-100 font-medium">
+<span class="material-symbols-outlined text-cyan-400 text-[18px]">check_circle</span>
+<span>Unlimited Virtual Spend Cards</span>
+</li>
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-100 font-medium">
+<span class="material-symbols-outlined text-cyan-400 text-[18px]">check_circle</span>
+<span>NetSuite &amp; Workday deep GL mapping</span>
+</li>
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-100 font-medium">
+<span class="material-symbols-outlined text-cyan-400 text-[18px]">check_circle</span>
+<span>Anonymized market contract benchmarking</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3.5 rounded-full btn-gradient-primary text-white font-label-lg text-label-lg font-bold shadow-lg shadow-blue-500/30 hover:shadow-[0_0_25px_rgba(56,182,255,0.6)] transition-all active:scale-[0.98]">
+            Start 14-Day Full Access
+          </button>
+</div>
+<!-- Tier 3: Enterprise -->
+<div class="bg-[#0B142B]/60 backdrop-blur-xl border border-white/10 rounded-xl p-8 flex flex-col justify-between hover:border-cyan-400/40 hover:shadow-[0_0_25px_rgba(56,182,255,0.15)] transition-all">
+<div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-headline-md font-bold text-white">Enterprise</h3>
+<span class="px-3 py-1 rounded-full bg-slate-800/80 text-slate-300 border border-white/5 font-label-sm text-label-sm">350+ Seats</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-400 mb-6">Dedicated procurement concierge and custom integration fabric.</p>
+<div class="flex items-baseline gap-2 mb-8">
+<span class="font-display-hero text-[44px] font-bold text-white">Custom</span>
+<span class="font-body-md text-body-md text-slate-400">tailored tier</span>
+</div>
+<ul class="space-y-3.5 mb-8">
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-200">
+<span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+<span>Dedicated SaaS procurement negotiator</span>
+</li>
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-200">
+<span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+<span>Custom ERP &amp; on-prem software connectors</span>
+</li>
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-200">
+<span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+<span>SOC2 Type II, ISO 27001 dedicated data isolation</span>
+</li>
+<li class="flex items-center gap-3 font-body-sm text-body-sm text-slate-200">
+<span class="material-symbols-outlined text-emerald-400 text-[18px]">check_circle</span>
+<span>Contractual minimum 5x ROI guarantee</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3.5 rounded-full bg-[#101A38] border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(56,182,255,0.3)] text-white font-label-lg text-label-lg font-bold shadow-sm transition-all active:scale-[0.98]">
+            Talk to SaaS Strategist
+          </button>
+</div>
+</div>
+</section>
+<!-- 9. Grounded High-Impact CTA Slate -->
+<section class="rounded-xl bg-gradient-to-br from-[#0B163B] to-[#060B18] text-white p-8 md:p-14 relative overflow-hidden shadow-2xl border border-cyan-500/20">
+<!-- Ambient Cyan Rim Lighting -->
+<div class="absolute -top-32 -right-32 w-96 h-96 bg-cyan-500/20 rounded-full blur-[90px] pointer-events-none"></div>
+<div class="absolute -bottom-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-[80px] pointer-events-none"></div>
+<div class="relative z-10 max-w-3xl space-y-6">
+<span class="px-3.5 py-1 rounded-full bg-cyan-950/80 text-cyan-300 font-label-sm text-label-sm font-semibold tracking-wide border border-cyan-400/30">
+          Zero Commitment • Connect in 5 Minutes
+        </span>
+<h2 class="font-display-hero text-headline-lg md:text-display-hero font-extrabold leading-tight tracking-tight text-white">
+          Ready to Reclaim Thousands in Dormant Software Spend?
+        </h2>
+<p class="font-body-lg text-body-lg text-slate-300 max-w-2xl leading-relaxed">
+          Connect your identity provider and ERP in read-only mode. Our autonomous intelligence will surface your exact waste and negotiation radar instantly.
+        </p>
+<div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+<a class="w-full sm:w-auto btn-gradient-primary text-white font-label-lg text-label-lg px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:brightness-110 hover:shadow-[0_0_25px_rgba(56,182,255,0.5)] active:scale-[0.98] transition-all" href="#live-slate">
+<span>Start Free 14-Day Audit</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+<button class="w-full sm:w-auto px-7 py-4 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-cyan-400/30 font-label-lg text-label-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-all hover:shadow-[0_0_15px_rgba(56,182,255,0.25)]">
+<span class="material-symbols-outlined text-[20px] text-cyan-400">calendar_today</span>
+<span>Book Private Walkthrough</span>
+</button>
+</div>
+<!-- Compliance Trust Badges -->
+<div class="pt-8 flex flex-wrap items-center gap-6 text-slate-300 text-body-sm font-body-sm border-t border-white/10">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-cyan-400">verified_user</span>
+<span>SOC2 Type II Certified</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-cyan-400">shield</span>
+<span>ISO 27001 Validated</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-cyan-400">lock</span>
+<span>GDPR &amp; CCPA Compliant</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-cyan-400">key</span>
+<span>256-bit AES Encryption</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Brand Anchor Shared Component) -->
+<footer class="mt-28 w-full rounded-t-lg bg-[#060B18]/90 border-t border-white/10 text-slate-400 shadow-none relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-8 py-12 max-w-7xl mx-auto gap-8">
+<!-- Brand & Copyright -->
+<div class="space-y-2 text-center md:text-left">
+<div class="flex items-center justify-center md:justify-start gap-2.5">
+<div class="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-600 flex items-center justify-center text-white text-[16px]">
+<span class="material-symbols-outlined text-[16px]">cloud_sync</span>
+</div>
+<span class="text-headline-sm font-headline-sm text-white font-bold">Aetheria</span>
+</div>
+<p class="text-body-sm font-body-sm text-slate-400">
+          © 2025 Aetheria Inc. All rights reserved. Ethereal subscription intelligence.
+        </p>
+</div>
+<!-- Links Cluster -->
+<div class="flex flex-wrap items-center justify-center gap-6">
+<a class="text-slate-400 text-label-md font-label-md hover:text-cyan-400 hover:underline transition-all" href="#">Security</a>
+<a class="text-slate-400 text-label-md font-label-md hover:text-cyan-400 hover:underline transition-all" href="#">Privacy Policy</a>
+<a class="text-slate-400 text-label-md font-label-md hover:text-cyan-400 hover:underline transition-all" href="#">Terms of Service</a>
+<a class="text-slate-400 text-label-md font-label-md hover:text-cyan-400 hover:underline transition-all" href="#">API Status</a>
+<a class="text-slate-400 text-label-md font-label-md hover:text-cyan-400 hover:underline transition-all" href="#">Compliance</a>
+</div>
+</div>
+</footer>
+<!-- Micro-interactions: Pricing Cadence Toggle & ROI Slider Script -->
+<script>
+    // Interactive ROI Calculator Logic
+    const employeeSlider = document.getElementById('employee-slider');
+    const employeeCountLabel = document.getElementById('employee-count-label');
+    const savingsAnnual = document.getElementById('savings-annual');
+    const hoursAnnual = document.getElementById('hours-annual');
+
+    function updateCalculator() {
+      const count = parseInt(employeeSlider.value, 10);
+      employeeCountLabel.textContent = `${count.toLocaleString()} Employees`;
+
+      // Conservative SaaS waste model: ~$250/employee/year in idle SaaS licenses
+      const estimatedSavings = Math.round(count * 250);
+      savingsAnnual.textContent = `$${estimatedSavings.toLocaleString()}`;
+
+      // Time saved: ~1.36 hours per employee per year
+      const estimatedHours = Math.round(count * 1.36);
+      hoursAnnual.textContent = `${estimatedHours.toLocaleString()} hrs`;
+    }
+
+    if (employeeSlider) {
+      employeeSlider.addEventListener('input', updateCalculator);
+    }
+
+    // Pricing Cadence Toggle Logic
+    const toggleMonthly = document.getElementById('toggle-monthly');
+    const toggleAnnual = document.getElementById('toggle-annual');
+    const tierPrices = document.querySelectorAll('.tier-price');
+
+    if (toggleMonthly && toggleAnnual) {
+      toggleMonthly.addEventListener('click', () => {
+        toggleMonthly.classList.add('bg-cyan-500/20', 'border', 'border-cyan-400/40', 'text-cyan-300', 'font-bold', 'shadow-sm');
+        toggleMonthly.classList.remove('text-slate-300');
+
+        toggleAnnual.classList.remove('bg-cyan-500/20', 'border', 'border-cyan-400/40', 'text-cyan-300', 'font-bold', 'shadow-sm');
+        toggleAnnual.classList.add('text-slate-300');
+
+        tierPrices.forEach(p => {
+          p.textContent = p.getAttribute('data-monthly');
+        });
+      });
+
+      toggleAnnual.addEventListener('click', () => {
+        toggleAnnual.classList.add('bg-cyan-500/20', 'border', 'border-cyan-400/40', 'text-cyan-300', 'font-bold', 'shadow-sm');
+        toggleAnnual.classList.remove('text-slate-300');
+
+        toggleMonthly.classList.remove('bg-cyan-500/20', 'border', 'border-cyan-400/40', 'text-cyan-300', 'font-bold', 'shadow-sm');
+        toggleMonthly.classList.add('text-slate-300');
+
+        tierPrices.forEach(p => {
+          p.textContent = p.getAttribute('data-annual');
+        });
+      });
+    }
+  </script>
+</body></html>
