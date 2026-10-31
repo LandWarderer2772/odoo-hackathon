@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "turbo dev",
     "dev:all": "turbo dev",
+    "start:db": "tsx scripts/start-db.ts",
+    "dev:db": "tsx scripts/start-db.ts",
     "dev:web": "npm run dev -w @brightloop/web",
     "dev:api": "npm run dev -w @brightloop/api",
     "dev:worker": "npm run dev -w @brightloop/worker",

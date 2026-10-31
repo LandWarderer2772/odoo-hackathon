@@ -13,7 +13,7 @@ export function useAuth() {
 
   useEffect(() => {
     try {
-      const storedToken = localStorage.getItem('bl_token')
+      const storedToken = localStorage.getItem('bl_token') || localStorage.getItem('brightloop_token')
       const storedUser = localStorage.getItem('bl_user')
       if (storedToken && storedUser) {
         setToken(storedToken)
@@ -43,13 +43,14 @@ export function useAuth() {
       setError(null)
       try {
         const email = credentials?.email || 'admin@brightloop.com'
-        const password = credentials?.password || 'SecurePassword123!'
+        const password = credentials?.password || 'Brightloop@12345!'
         const tenantSlug = credentials?.tenantSlug || 'brightloop'
 
         const res = await api.login({ email, password, tenantSlug })
         setUser(res.user)
         setToken(res.token)
         localStorage.setItem('bl_token', res.token)
+        localStorage.setItem('brightloop_token', res.token)
         localStorage.setItem('bl_user', JSON.stringify(res.user))
 
         // Route based on role
@@ -85,6 +86,7 @@ export function useAuth() {
         setUser(res.user)
         setToken(res.token)
         localStorage.setItem('bl_token', res.token)
+        localStorage.setItem('brightloop_token', res.token)
         localStorage.setItem('bl_user', JSON.stringify(res.user))
         router.push('/dashboard')
         return res
@@ -128,6 +130,7 @@ export function useAuth() {
 
   const logout = useCallback(() => {
     localStorage.removeItem('bl_token')
+    localStorage.removeItem('brightloop_token')
     localStorage.removeItem('bl_user')
     setUser(null)
     setToken(null)

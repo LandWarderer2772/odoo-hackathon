@@ -10,7 +10,7 @@ interface LoginFormProps {
 
 export function LoginForm({ onSubmit }: LoginFormProps) {
   const [email, setEmail] = useState('admin@brightloop.com')
-  const [password, setPassword] = useState('SecurePassword123!')
+  const [password, setPassword] = useState('Brightloop@12345!')
   const [tenantSlug, setTenantSlug] = useState('brightloop')
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
@@ -31,15 +31,15 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
   const setDemoPersona = (role: 'admin' | 'staff' | 'customer') => {
     if (role === 'admin') {
       setEmail('admin@brightloop.com')
-      setPassword('SecurePassword123!')
+      setPassword('Brightloop@12345!')
       setTenantSlug('brightloop')
     } else if (role === 'staff') {
       setEmail('staff@brightloop.com')
-      setPassword('SecurePassword123!')
+      setPassword('Brightloop@12345!')
       setTenantSlug('brightloop')
     } else {
       setEmail('david@acme-corp.com')
-      setPassword('SecurePassword123!')
+      setPassword('Brightloop@12345!')
       setTenantSlug('brightloop')
     }
   }

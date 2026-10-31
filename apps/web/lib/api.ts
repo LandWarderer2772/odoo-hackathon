@@ -493,6 +493,23 @@ export const SEED_STAFF: User[] = [
   },
 ]
 
+function getStored<T>(key: string, defaultValue: T): T {
+  if (typeof window === 'undefined') return defaultValue
+  try {
+    const item = localStorage.getItem(key)
+    return item ? JSON.parse(item) : defaultValue
+  } catch {
+    return defaultValue
+  }
+}
+
+function setStored<T>(key: string, value: T): void {
+  if (typeof window === 'undefined') return
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+  } catch {}
+}
+
 // Client-Side In-Memory / LocalStorage State Store for Seamless Interactive Demo
 class ApiClient {
   private baseUrl = 'http://localhost:4000'
@@ -500,26 +517,42 @@ class ApiClient {
 
   constructor() {
     if (typeof window !== 'undefined') {
-      this.token = localStorage.getItem('brightloop_token') || 'demo_jwt_token'
+      this.token = localStorage.getItem('bl_token') || localStorage.getItem('brightloop_token') || null
     }
   }
 
   setToken(token: string) {
     this.token = token
     if (typeof window !== 'undefined') {
+      localStorage.setItem('bl_token', token)
       localStorage.setItem('brightloop_token', token)
     }
   }
 
-  getToken() {
+  getToken(): string | null {
+    if (!this.token && typeof window !== 'undefined') {
+      this.token = localStorage.getItem('bl_token') || localStorage.getItem('brightloop_token') || null
+    }
     return this.token
+  }
+
+  private getAuthHeaders(slug = 'brightloop'): Record<string, string> {
+    const headers: Record<string, string> = {
+      'x-tenant-slug': slug,
+    }
+    const token = this.getToken()
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
+    return headers
   }
 
   // Tenant Resolution (Workflow Section 3)
   async getTenant(slug = 'brightloop'): Promise<Tenant> {
     try {
       const res = await fetch(`${this.baseUrl}/api/tenants/resolve/${slug}`, {
-        signal: AbortSignal.timeout(1200),
+        headers: this.getAuthHeaders(slug),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
@@ -533,11 +566,8 @@ class ApiClient {
   async getAnalytics(slug = 'brightloop'): Promise<AnalyticsReport> {
     try {
       const res = await fetch(`${this.baseUrl}/api/reports/analytics`, {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-          'x-tenant-slug': slug,
-        },
-        signal: AbortSignal.timeout(1200),
+        headers: this.getAuthHeaders(slug),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
@@ -553,19 +583,17 @@ class ApiClient {
       const url = new URL(`${this.baseUrl}/api/subscriptions`)
       if (status) url.searchParams.set('status', status)
       const res = await fetch(url.toString(), {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-          'x-tenant-slug': slug,
-        },
-        signal: AbortSignal.timeout(1200),
+        headers: this.getAuthHeaders(slug),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
-        if (json.data) return json.data
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) return json.data
       }
     } catch (_) {}
-    if (status) return SEED_SUBSCRIPTIONS.filter((s) => s.status === status)
-    return SEED_SUBSCRIPTIONS
+    const subs = getStored<Subscription[]>('bl_storage_subscriptions', SEED_SUBSCRIPTIONS)
+    if (status) return subs.filter((s) => s.status === status)
+    return subs
   }
 
   // FSM Transition (Workflow Section 6.D)
@@ -574,27 +602,47 @@ class ApiClient {
     action: 'CONFIRM' | 'PAUSE' | 'RESUME' | 'CLOSE',
     reason?: string
   ): Promise<{ success: boolean; newStatus: string }> {
+    const actionLower = action.toLowerCase()
     try {
-      const res = await fetch(`${this.baseUrl}/api/subscriptions/${id}/status`, {
-        method: 'PATCH',
+      const res = await fetch(`${this.baseUrl}/api/subscriptions/${id}/transition`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.token}`,
+          ...this.getAuthHeaders(),
         },
-        body: JSON.stringify({ action, reason }),
-        signal: AbortSignal.timeout(1200),
+        body: JSON.stringify({ action: actionLower, reason }),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
         return { success: true, newStatus: json.data?.status || action }
       }
     } catch (_) {}
-    const sub = SEED_SUBSCRIPTIONS.find((s) => s.id === id)
+
+    try {
+      const res = await fetch(`${this.baseUrl}/api/subscriptions/${id}/${actionLower}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...this.getAuthHeaders(),
+        },
+        body: JSON.stringify({ reason }),
+        signal: AbortSignal.timeout(2000),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        return { success: true, newStatus: json.data?.status || action }
+      }
+    } catch (_) {}
+
+    const subs = getStored<Subscription[]>('bl_storage_subscriptions', SEED_SUBSCRIPTIONS)
+    const sub = subs.find((s) => s.id === id)
     if (sub) {
       if (action === 'CONFIRM') sub.status = 'ACTIVE'
       else if (action === 'PAUSE') sub.status = 'PAUSED'
       else if (action === 'RESUME') sub.status = 'ACTIVE'
       else if (action === 'CLOSE') sub.status = 'CLOSED'
+      setStored('bl_storage_subscriptions', subs)
       return { success: true, newStatus: sub.status }
     }
     return { success: true, newStatus: action === 'CONFIRM' ? 'ACTIVE' : action }
@@ -603,15 +651,20 @@ class ApiClient {
   // Convert Quotation (Workflow Section 6.D)
   async convertQuotation(quotationId: string): Promise<boolean> {
     try {
-      const res = await fetch(`${this.baseUrl}/api/quotations/${quotationId}/convert`, {
+      const res = await fetch(`${this.baseUrl}/api/quotations/${quotationId}/accept`, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${this.token}` },
-        signal: AbortSignal.timeout(1200),
+        headers: this.getAuthHeaders(),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) return true
     } catch (_) {}
-    const quote = SEED_SUBSCRIPTIONS.find((s) => s.id === quotationId || s.status === 'QUOTATION')
-    if (quote) quote.status = 'ACTIVE'
+
+    const subs = getStored<Subscription[]>('bl_storage_subscriptions', SEED_SUBSCRIPTIONS)
+    const quote = subs.find((s) => s.id === quotationId || s.status === 'QUOTATION')
+    if (quote) {
+      quote.status = 'ACTIVE'
+      setStored('bl_storage_subscriptions', subs)
+    }
     return true
   }
 
@@ -619,33 +672,43 @@ class ApiClient {
   async getInvoices(slug = 'brightloop'): Promise<Invoice[]> {
     try {
       const res = await fetch(`${this.baseUrl}/api/invoices`, {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-          'x-tenant-slug': slug,
-        },
-        signal: AbortSignal.timeout(1200),
+        headers: this.getAuthHeaders(slug),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
-        if (json.data) return json.data
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) return json.data
       }
     } catch (_) {}
-    return SEED_INVOICES
+    return getStored<Invoice[]>('bl_storage_invoices', SEED_INVOICES)
   }
 
   // Midnight Recurring Billing Run (Workflow Section 6.E)
   async runScheduledBilling(): Promise<{ processedCount: number; invoicesGenerated: number }> {
     try {
-      const res = await fetch(`${this.baseUrl}/api/invoices/process-recurring-billing`, {
+      const res = await fetch(`${this.baseUrl}/api/invoices/generate-due`, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${this.token}` },
-        signal: AbortSignal.timeout(1500),
+        headers: this.getAuthHeaders(),
+        signal: AbortSignal.timeout(3000),
       })
       if (res.ok) {
         const json = await res.json()
         return json.data || { processedCount: 18, invoicesGenerated: 4 }
       }
     } catch (_) {}
+
+    try {
+      const res = await fetch(`${this.baseUrl}/api/invoices/process-recurring-billing`, {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        signal: AbortSignal.timeout(3000),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        return json.data || { processedCount: 18, invoicesGenerated: 4 }
+      }
+    } catch (_) {}
+
     return { processedCount: 18, invoicesGenerated: 4 }
   }
 
@@ -653,18 +716,15 @@ class ApiClient {
   async getPayments(slug = 'brightloop'): Promise<Payment[]> {
     try {
       const res = await fetch(`${this.baseUrl}/api/payments`, {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-          'x-tenant-slug': slug,
-        },
-        signal: AbortSignal.timeout(1200),
+        headers: this.getAuthHeaders(slug),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
-        if (json.data) return json.data
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) return json.data
       }
     } catch (_) {}
-    return SEED_PAYMENTS
+    return getStored<Payment[]>('bl_storage_payments', SEED_PAYMENTS)
   }
 
   async recordPayment(payload: {
@@ -678,10 +738,10 @@ class ApiClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.token}`,
+          ...this.getAuthHeaders(),
         },
         body: JSON.stringify(payload),
-        signal: AbortSignal.timeout(1200),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
@@ -689,16 +749,20 @@ class ApiClient {
       }
     } catch (_) {}
 
-    // Local fallback allocation
-    const inv = SEED_INVOICES.find((i) => i.id === payload.invoiceId || i.balanceDue === '90.00')
+    // Local fallback allocation and persistence
+    const invoices = getStored<Invoice[]>('bl_storage_invoices', SEED_INVOICES)
+    const inv = invoices.find((i) => i.id === payload.invoiceId || i.balanceDue === '90.00')
     if (inv) {
       const currPaid = parseFloat(inv.amountPaid) + payload.amount
       const total = parseFloat(inv.amountTotal)
       inv.amountPaid = currPaid.toFixed(2)
       inv.balanceDue = Math.max(0, total - currPaid).toFixed(2)
       inv.status = currPaid >= total ? 'PAID' : 'PARTIALLY_PAID'
+      setStored('bl_storage_invoices', invoices)
     }
-    SEED_PAYMENTS.unshift({
+
+    const payments = getStored<Payment[]>('bl_storage_payments', SEED_PAYMENTS)
+    payments.unshift({
       id: `pay-${Date.now()}`,
       paymentReference: `PAY-${Date.now().toString().slice(-4)}`,
       method: payload.method,
@@ -710,21 +774,35 @@ class ApiClient {
         { invoice: { invoiceNumber: inv?.invoiceNumber || 'INV-2026-1002', amount: payload.amount.toFixed(2) } },
       ],
     })
+    setStored('bl_storage_payments', payments)
     return { success: true, message: 'Payment settled and allocated to invoice ledger.' }
   }
 
   // Products & Variants (Workflow Section 3 & 6.B)
   async getProducts(slug = 'brightloop'): Promise<Product[]> {
     try {
-      const res = await fetch(`${this.baseUrl}/api/t/${slug}/products`, {
-        signal: AbortSignal.timeout(1200),
+      const res = await fetch(`${this.baseUrl}/api/products`, {
+        headers: this.getAuthHeaders(slug),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
-        if (json.data) return json.data
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) return json.data
       }
     } catch (_) {}
-    return SEED_PRODUCTS
+
+    try {
+      const res = await fetch(`${this.baseUrl}/api/t/${slug}/products`, {
+        headers: this.getAuthHeaders(slug),
+        signal: AbortSignal.timeout(2000),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) return json.data
+      }
+    } catch (_) {}
+
+    return getStored<Product[]>('bl_storage_products', SEED_PRODUCTS)
   }
 
   async createProduct(payload: {
@@ -740,14 +818,14 @@ class ApiClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.token}`,
+          ...this.getAuthHeaders(),
         },
         body: JSON.stringify(payload),
-        signal: AbortSignal.timeout(1200),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
-        return json.data
+        if (json.data) return json.data
       }
     } catch (_) {}
 
@@ -771,23 +849,39 @@ class ApiClient {
           priceExtra: parseNum(v.priceExtra).toFixed(2),
         })) || [],
     }
-    SEED_PRODUCTS.push(newProd)
+    const products = getStored<Product[]>('bl_storage_products', SEED_PRODUCTS)
+    products.push(newProd)
+    setStored('bl_storage_products', products)
     return newProd
   }
 
   // Plans (Workflow Section 3 & 6.C)
   async getPlans(slug = 'brightloop', options?: { currentlyAvailable?: boolean }): Promise<Plan[]> {
     try {
-      const query = options?.currentlyAvailable !== undefined ? `?currentlyAvailable=${options.currentlyAvailable}` : '?currentlyAvailable=true'
-      const res = await fetch(`${this.baseUrl}/api/t/${slug}/plans${query}`, {
-        signal: AbortSignal.timeout(1200),
+      const query = options?.currentlyAvailable !== undefined ? `?currentlyAvailable=${options.currentlyAvailable}` : ''
+      const res = await fetch(`${this.baseUrl}/api/plans${query}`, {
+        headers: this.getAuthHeaders(slug),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
-        if (json.data) return json.data
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) return json.data
       }
     } catch (_) {}
-    return SEED_PLANS
+
+    try {
+      const query = options?.currentlyAvailable !== undefined ? `?currentlyAvailable=${options.currentlyAvailable}` : '?currentlyAvailable=true'
+      const res = await fetch(`${this.baseUrl}/api/t/${slug}/plans${query}`, {
+        headers: this.getAuthHeaders(slug),
+        signal: AbortSignal.timeout(2000),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) return json.data
+      }
+    } catch (_) {}
+
+    return getStored<Plan[]>('bl_storage_plans', SEED_PLANS)
   }
 
   async createPlan(payload: {
@@ -807,7 +901,7 @@ class ApiClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.token}`,
+          ...this.getAuthHeaders(),
         },
         body: JSON.stringify(payload),
         signal: AbortSignal.timeout(2000),
@@ -831,7 +925,9 @@ class ApiClient {
       allowPausing: payload.allowPausing ?? true,
       allowRenewal: payload.allowRenewal ?? true,
     }
-    SEED_PLANS.unshift(newPlan)
+    const plans = getStored<Plan[]>('bl_storage_plans', SEED_PLANS)
+    plans.unshift(newPlan)
+    setStored('bl_storage_plans', plans)
     return newPlan
   }
 
@@ -841,9 +937,11 @@ class ApiClient {
     reason?: string
   ): Promise<Subscription> {
     const res = await this.transitionSubscription(id, action, reason)
-    const sub = SEED_SUBSCRIPTIONS.find((s) => s.id === id)
+    const subs = getStored<Subscription[]>('bl_storage_subscriptions', SEED_SUBSCRIPTIONS)
+    const sub = subs.find((s) => s.id === id)
     if (sub) {
       sub.status = (res.newStatus as any) || sub.status
+      setStored('bl_storage_subscriptions', subs)
       return { ...sub }
     }
     return {
@@ -867,15 +965,15 @@ class ApiClient {
   async getUsers(): Promise<User[]> {
     try {
       const res = await fetch(`${this.baseUrl}/api/users`, {
-        headers: { Authorization: `Bearer ${this.token}` },
-        signal: AbortSignal.timeout(1200),
+        headers: this.getAuthHeaders(),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
-        if (json.data) return json.data
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) return json.data
       }
     } catch (_) {}
-    return SEED_STAFF
+    return getStored<User[]>('bl_storage_staff', SEED_STAFF)
   }
 
   async createStaff(payload: {
@@ -890,14 +988,14 @@ class ApiClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.token}`,
+          ...this.getAuthHeaders(),
         },
         body: JSON.stringify(payload),
-        signal: AbortSignal.timeout(1200),
+        signal: AbortSignal.timeout(2000),
       })
       if (res.ok) {
         const json = await res.json()
-        return json.data
+        if (json.data) return json.data
       }
     } catch (_) {}
 
@@ -909,7 +1007,9 @@ class ApiClient {
       role: payload.role,
       companyName: 'Brightloop Software',
     }
-    SEED_STAFF.push(newUser)
+    const staff = getStored<User[]>('bl_storage_staff', SEED_STAFF)
+    staff.push(newUser)
+    setStored('bl_storage_staff', staff)
     return newUser
   }
 
@@ -920,10 +1020,10 @@ class ApiClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.token}`,
+          ...this.getAuthHeaders(),
         },
         body: JSON.stringify({ connectionUrl }),
-        signal: AbortSignal.timeout(2000),
+        signal: AbortSignal.timeout(3000),
       })
       if (res.ok) {
         const json = await res.json()
@@ -940,7 +1040,7 @@ class ApiClient {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
-        signal: AbortSignal.timeout(2000),
+        signal: AbortSignal.timeout(3000),
       })
       if (res.ok) {
         const json = await res.json()
@@ -978,7 +1078,7 @@ class ApiClient {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-        signal: AbortSignal.timeout(2000),
+        signal: AbortSignal.timeout(3000),
       })
       if (res.ok) {
         const json = await res.json()

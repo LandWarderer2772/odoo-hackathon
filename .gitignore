@@ -23,6 +23,10 @@ yarn-debug.log*
 yarn-error.log*
 *.log
 
+# Database storage
+.db-data/
+*.db
+
 # OS files
 .DS_Store
 Thumbs.db
