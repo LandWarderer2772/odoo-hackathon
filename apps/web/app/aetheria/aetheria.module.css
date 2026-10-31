@@ -1,4 +1,7 @@
-.aetheria {
+.aetheria,
+.aetheria[data-theme="light"],
+:global([data-theme="light"]) .aetheria,
+:global(:root[data-theme="light"]) .aetheria {
   color-scheme: light;
   --bg: #f3f8fc;
   --bg-raised: #eaf2fa;
@@ -19,7 +22,11 @@
   --page-glow: rgba(56, 182, 255, .13);
 }
 
-.aetheria[data-theme="dark"] {
+.aetheria[data-theme="dark"],
+:global([data-theme="dark"]) .aetheria,
+:global(:root[data-theme="dark"]) .aetheria,
+:global(html[data-theme="dark"]) .aetheria,
+:global(body[data-theme="dark"]) .aetheria {
   color-scheme: dark;
   --bg: #080d18;
   --bg-raised: #0d1422;
@@ -42,11 +49,12 @@
 
 .aetheria, .aetheria * { box-sizing: border-box; }
 .aetheria { scroll-behavior: smooth; scroll-padding-top: 90px; }
-.aetheria { margin: 0; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; line-height: 1.6; transition: background .3s, color .3s; }
+.aetheria { margin: 0; min-height: 100vh; width: 100%; position: relative; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; line-height: 1.6; transition: background .3s, color .3s; }
 .aetheria::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 50% -20%, var(--page-glow), transparent 52%), radial-gradient(ellipse at 0% 56%, rgba(29, 97, 231, .06), transparent 34%); }
-.aetheria :global(main > .hero), .aetheria :global(main > .telemetry-shell), .aetheria :global(main > section), .aetheria :global(main > .site-footer) { position: relative; z-index: 1; }
+.aetheria > :global(.hero), .aetheria > :global(.telemetry-shell), .aetheria > :global(section), .aetheria > :global(.site-footer), .aetheria :global(main > .hero), .aetheria :global(main > .telemetry-shell), .aetheria :global(main > section), .aetheria :global(main > .site-footer) { position: relative; z-index: 1; }
 .aetheria :global(.shader-backdrop) { position: fixed; inset: 0; z-index: 0; display: block; width: 100vw; height: 100vh; pointer-events: none; opacity: .34; transition: opacity .4s ease; }
-.aetheria[data-theme="dark"] :global(.shader-backdrop) { opacity: 0; }
+.aetheria[data-theme="dark"] :global(.shader-backdrop),
+:global([data-theme="dark"]) .aetheria :global(.shader-backdrop) { opacity: 0; pointer-events: none; }
 .aetheria :global(button), .aetheria :global(input) { font: inherit; }
 .aetheria :global(button), .aetheria :global(a) { -webkit-tap-highlight-color: transparent; }
 .aetheria :global(a) { color: inherit; text-decoration: none; }
@@ -67,7 +75,10 @@
 .aetheria :global(.theme-toggle > .material-symbols) { color: var(--blue); font-size: 17px; }
 .aetheria :global(.toggle-track) { width: 30px; height: 17px; border: 1px solid var(--line-strong); background: var(--surface-strong); border-radius: 20px; padding: 2px; display: flex; transition: .2s; }
 .aetheria :global(.toggle-thumb) { width: 11px; height: 11px; border-radius: 50%; background: var(--blue); transition: transform .2s; }
-.aetheria[data-theme="light"] :global(.toggle-thumb) { transform: translateX(12px); }
+.aetheria[data-theme="light"] :global(.toggle-thumb),
+:global([data-theme="light"]) .aetheria :global(.toggle-thumb) { transform: translateX(12px); }
+.aetheria[data-theme="dark"] :global(.toggle-thumb),
+:global([data-theme="dark"]) .aetheria :global(.toggle-thumb) { transform: translateX(0); }
 .aetheria :global(.button) { min-height: 48px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; border-radius: 99px; padding: 0 22px; font-size: 12px; font-weight: 700; transition: transform .2s, box-shadow .2s, background .2s, border-color .2s; cursor: pointer; }
 .aetheria :global(.button:hover) { transform: translateY(-2px); }
 .aetheria :global(.button .material-symbols) { font-size: 17px; }

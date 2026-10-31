@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import LiquidBackdrop from "./LiquidBackdrop";
+import styles from "./aetheria.module.css";
 
 const features = [
   {
@@ -123,7 +124,12 @@ function ThemeToggle({ theme, onToggle }) {
     >
       <Icon>{isDark ? "dark_mode" : "light_mode"}</Icon>
       <span>{isDark ? "Dark" : "Light"}</span>
-      <span className="toggle-track"><span className="toggle-thumb" /></span>
+      <span className="toggle-track">
+        <span
+          className="toggle-thumb"
+          style={{ transform: isDark ? "translateX(0)" : "translateX(12px)" }}
+        />
+      </span>
     </button>
   );
 }
@@ -184,12 +190,22 @@ export default function Home() {
     const initial = saved === "light" || saved === "dark" ? saved : "light";
     setTheme(initial);
     document.documentElement.dataset.theme = initial;
+    document.documentElement.classList.toggle("dark", initial === "dark");
+    document.body.dataset.theme = initial;
+
+    return () => {
+      document.documentElement.classList.add("dark");
+      delete document.documentElement.dataset.theme;
+      delete document.body.dataset.theme;
+    };
   }, []);
 
   function toggleTheme() {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
     document.documentElement.dataset.theme = next;
+    document.documentElement.classList.toggle("dark", next === "dark");
+    document.body.dataset.theme = next;
     window.localStorage.setItem("aetheria-theme", next);
   }
 
@@ -197,7 +213,7 @@ export default function Home() {
   const hours = Math.round(employees * 1.36).toLocaleString("en-US");
 
   return (
-    <main id="top">
+    <main id="top" className={styles.aetheria} data-theme={theme}>
       <LiquidBackdrop enabled={theme === "light"} />
       <header className="site-header">
         <div className="nav-shell">
