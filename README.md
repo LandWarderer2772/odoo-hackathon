@@ -480,36 +480,54 @@ cd odoo-hackathon
 npm install
 ```
 
-### 2. Start Infrastructure Containers
-```bash
-docker compose up -d
-```
-*Spins up PostgreSQL on port `5432` and Redis on port `6379`.*
+### 2. Run Services Directly (No Docker Required)
 
-### 3. Environment Configuration
-Create `.env` in the root directory (or use `.env.example`):
+You can launch each service independently or all together using npm commands or dedicated scripts:
+
+#### Individual Service Runners
+* **Web Frontend (Next.js - Port 3000):**
+  ```bash
+  npm run dev:web
+  # Or: ./scripts/run-web.bat (Windows) / ./scripts/run-web.sh (Linux/macOS)
+  ```
+* **REST API Server (Fastify - Port 4000):**
+  ```bash
+  npm run dev:api
+  # Or: ./scripts/run-api.bat (Windows) / ./scripts/run-api.sh (Linux/macOS)
+  ```
+* **Background Worker Service (Recurring Billing Engine):**
+  ```bash
+  npm run dev:worker
+  # Or: ./scripts/run-worker.bat (Windows) / ./scripts/run-worker.sh (Linux/macOS)
+  ```
+
+#### Launch All Services Concurrently
+```bash
+npm run dev
+# Or: npm run dev:all / ./scripts/run-all.bat / ./scripts/run-all.sh
+```
+
+### 3. Environment Configuration (Optional)
+If connecting to an external or local PostgreSQL instance, configure `.env`:
 ```env
 DATABASE_URL=postgresql://brightloop:brightloop_secret@localhost:5432/brightloop_db
-REDIS_URL=redis://localhost:6379
-JWT_SECRET=super-secure-brightloop-jwt-secret-key-32chars
 PORT=4000
 FRONTEND_URL=http://localhost:3000
 ```
+*(Note: If no database is connected, the frontend seamlessly operates with rich pre-hydrated mock data and interactive state management.)*
 
-### 4. Run Migrations & Seed Database
+### 4. Database Setup & Migrations (When PostgreSQL is running)
 ```bash
 npm run db:generate
-npm run db:migrate
+npm run db:push
 npm run db:seed
+# Or: ./scripts/setup-db.bat / ./scripts/setup-db.sh
 ```
 
-### 5. Launch Full-Stack Applications
-```bash
-npm run dev
-```
+### 5. Access Endpoints
 * **Customer Portal & Admin Dashboard:** `http://localhost:3000`
-* **Fastify REST API & Swagger UI:** `http://localhost:4000/docs`
-* **BullMQ Queue Monitor (Arena/Bull-Board):** `http://localhost:4000/queues`
+* **Fastify REST API & Health:** `http://localhost:4000/health`
+* **API Documentation:** `http://localhost:4000/docs`
 
 ---
 
