@@ -4,116 +4,178 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { PasswordInput } from './PasswordInput'
 
-export interface LoginFormProps {
-  onSubmit: (data: { email: string; password: string }) => Promise<any> | void
+interface LoginFormProps {
+  onSubmit: (data: { email: string; password: string; tenantSlug?: string }) => Promise<any>
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+export function LoginForm({ onSubmit }: LoginFormProps) {
+  const [email, setEmail] = useState('admin@brightloop.com')
+  const [password, setPassword] = useState('SecurePassword123!')
+  const [tenantSlug, setTenantSlug] = useState('brightloop')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [errorMsg, setErrorMsg] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError(null)
+    setErrorMsg('')
     setLoading(true)
     try {
-      await onSubmit({ email, password })
+      await onSubmit({ email, password, tenantSlug })
     } catch (err: any) {
-      setError(err.message || 'Invalid email or password')
+      setErrorMsg(err.message || 'Invalid credentials or tenant mismatch')
     } finally {
       setLoading(false)
     }
   }
 
-  const fillDemo = (demoEmail: string, demoPass: string) => {
-    setEmail(demoEmail)
-    setPassword(demoPass)
+  const setDemoPersona = (role: 'admin' | 'staff' | 'customer') => {
+    if (role === 'admin') {
+      setEmail('admin@brightloop.com')
+      setPassword('SecurePassword123!')
+      setTenantSlug('brightloop')
+    } else if (role === 'staff') {
+      setEmail('staff@brightloop.com')
+      setPassword('SecurePassword123!')
+      setTenantSlug('brightloop')
+    } else {
+      setEmail('david@acme-corp.com')
+      setPassword('SecurePassword123!')
+      setTenantSlug('brightloop')
+    }
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div>
-        <h2 className="text-2xl font-bold text-white tracking-tight">Sign In to BrightLoop</h2>
-        <p className="text-sm text-slate-400 mt-1">Access autonomous billing telemetry &amp; self-serve portal.</p>
+    <div className="space-y-6">
+      <div className="text-center space-y-1">
+        <h2 className="text-2xl font-bold tracking-tight text-white font-sans">
+          Sign In
+        </h2>
+        <p className="text-xs text-slate-400">
+          Enter your credentials to access your tenant cockpit
+        </p>
       </div>
 
-      {error && (
-        <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
-          {error}
+      {/* Demo Persona Quick Fill Pills */}
+      <div className="bg-slate-950/60 p-3 rounded-2xl border border-slate-800 space-y-2">
+        <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
+          <span className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+            Quick Demo Accounts:
+          </span>
+          <span className="text-slate-500 text-[10px]">1-click fill</span>
+        </div>
+        <div className="grid grid-cols-3 gap-1.5 text-xs">
+          <button
+            type="button"
+            onClick={() => setDemoPersona('admin')}
+            className={`py-1.5 px-2 rounded-lg font-medium border transition-all text-center ${
+              email.includes('admin')
+                ? 'bg-cyan-500/20 border-cyan-400/60 text-cyan-200'
+                : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+            }`}
+          >
+            👑 Admin
+          </button>
+          <button
+            type="button"
+            onClick={() => setDemoPersona('staff')}
+            className={`py-1.5 px-2 rounded-lg font-medium border transition-all text-center ${
+              email.includes('staff')
+                ? 'bg-cyan-500/20 border-cyan-400/60 text-cyan-200'
+                : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+            }`}
+          >
+            🛡️ Staff
+          </button>
+          <button
+            type="button"
+            onClick={() => setDemoPersona('customer')}
+            className={`py-1.5 px-2 rounded-lg font-medium border transition-all text-center ${
+              email.includes('david')
+                ? 'bg-cyan-500/20 border-cyan-400/60 text-cyan-200'
+                : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+            }`}
+          >
+            👤 Customer
+          </button>
+        </div>
+      </div>
+
+      {errorMsg && (
+        <div className="p-3 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-2">
+          <span className="text-rose-400 font-bold">Error:</span>
+          <span>{errorMsg}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-slate-300">Work Email</label>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-xs font-semibold tracking-wide uppercase text-slate-300 mb-1.5">
+            Email Address
+          </label>
           <input
             type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-3 bg-slate-950/70 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-sm transition-all"
             placeholder="admin@brightloop.com"
-            className="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-white/15 focus:border-cyan-400 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
           />
         </div>
 
         <PasswordInput
-          label="Password"
-          required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="••••••••••••"
+          required
         />
 
-        <div className="flex items-center justify-between text-xs text-slate-400">
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" className="rounded bg-slate-950 border-white/20 text-cyan-500 focus:ring-0" />
+        <div>
+          <label className="block text-xs font-semibold tracking-wide uppercase text-slate-300 mb-1.5">
+            Tenant Domain / Slug
+          </label>
+          <select
+            value={tenantSlug}
+            onChange={(e) => setTenantSlug(e.target.value)}
+            className="w-full px-4 py-3 bg-slate-950/70 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 text-sm transition-all"
+          >
+            <option value="brightloop">brightloop (Brightloop Software)</option>
+            <option value="technova">technova (TechNova Cloud Solutions)</option>
+          </select>
+        </div>
+
+        <div className="flex items-center justify-between text-xs pt-1">
+          <label className="flex items-center gap-2 text-slate-400 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              defaultChecked
+              className="rounded border-slate-700 bg-slate-900 text-cyan-500 focus:ring-cyan-400"
+            />
             <span>Remember session</span>
           </label>
-          <Link href="/forgot-password" className="text-cyan-400 hover:text-cyan-300 transition-colors">
-            Forgot password?
+          <Link
+            href="/forgot-password"
+            className="text-cyan-400 hover:text-cyan-300 transition-colors font-medium"
+          >
+            Forgot Password?
           </Link>
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 rounded-xl font-bold text-white bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 shadow-[0_0_25px_rgba(56,189,248,0.4)] disabled:opacity-50 transition-all text-sm mt-2"
+          className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:to-teal-300 text-white font-semibold text-sm shadow-[0_10px_25px_-5px_rgba(6,182,212,0.4)] hover:shadow-[0_15px_30px_-5px_rgba(6,182,212,0.6)] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer mt-2"
         >
-          {loading ? 'Authenticating...' : 'Sign In'}
+          {loading ? 'Authenticating...' : 'Sign In to Cockpit'}
         </button>
       </form>
 
-      {/* Demo Credentials for Hackathon Evaluator */}
-      <div className="pt-4 border-t border-white/10 flex flex-col gap-2">
-        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
-          Quick Demo Credentials (Click to fill)
-        </span>
-        <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-          <button
-            type="button"
-            onClick={() => fillDemo('admin@brightloop.com', 'Admin@Secure2026!')}
-            className="p-2 rounded-lg bg-slate-950/70 border border-white/10 hover:border-cyan-400/40 text-left text-slate-300 hover:text-white transition-all"
-          >
-            <div className="text-cyan-300 font-bold">System Admin</div>
-            <div className="text-[10px] text-slate-500 truncate">admin@brightloop.com</div>
-          </button>
-          <button
-            type="button"
-            onClick={() => fillDemo('david@acme-corp.com', 'Customer@Secure2026!')}
-            className="p-2 rounded-lg bg-slate-950/70 border border-white/10 hover:border-cyan-400/40 text-left text-slate-300 hover:text-white transition-all"
-          >
-            <div className="text-sky-300 font-bold">Acme Customer</div>
-            <div className="text-[10px] text-slate-500 truncate">david@acme-corp.com</div>
-          </button>
-        </div>
-      </div>
-
-      <div className="text-center text-xs text-slate-400">
-        Don&apos;t have an account?{' '}
-        <Link href="/register" className="text-cyan-400 hover:text-cyan-300 font-bold transition-colors">
-          Create customer account
+      <div className="pt-2 text-center text-xs text-slate-400">
+        New SaaS Business?{' '}
+        <Link
+          href="/register"
+          className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+        >
+          Deploy your tenant now →
         </Link>
       </div>
     </div>

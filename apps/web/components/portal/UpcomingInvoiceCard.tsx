@@ -1,90 +1,61 @@
 'use client'
 
 import React from 'react'
+import { Invoice } from '@/lib/api'
 import Link from 'next/link'
-import { InvoiceStatusBadge } from './InvoiceStatusBadge'
 
-export interface UpcomingInvoiceCardProps {
-  invoices?: any[]
+interface UpcomingInvoiceCardProps {
+  invoices: Invoice[]
 }
 
-export const UpcomingInvoiceCard: React.FC<UpcomingInvoiceCardProps> = ({ invoices = [] }) => {
-  const unpaidInvoices = invoices.filter(
-    (i) => i.status === 'CONFIRMED' || i.status === 'PARTIALLY_PAID'
-  )
-  const totalOutstanding = unpaidInvoices.reduce((acc, curr) => {
-    const total = Number(curr.amountTotal || 0)
-    const paid = Number(curr.amountPaid || 0)
-    return acc + Math.max(0, total - paid)
-  }, 0)
-
-  const nextDue = unpaidInvoices[0]
+export function UpcomingInvoiceCard({ invoices }: UpcomingInvoiceCardProps) {
+  const unpaid = invoices.filter((i) => parseFloat(i.balanceDue) > 0)
+  const totalBalanceDue = unpaid.reduce((sum, curr) => sum + parseFloat(curr.balanceDue), 0)
+  const earliestDue = unpaid.length > 0 ? unpaid[0] : null
 
   return (
-    <div className="p-6 rounded-3xl bg-slate-900/80 backdrop-blur-2xl border border-sky-400/30 shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col justify-between gap-6">
-      <div className="flex items-start justify-between">
-        <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">
-            Settlement Status
+    <div className="rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-xl p-6 shadow-xl relative overflow-hidden flex flex-col justify-between">
+      <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-amber-500/10 via-rose-500/5 to-transparent blur-3xl pointer-events-none" />
+
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
+            Receivables & Due Billing
           </span>
-          <h3 className="text-xl font-bold text-white mt-1">Outstanding Balance</h3>
+          <span
+            className={`px-2.5 py-0.5 rounded-full text-[11px] font-mono border ${
+              totalBalanceDue > 0
+                ? 'bg-amber-950/70 border-amber-400/30 text-amber-300'
+                : 'bg-emerald-950/70 border-emerald-400/30 text-emerald-300'
+            }`}
+          >
+            {totalBalanceDue > 0 ? `${unpaid.length} Unsettled` : 'All Settled'}
+          </span>
         </div>
-        <div className="px-3 py-1 rounded-full bg-sky-950/80 border border-sky-400/40 text-xs font-mono font-bold text-sky-300">
-          {unpaidInvoices.length} Pending
+
+        <div className="space-y-1">
+          <div className="text-3xl font-bold tracking-tight text-white font-sans">
+            ${totalBalanceDue.toFixed(2)}
+          </div>
+          <p className="text-xs text-slate-400">
+            Total outstanding balance awaiting invoice allocation
+          </p>
         </div>
       </div>
 
-      <div className="p-4 rounded-2xl bg-slate-950/60 border border-white/5 flex items-center justify-between">
+      <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
         <div>
-          <div className="text-xs text-slate-400 font-mono">Total Open Balance</div>
-          <div className="text-3xl font-extrabold text-white font-mono mt-0.5">
-            ${totalOutstanding.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-          </div>
+          <span className="text-slate-400 block text-[10px] font-mono">NEXT DUE INVOICE</span>
+          <span className="font-semibold text-xs font-mono text-slate-200">
+            {earliestDue ? `${earliestDue.invoiceNumber} (${new Date(earliestDue.dueDate).toLocaleDateString()})` : 'None pending'}
+          </span>
         </div>
-        <button
-          type="button"
-          onClick={() => alert('Launching Payment Intent Gateway...')}
-          className="px-4 py-2.5 rounded-xl font-bold text-white text-xs bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all"
-        >
-          Pay Open Balance
-        </button>
-      </div>
 
-      <div className="flex flex-col gap-2">
-        <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
-          Next Due Invoice
-        </span>
-        {nextDue ? (
-          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950/40 border border-white/10">
-            <div>
-              <div className="font-semibold text-sm text-slate-200">{nextDue.invoiceNumber}</div>
-              <div className="text-xs text-slate-400 font-mono">
-                Due:{' '}
-                {new Date(nextDue.dueDate).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="font-mono font-bold text-white text-sm">
-                ${(Number(nextDue.amountTotal || 0) - Number(nextDue.amountPaid || 0)).toFixed(2)}
-              </span>
-              <InvoiceStatusBadge status={nextDue.status} />
-            </div>
-          </div>
-        ) : (
-          <div className="text-xs text-emerald-400 font-mono">All invoices are settled in full!</div>
-        )}
-      </div>
-
-      <div className="pt-2 border-t border-white/10 flex items-center justify-between">
         <Link
           href="/invoices"
-          className="text-xs font-mono font-bold text-sky-400 hover:text-sky-300 transition-colors"
+          className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white text-xs font-semibold border border-white/10 transition-all"
         >
-          View all invoice history →
+          View Invoices →
         </Link>
       </div>
     </div>

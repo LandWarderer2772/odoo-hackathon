@@ -5,115 +5,104 @@ import Link from 'next/link'
 import { PasswordInput } from './PasswordInput'
 import { PasswordStrengthMeter } from './PasswordStrengthMeter'
 
-export interface ResetPasswordFormProps {
-  onSubmit: (data: { token: string; newPassword: string }) => Promise<any> | void
+interface ResetPasswordFormProps {
+  onSubmit: (data: { password: string }) => Promise<any>
 }
 
-export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({ onSubmit }) => {
-  const [token, setToken] = useState('')
-  const [newPassword, setNewPassword] = useState('')
+export function ResetPasswordForm({ onSubmit }: ResetPasswordFormProps) {
+  const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState(false)
+  const [message, setMessage] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError(null)
-
-    if (newPassword !== confirmPassword) {
-      setError('Passwords do not match')
+    setErrorMsg('')
+    setMessage('')
+    if (password !== confirmPassword) {
+      setErrorMsg('Passwords do not match.')
       return
     }
-
-    if (newPassword.length <= 8) {
-      setError('Password must be strictly greater than 8 characters')
+    if (password.length < 8) {
+      setErrorMsg('Password must be at least 8 characters.')
       return
     }
-
     setLoading(true)
     try {
-      await onSubmit({ token, newPassword })
-      setSuccess(true)
+      const res = await onSubmit({ password })
+      setMessage(res?.message || 'Password updated! You can now log in.')
     } catch (err: any) {
-      setError(err.message || 'Password reset failed')
+      setErrorMsg(err.message || 'Failed to reset password')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div>
-        <h2 className="text-2xl font-bold text-white tracking-tight">Set New Password</h2>
-        <p className="text-sm text-slate-400 mt-1">Provide your reset verification token and choose a strong password.</p>
+    <div className="space-y-6">
+      <div className="text-center space-y-1">
+        <h2 className="text-2xl font-bold tracking-tight text-white font-sans">
+          Set New Password
+        </h2>
+        <p className="text-xs text-slate-400">
+          Enter a secure replacement password for your account
+        </p>
       </div>
 
-      {success ? (
-        <div className="p-4 rounded-2xl bg-cyan-950/60 border border-cyan-400/40 text-center flex flex-col gap-3">
-          <div className="w-10 h-10 rounded-full bg-cyan-400/20 text-cyan-300 flex items-center justify-center mx-auto text-lg">
-            ✓
-          </div>
-          <h4 className="text-sm font-bold text-white">Password Updated</h4>
-          <p className="text-xs text-slate-300">Your credentials have been securely updated.</p>
-          <Link
-            href="/login"
-            className="mt-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 text-white font-bold text-xs transition-all shadow-[0_0_20px_rgba(56,189,248,0.4)]"
-          >
-            Sign in with new password
+      {message && (
+        <div className="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs flex items-center justify-between">
+          <span>{message}</span>
+          <Link href="/login" className="font-bold underline text-emerald-200">
+            Login Now
           </Link>
         </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
-          {error && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
-              {error}
-            </div>
-          )}
-
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-slate-300">Reset Token</label>
-            <input
-              type="text"
-              required
-              value={token}
-              onChange={(e) => setToken(e.target.value)}
-              placeholder="Paste reset token here"
-              className="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-white/15 focus:border-cyan-400 text-white placeholder-slate-500 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
-            />
-          </div>
-
-          <PasswordInput
-            label="New Password"
-            required
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="Min 9 chars, upper, lower, special"
-          />
-
-          <PasswordStrengthMeter password={newPassword} />
-
-          <PasswordInput
-            label="Confirm New Password"
-            required
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Repeat new password"
-          />
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-xl font-bold text-white bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 shadow-[0_0_25px_rgba(56,189,248,0.4)] disabled:opacity-50 transition-all text-sm mt-3"
-          >
-            {loading ? 'Updating Password...' : 'Reset Password'}
-          </button>
-        </form>
       )}
 
-      <div className="text-center text-xs text-slate-400">
-        <Link href="/login" className="text-cyan-400 hover:text-cyan-300 font-bold transition-colors">
-          Back to sign in
+      {errorMsg && (
+        <div className="p-3.5 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-300 text-xs">
+          {errorMsg}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <PasswordInput
+            label="New Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            placeholder="At least 8 characters"
+          />
+          <PasswordStrengthMeter password={password} />
+        </div>
+
+        <div>
+          <PasswordInput
+            label="Confirm New Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            placeholder="Re-enter password"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:to-teal-300 text-white font-semibold text-sm shadow-[0_10px_25px_-5px_rgba(6,182,212,0.4)] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer mt-2"
+        >
+          {loading ? 'Updating Password...' : 'Update Password'}
+        </button>
+      </form>
+
+      <div className="pt-2 text-center text-xs text-slate-400">
+        Back to{' '}
+        <Link
+          href="/login"
+          className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+        >
+          Sign In →
         </Link>
       </div>
     </div>

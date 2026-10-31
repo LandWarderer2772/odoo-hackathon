@@ -2,59 +2,45 @@
 
 import React from 'react'
 
-export interface InvoiceStatusBadgeProps {
-  status: string
+interface InvoiceStatusBadgeProps {
+  status: 'DRAFT' | 'CONFIRMED' | 'PARTIALLY_PAID' | 'PAID' | 'CANCELLED' | string
 }
 
-export const InvoiceStatusBadge: React.FC<InvoiceStatusBadgeProps> = ({ status }) => {
-  const normalized = (status || 'DRAFT').toUpperCase()
+export function InvoiceStatusBadge({ status }: InvoiceStatusBadgeProps) {
+  const normalized = status?.toUpperCase()
 
-  const config: Record<string, { label: string; bg: string; text: string; border: string; dot: string }> = {
-    PAID: {
-      label: 'Paid in Full',
-      bg: 'bg-emerald-950/70',
-      text: 'text-emerald-400',
-      border: 'border-emerald-500/30',
-      dot: 'bg-emerald-400',
-    },
-    PARTIALLY_PAID: {
-      label: 'Partially Paid',
-      bg: 'bg-cyan-950/70',
-      text: 'text-cyan-300',
-      border: 'border-cyan-500/30',
-      dot: 'bg-cyan-400',
-    },
-    CONFIRMED: {
-      label: 'Confirmed / Due',
-      bg: 'bg-sky-950/70',
-      text: 'text-sky-300',
-      border: 'border-sky-500/30',
-      dot: 'bg-sky-400',
-    },
-    CANCELLED: {
-      label: 'Cancelled',
-      bg: 'bg-rose-950/70',
-      text: 'text-rose-400',
-      border: 'border-rose-500/30',
-      dot: 'bg-rose-400',
-    },
-    DRAFT: {
-      label: 'Draft',
-      bg: 'bg-slate-900',
-      text: 'text-slate-400',
-      border: 'border-white/10',
-      dot: 'bg-slate-500',
-    },
+  let colorStyle = 'bg-slate-800 text-slate-300 border-slate-700'
+  let dotColor = 'bg-slate-400'
+
+  switch (normalized) {
+    case 'PAID':
+      colorStyle = 'bg-emerald-950/80 text-emerald-300 border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.2)]'
+      dotColor = 'bg-emerald-400'
+      break
+    case 'PARTIALLY_PAID':
+      colorStyle = 'bg-amber-950/80 text-amber-300 border-amber-500/40'
+      dotColor = 'bg-amber-400 animate-pulse'
+      break
+    case 'CONFIRMED':
+      colorStyle = 'bg-cyan-950/80 text-cyan-300 border-cyan-500/40'
+      dotColor = 'bg-cyan-400'
+      break
+    case 'DRAFT':
+      colorStyle = 'bg-slate-900 text-slate-400 border-slate-700'
+      dotColor = 'bg-slate-400'
+      break
+    case 'CANCELLED':
+      colorStyle = 'bg-rose-950/80 text-rose-300 border-rose-500/40'
+      dotColor = 'bg-rose-400'
+      break
   }
-
-  const current = config[normalized] || config.DRAFT
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold border ${current.bg} ${current.text} ${current.border}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border ${colorStyle}`}
     >
-      <span className={`w-1.5 h-1.5 rounded-full ${current.dot}`} />
-      {current.label}
+      <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
+      <span>{normalized.replace('_', ' ')}</span>
     </span>
   )
 }

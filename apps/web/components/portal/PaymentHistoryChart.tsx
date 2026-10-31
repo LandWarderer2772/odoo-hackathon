@@ -2,45 +2,49 @@
 
 import React from 'react'
 
-export const PaymentHistoryChart: React.FC = () => {
-  const monthlyData = [
-    { month: 'Jun', amount: 1250, pct: 60 },
-    { month: 'Jul', amount: 1480, pct: 72 },
-    { month: 'Aug', amount: 1760, pct: 85 },
-    { month: 'Sep', amount: 1905, pct: 92 },
-    { month: 'Oct', amount: 2060, pct: 100 },
+export function PaymentHistoryChart() {
+  const months = [
+    { name: 'May', amount: 120, height: '40%' },
+    { name: 'Jun', amount: 190, height: '60%' },
+    { name: 'Jul', amount: 190, height: '60%' },
+    { name: 'Aug', amount: 380, height: '80%' },
+    { name: 'Sep', amount: 380, height: '80%' },
+    { name: 'Oct', amount: 570, height: '100%' },
   ]
 
   return (
-    <div className="md:col-span-2 p-6 rounded-3xl bg-slate-900/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col gap-6">
+    <div className="md:col-span-2 rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-xl p-6 shadow-xl space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">
-            Settlement Telemetry
-          </span>
-          <h3 className="text-xl font-bold text-white mt-1">Payment History Trend</h3>
+          <h3 className="text-sm font-semibold text-white">Settlement & Inflow History</h3>
+          <p className="text-xs text-slate-400">Monthly subscription collections (last 6 months)</p>
         </div>
-        <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-          <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
-          <span>Settled Cash</span>
+        <div className="flex items-center gap-4 text-xs font-mono">
+          <span className="flex items-center gap-1.5 text-slate-300">
+            <span className="w-2.5 h-2.5 rounded-sm bg-gradient-to-t from-blue-600 to-cyan-400" />
+            Settled Cash Inflow
+          </span>
         </div>
       </div>
 
-      <div className="h-44 flex items-end justify-between gap-4 pt-6 pb-2 px-4 bg-slate-950/50 rounded-2xl border border-white/5">
-        {monthlyData.map((d) => (
-          <div key={d.month} className="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
-            <span className="text-[11px] font-mono font-bold text-cyan-300 opacity-80 group-hover:opacity-100 transition-opacity">
-              ${d.amount}
+      <div className="h-44 flex items-end justify-between gap-4 pt-6 pb-2 px-2 border-b border-white/10">
+        {months.map((m) => (
+          <div key={m.name} className="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+            <span className="text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity">
+              ${m.amount}
             </span>
-            <div className="w-full max-w-[48px] bg-slate-800/80 rounded-t-xl overflow-hidden flex flex-col justify-end h-full">
-              <div
-                className="w-full bg-gradient-to-t from-blue-600 via-sky-500 to-cyan-400 rounded-t-xl transition-all duration-500 group-hover:brightness-125 shadow-[0_0_15px_rgba(56,189,248,0.3)]"
-                style={{ height: `${d.pct}%` }}
-              />
-            </div>
-            <span className="text-xs font-mono text-slate-400 mt-1">{d.month}</span>
+            <div
+              style={{ height: m.height }}
+              className="w-full max-w-[48px] rounded-t-lg bg-gradient-to-t from-blue-600/80 via-cyan-500/80 to-teal-400/90 group-hover:brightness-125 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)]"
+            />
+            <span className="text-xs font-mono text-slate-400">{m.name}</span>
           </div>
         ))}
+      </div>
+
+      <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
+        <span>Lifetime Customer Value Trend: <strong className="text-emerald-400">+18.4% MoM</strong></span>
+        <span className="font-mono text-[11px] text-slate-500">Autonomous Ledger Engine Active</span>
       </div>
     </div>
   )

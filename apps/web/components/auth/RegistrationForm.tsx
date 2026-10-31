@@ -5,124 +5,172 @@ import Link from 'next/link'
 import { PasswordInput } from './PasswordInput'
 import { PasswordStrengthMeter } from './PasswordStrengthMeter'
 
-export interface RegistrationFormProps {
-  onSubmit: (data: { name: string; email: string; password: string; companyName?: string }) => Promise<any> | void
+interface RegistrationFormProps {
+  onSubmit: (data: any) => Promise<any>
 }
 
-export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSubmit }) => {
-  const [name, setName] = useState('')
+export function RegistrationForm({ onSubmit }: RegistrationFormProps) {
   const [companyName, setCompanyName] = useState('')
+  const [tenantSlug, setTenantSlug] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [errorMsg, setErrorMsg] = useState('')
+
+  const handleCompanyNameChange = (val: string) => {
+    setCompanyName(val)
+    if (!tenantSlug || tenantSlug === companyName.toLowerCase().replace(/[^a-z0-9]/g, '')) {
+      setTenantSlug(val.toLowerCase().replace(/[^a-z0-9]/g, ''))
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError(null)
-
-    if (password !== confirmPassword) {
-      setError('Passwords do not match')
+    setErrorMsg('')
+    if (password.length < 8) {
+      setErrorMsg('Password must be at least 8 characters long.')
       return
     }
-
-    if (password.length <= 8) {
-      setError('Password must be strictly greater than 8 characters')
-      return
-    }
-
     setLoading(true)
     try {
-      await onSubmit({ name, email, password, companyName })
+      await onSubmit({
+        companyName,
+        tenantSlug: tenantSlug || 'mycloud',
+        firstName,
+        lastName,
+        email,
+        password,
+      })
     } catch (err: any) {
-      setError(err.message || 'Registration failed')
+      setErrorMsg(err.message || 'Tenant registration failed')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div>
-        <h2 className="text-2xl font-bold text-white tracking-tight">Create Customer Account</h2>
-        <p className="text-sm text-slate-400 mt-1">Get instant access to your enterprise subscription portal.</p>
+    <div className="space-y-6">
+      <div className="text-center space-y-1">
+        <h2 className="text-2xl font-bold tracking-tight text-white font-sans">
+          Deploy Your Tenant
+        </h2>
+        <p className="text-xs text-slate-400">
+          Create a new isolated multi-tenant subscription cockpit
+        </p>
       </div>
 
-      {error && (
-        <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
-          {error}
+      {errorMsg && (
+        <div className="p-3 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-2">
+          <span className="text-rose-400 font-bold">Error:</span>
+          <span>{errorMsg}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
-        <div className="grid grid-cols-2 gap-3">
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-slate-300">Full Name</label>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-xs font-semibold tracking-wide uppercase text-slate-300 mb-1.5">
+            Company Name
+          </label>
+          <input
+            type="text"
+            required
+            value={companyName}
+            onChange={(e) => handleCompanyNameChange(e.target.value)}
+            className="w-full px-4 py-2.5 bg-slate-950/70 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-sm transition-all"
+            placeholder="e.g. Nexus Software Solutions"
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold tracking-wide uppercase text-slate-300 mb-1.5">
+            Tenant Subdomain Slug
+          </label>
+          <div className="flex items-center">
+            <span className="px-3 py-2.5 bg-slate-900 border border-r-0 border-slate-800 rounded-l-xl text-xs font-mono text-slate-400">
+              brightloop.io/
+            </span>
             <input
               type="text"
               required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Jane Doe"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-white/15 focus:border-cyan-400 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
-            />
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-slate-300">Company Name</label>
-            <input
-              type="text"
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-              placeholder="Acme Corp"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-white/15 focus:border-cyan-400 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
+              value={tenantSlug}
+              onChange={(e) => setTenantSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
+              className="w-full px-4 py-2.5 bg-slate-950/70 border border-slate-800 rounded-r-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-sm font-mono transition-all"
+              placeholder="nexus"
             />
           </div>
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-slate-300">Work Email</label>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block text-xs font-semibold tracking-wide uppercase text-slate-300 mb-1.5">
+              First Name
+            </label>
+            <input
+              type="text"
+              required
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full px-4 py-2.5 bg-slate-950/70 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-sm transition-all"
+              placeholder="Alex"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold tracking-wide uppercase text-slate-300 mb-1.5">
+              Last Name
+            </label>
+            <input
+              type="text"
+              required
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="w-full px-4 py-2.5 bg-slate-950/70 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-sm transition-all"
+              placeholder="Vance"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold tracking-wide uppercase text-slate-300 mb-1.5">
+            Admin Work Email
+          </label>
           <input
             type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="jane@company.com"
-            className="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-white/15 focus:border-cyan-400 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
+            className="w-full px-4 py-2.5 bg-slate-950/70 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-sm transition-all"
+            placeholder="admin@nexus.io"
           />
         </div>
 
-        <PasswordInput
-          label="Password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Min 9 chars, upper, lower, special"
-        />
-
-        <PasswordStrengthMeter password={password} />
-
-        <PasswordInput
-          label="Confirm Password"
-          required
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Repeat password"
-        />
+        <div>
+          <PasswordInput
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            placeholder="Minimum 8 characters"
+          />
+          <PasswordStrengthMeter password={password} />
+        </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 rounded-xl font-bold text-white bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 shadow-[0_0_25px_rgba(56,189,248,0.4)] disabled:opacity-50 transition-all text-sm mt-3"
+          className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:to-teal-300 text-white font-semibold text-sm shadow-[0_10px_25px_-5px_rgba(6,182,212,0.4)] hover:shadow-[0_15px_30px_-5px_rgba(6,182,212,0.6)] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer mt-4"
         >
-          {loading ? 'Creating Account...' : 'Complete Registration'}
+          {loading ? 'Creating Tenant...' : 'Provision Enterprise Tenant'}
         </button>
       </form>
 
-      <div className="text-center text-xs text-slate-400">
-        Already have an account?{' '}
-        <Link href="/login" className="text-cyan-400 hover:text-cyan-300 font-bold transition-colors">
-          Sign in
+      <div className="pt-2 text-center text-xs text-slate-400">
+        Already have a business account?{' '}
+        <Link
+          href="/login"
+          className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+        >
+          Sign In here →
         </Link>
       </div>
     </div>

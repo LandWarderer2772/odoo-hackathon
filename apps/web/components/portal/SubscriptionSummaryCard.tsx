@@ -1,77 +1,54 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
-import { SubscriptionStatusBadge } from './SubscriptionStatusBadge'
+import { Subscription } from '@/lib/api'
 
-export interface SubscriptionSummaryCardProps {
-  subscriptions?: any[]
+interface SubscriptionSummaryCardProps {
+  subscriptions: Subscription[]
 }
 
-export const SubscriptionSummaryCard: React.FC<SubscriptionSummaryCardProps> = ({
-  subscriptions = [],
-}) => {
+export function SubscriptionSummaryCard({ subscriptions }: SubscriptionSummaryCardProps) {
   const activeSubs = subscriptions.filter((s) => s.status === 'ACTIVE')
-  const totalMonthlyCommitment = activeSubs.reduce(
-    (acc, curr) => acc + Number(curr.totalAmount || 0),
-    0
-  )
+  const totalMonthlyRunRate = activeSubs.reduce((acc, curr) => acc + parseFloat(curr.totalAmount || '0'), 0)
+  const nextRenewal = activeSubs.length > 0 ? activeSubs[0].nextBillingDate : null
 
   return (
-    <div className="p-6 rounded-3xl bg-slate-900/80 backdrop-blur-2xl border border-cyan-400/30 shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col justify-between gap-6">
-      <div className="flex items-start justify-between">
-        <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">
-            Active Contracts
+    <div className="rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-xl p-6 shadow-xl relative overflow-hidden flex flex-col justify-between">
+      {/* Ambient background decoration */}
+      <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-cyan-500/10 via-blue-500/5 to-transparent blur-3xl pointer-events-none" />
+
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
+            Subscription Overview
           </span>
-          <h3 className="text-xl font-bold text-white mt-1">Subscription Overview</h3>
+          <span className="px-2.5 py-0.5 rounded-full bg-cyan-950/70 border border-cyan-400/30 text-[11px] font-mono text-cyan-300">
+            {activeSubs.length} Active / {subscriptions.length} Total
+          </span>
         </div>
-        <div className="px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/40 text-xs font-mono font-bold text-cyan-300">
-          {activeSubs.length} Active Plan{activeSubs.length === 1 ? '' : 's'}
+
+        <div className="space-y-1">
+          <div className="text-3xl font-bold tracking-tight text-white font-sans">
+            ${totalMonthlyRunRate.toFixed(2)}
+            <span className="text-sm font-normal text-slate-400"> /mo</span>
+          </div>
+          <p className="text-xs text-slate-400">
+            Active recurring run-rate committed across subscriptions
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-slate-950/60 border border-white/5">
+      <div className="mt-6 pt-4 border-t border-white/10 grid grid-cols-2 gap-4 text-xs font-mono">
         <div>
-          <div className="text-xs text-slate-400 font-mono">Monthly Run-rate</div>
-          <div className="text-2xl font-extrabold text-white font-mono mt-0.5">
-            ${totalMonthlyCommitment.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-          </div>
+          <span className="text-slate-400 block text-[10px]">NEXT RENEWAL CYCLE</span>
+          <span className="font-semibold text-cyan-300">
+            {nextRenewal ? new Date(nextRenewal).toLocaleDateString() : 'No active cycle'}
+          </span>
         </div>
         <div>
-          <div className="text-xs text-slate-400 font-mono">Total Subscriptions</div>
-          <div className="text-2xl font-extrabold text-cyan-400 font-mono mt-0.5">
-            {subscriptions.length}
-          </div>
+          <span className="text-slate-400 block text-[10px]">AUTOPAY CADENCE</span>
+          <span className="font-semibold text-emerald-400">Real-Time Continuous</span>
         </div>
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
-          Latest Active Contract
-        </span>
-        {activeSubs[0] ? (
-          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950/40 border border-white/10">
-            <div>
-              <div className="font-semibold text-sm text-slate-200">
-                {activeSubs[0].subscriptionNumber}
-              </div>
-              <div className="text-xs text-slate-400">{activeSubs[0].plan?.name || 'Custom Plan'}</div>
-            </div>
-            <SubscriptionStatusBadge status={activeSubs[0].status} />
-          </div>
-        ) : (
-          <div className="text-xs text-slate-500 italic">No active contracts found.</div>
-        )}
-      </div>
-
-      <div className="pt-2 border-t border-white/10 flex items-center justify-between">
-        <Link
-          href="/subscriptions"
-          className="text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
-        >
-          View all subscriptions →
-        </Link>
       </div>
     </div>
   )
