@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BrightLoop Portal | Acme Corp Subscription &amp; Billing Dashboard</title>
+<!-- Google Fonts: Plus Jakarta Sans, Outfit, Space Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim from Aetheria Design System -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-fixed": "#dde1ff",
+            "on-primary-fixed-variant": "#003fa5",
+            "surface-container-high": "#e4e9ed",
+            "glass-border-subtle": "rgba(195, 198, 215, 0.3)",
+            "on-primary-fixed": "#00184a",
+            "tertiary": "#005881",
+            "surface-tint": "#0054d7",
+            "secondary-container": "#acbbff",
+            "tertiary-container": "#0071a5",
+            "caution-rose": "#ff5b79",
+            "surface-container-low": "#eff4f8",
+            "surface-variant": "#dee3e7",
+            "on-tertiary-fixed-variant": "#004b70",
+            "secondary": "#4c5b98",
+            "primary-fixed-dim": "#b3c5ff",
+            "on-secondary-container": "#3a4985",
+            "success-emerald": "#10b981",
+            "on-primary-container": "#e8ebff",
+            "error": "#ba1a1a",
+            "on-error": "#ffffff",
+            "on-secondary-fixed": "#011551",
+            "glass-border-light": "rgba(255, 255, 255, 0.75)",
+            "surface-bright": "#f5fafe",
+            "surface": "#f5fafe",
+            "secondary-fixed-dim": "#b7c4ff",
+            "inverse-primary": "#b3c5ff",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#001e30",
+            "tertiary-fixed-dim": "#8ccdff",
+            "inverse-surface": "#2c3134",
+            "surface-container": "#e9eef2",
+            "primary-container": "#1d61e7",
+            "outline": "#737686",
+            "primary": "#0049be",
+            "on-tertiary": "#ffffff",
+            "primary-fixed": "#dbe1ff",
+            "surface-dim": "#d5dbdf",
+            "on-surface": "#171c1f",
+            "outline-variant": "#c3c6d7",
+            "frosted-ice": "#ffffff",
+            "tertiary-fixed": "#cae6ff",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "on-error-container": "#93000a",
+            "inverse-on-surface": "#ecf1f5",
+            "on-surface-variant": "#424654",
+            "surface-container-highest": "#dee3e7",
+            "on-primary": "#ffffff",
+            "on-tertiary-container": "#ddeeff",
+            "on-secondary-fixed-variant": "#33437e",
+            "pale-ether-mist": "#e6f3fd",
+            "on-background": "#171c1f",
+            "background": "#f5fafe"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "3.5rem",
+            "space-sm": "0.75rem",
+            "space-xs": "0.375rem",
+            "margin": "3rem",
+            "gutter-mobile": "1rem",
+            "margin-mobile": "1.25rem",
+            "space-md": "1.25rem",
+            "space-lg": "2rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "display-hero": ["Outfit", "Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Space Grotesk", "Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .glass-card-ambient {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 20px 48px -12px rgba(11, 30, 89, 0.06);
+    }
+    .glass-card-interactive {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 24px 50px -12px rgba(29, 97, 231, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+    }
+    .btn-gradient-primary {
+      background: linear-gradient(135deg, #38B6FF 0%, #1D61E7 100%);
+      box-shadow: 0 12px 28px -6px rgba(29, 97, 231, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    }
+    .font-brand { font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif !important; }
+    .font-tech { font-family: 'Space Grotesk', monospace, sans-serif !important; }
+    .font-sans-main { font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important; }
+    @keyframes logo-shimmer {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.8)) drop-shadow(0 0 35px rgba(29, 97, 231, 0.4)); transform: scale(1.03); }
+    }
+    .animate-logo-glow { animation: logo-shimmer 4s ease-in-out infinite; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased relative min-h-screen overflow-x-hidden selection:bg-tertiary-fixed selection:text-primary">
+
+<!-- 1. Procedural Glassmorphism WebGL Shader Background (Unchanged Animation) -->
+<!-- STITCH_SHADER_START:ANIMATION_2 class="fixed inset-0 w-full h-full pointer-events-none z-0" -->
+<div class="fixed inset-0 w-full h-full pointer-events-none z-0" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 ox = floor(x + 0.5);
+  vec3 a0 = x - ox;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy / u_resolution.xy;
+    vec2 mouse = u_mouse / u_resolution;
+    if(length(u_mouse) < 1.0) {
+        mouse = vec2(0.5, 0.5);
+    }
+    
+    float aspect = u_resolution.x / u_resolution.y;
+    vec2 p = st;
+    p.x *= aspect;
+    vec2 m = mouse;
+    m.x *= aspect;
+
+    float t = u_time * 0.18;
+    
+    float n1 = snoise(p * 1.2 + vec2(t * 0.4, t * 0.3));
+    float n2 = snoise(p * 2.0 - vec2(t * 0.25, -t * 0.35) + vec2(n1 * 0.5));
+    float n3 = snoise(p * 3.5 + vec2(n2 * 0.4, t * 0.2));
+
+    float distMouse = length(p - m);
+    float mouseWave = smoothstep(0.6, 0.0, distMouse) * 0.35;
+
+    vec3 cBg = vec3(0.957, 0.976, 0.996);
+    vec3 cPrimary = vec3(0.114, 0.380, 0.906);
+    vec3 cCyan = vec3(0.220, 0.714, 1.0);
+    vec3 cDeepNavy = vec3(0.043, 0.118, 0.349);
+    vec3 cWhite = vec3(1.0, 1.0, 1.0);
+
+    float blob1 = smoothstep(-0.3, 0.7, n1 + mouseWave);
+    float blob2 = smoothstep(-0.4, 0.8, n2);
+    float blob3 = smoothstep(-0.2, 0.6, n3);
+
+    vec3 col = cBg;
+    col = mix(col, cCyan, blob1 * 0.32);
+    col = mix(col, cPrimary, blob2 * 0.28);
+    col = mix(col, cWhite, blob3 * 0.45);
+
+    float rim = pow(1.0 - length(st - 0.5) * 0.8, 1.5);
+    col += cCyan * 0.08 * rim;
+
+    gl_FragColor = vec4(col, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+
+<!-- Ambient Light Orbs for Additional Atmospheric Depth (Unchanged) -->
+<div class="fixed top-0 left-1/4 w-[650px] h-[650px] bg-secondary-fixed/40 rounded-full blur-[140px] pointer-events-none -z-10 transform -translate-y-1/2"></div>
+<div class="fixed bottom-1/3 right-10 w-[550px] h-[550px] bg-tertiary-fixed/40 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+
+<!-- 2. Sticky Floating Pill Top Navigation (Pixel-Perfect Aligned Customer Portal Bar) -->
+<header class="sticky top-5 mx-auto rounded-full w-[calc(100%-2.5rem)] max-w-7xl z-50 bg-white/90 backdrop-blur-2xl border border-white/90 shadow-[0_16px_40px_-10px_rgba(29,97,231,0.12),0_1px_2px_rgba(0,0,0,0.04)] transition-all">
+<div class="h-16 px-5 flex items-center justify-between gap-4">
+<!-- Left: Brand Logo & Tenant Badge -->
+<div class="flex items-center gap-3 shrink-0">
+  <a class="flex items-center gap-2.5 group select-none" href="#">
+    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center p-1.5 text-white shadow-sm shadow-primary/25 group-hover:scale-105 transition-transform duration-200 shrink-0">
+      <img src="logo-icon.svg" alt="BrightLoop" class="w-full h-full object-contain" />
+    </div>
+    <div class="flex flex-col justify-center">
+      <span class="tracking-tight font-extrabold text-on-surface font-brand text-[17px] leading-tight">
+        Bright<span class="text-primary-container">Loop</span>
+      </span>
+      <span class="text-[9px] font-tech text-outline tracking-[0.14em] uppercase font-bold leading-tight">
+        Customer Portal
+      </span>
+    </div>
+  </a>
+
+  <!-- Subtle Vertical Divider -->
+  <div class="hidden sm:block h-6 w-px bg-slate-300/70 mx-0.5"></div>
+
+  <!-- Tenant Pill -->
+  <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high/60 border border-slate-200/80 text-on-surface text-xs font-semibold select-none">
+    <span class="w-2 h-2 rounded-full bg-success-emerald animate-pulse shrink-0"></span>
+    <span class="font-bold tracking-tight">Acme Corp</span>
+    <span class="text-[10px] text-outline font-tech font-bold uppercase tracking-wider">#CUST-1005</span>
+  </div>
+</div>
+
+<!-- Center: Customer Portal Navigation Tabs (Aligned Pill System) -->
+<nav class="hidden lg:flex items-center gap-1.5">
+  <a class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold font-sans-main bg-primary/10 text-primary ring-1 ring-primary/20 shadow-sm transition-all" href="#subscriptions-fsm">
+    <span class="material-symbols-outlined text-[17px]">autorenew</span>
+    <span>Subscriptions</span>
+  </a>
+
+  <a class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold font-sans-main text-on-surface-variant hover:text-primary hover:bg-surface-container/70 transition-all" href="#invoices-ledger">
+    <span class="material-symbols-outlined text-[17px]">receipt_long</span>
+    <span>Invoices</span>
+    <span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-caution-rose/15 text-caution-rose text-[10px] font-tech font-bold leading-none">
+      1 Due
+    </span>
+  </a>
+
+  <a class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold font-sans-main text-on-surface-variant hover:text-primary hover:bg-surface-container/70 transition-all" href="#payments-stream">
+    <span class="material-symbols-outlined text-[17px]">account_balance_wallet</span>
+    <span>Payments</span>
+  </a>
+
+  <a class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold font-sans-main text-on-surface-variant hover:text-primary hover:bg-surface-container/70 transition-all" href="#quotes-section">
+    <span class="material-symbols-outlined text-[17px]">request_quote</span>
+    <span>Quotes</span>
+  </a>
+
+  <a class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold font-sans-main text-on-surface-variant hover:text-primary hover:bg-surface-container/70 transition-all" href="#pricing-calculator">
+    <span class="material-symbols-outlined text-[17px]">calculate</span>
+    <span>Surcharge Calc</span>
+  </a>
+</nav>
+
+<!-- Right: Trailing Actions & Customer Profile -->
+<div class="flex items-center gap-3 shrink-0">
+  <!-- Settle Balance Trigger -->
+  <a class="btn-gradient-primary text-white text-xs font-bold font-tech px-4 py-2 rounded-full inline-flex items-center gap-1.5 hover:brightness-105 active:scale-[0.98] transition-all shadow-sm shadow-primary/25 shrink-0" href="#invoices-ledger">
+    <span class="material-symbols-outlined text-[16px]">credit_card</span>
+    <span>Pay $90.00 Balance</span>
+  </a>
+
+  <!-- Vertical Divider -->
+  <div class="hidden md:block h-6 w-px bg-slate-300/70"></div>
+
+  <!-- User Profile Badge -->
+  <div class="flex items-center gap-2.5 py-1 pl-1 pr-2 rounded-full hover:bg-surface-container/60 transition-colors select-none">
+    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-secondary to-primary flex items-center justify-center text-white text-xs font-bold shadow-sm shrink-0">
+      DA
+    </div>
+    <div class="hidden md:flex flex-col text-left justify-center">
+      <span class="text-xs font-bold text-on-surface leading-tight font-sans-main">David A.</span>
+      <span class="text-[10px] text-outline font-tech font-medium leading-tight">david@acme-corp.com</span>
+    </div>
+  </div>
+</div>
+</div>
+</header>
+
+<!-- Main Canvas Wrapper -->
+<main class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pt-12 md:pt-16 space-y-20 md:space-y-28">
+
+<!-- 3. User Specific Welcome & Status Hero -->
+<section class="text-center max-w-4xl mx-auto space-y-6">
+  <!-- RBAC Customer Portal Badge -->
+  <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface-container-lowest/80 border border-glass-border-light shadow-sm text-primary backdrop-blur-md">
+    <span class="w-2 h-2 rounded-full bg-success-emerald animate-pulse"></span>
+    <span class="font-tech text-label-sm font-semibold tracking-wide text-on-surface uppercase">
+      Customer Self-Service Portal • RBAC Role: CUSTOMER
+    </span>
+    <span class="text-outline text-xs">•</span>
+    <span class="font-label-sm text-primary font-bold">Acme Corp Enterprise Account</span>
+  </div>
+
+  <!-- Main Headline -->
+  <h1 class="font-display-hero text-headline-lg md:text-display-hero text-on-surface tracking-tight font-extrabold max-w-3xl mx-auto leading-[1.12]">
+    Welcome back, <span class="bg-gradient-to-r from-primary via-primary-container to-tertiary-container bg-clip-text text-transparent">David</span>
+  </h1>
+
+  <!-- Supporting Narrative with Readme Context -->
+  <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+    Manage your active subscriptions, review automated tax- and discount-calculated invoices, track multi-method payment reconciliations, and accept new quotation offers.
+  </p>
+
+  <!-- Quick Telemetry Chips (README Spec) -->
+  <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+    <div class="px-3.5 py-1.5 rounded-full bg-frosted-ice border border-glass-border-light text-xs font-tech text-on-surface flex items-center gap-1.5 shadow-sm">
+      <span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+      <span>Next Billing Run: <strong>Nov 10, 2026</strong></span>
+    </div>
+    <div class="px-3.5 py-1.5 rounded-full bg-frosted-ice border border-glass-border-light text-xs font-tech text-on-surface flex items-center gap-1.5 shadow-sm">
+      <span class="material-symbols-outlined text-[16px] text-success-emerald">verified_user</span>
+      <span>Zero-Duplicate Idempotent Billing Engine Active</span>
+    </div>
+    <div class="px-3.5 py-1.5 rounded-full bg-frosted-ice border border-glass-border-light text-xs font-tech text-on-surface flex items-center gap-1.5 shadow-sm">
+      <span class="material-symbols-outlined text-[16px] text-primary-container">lock</span>
+      <span>Payment Terms: <strong>Net 30 Days</strong></span>
+    </div>
+  </div>
+</section>
+
+<!-- 4. User Financial Command Slate (Transformed Live Slate with README Context) -->
+<section class="relative" id="subscriptions-fsm">
+<div class="glass-card-interactive rounded-xl p-6 md:p-8 relative overflow-hidden border border-white/90">
+<!-- Slate Subtitle & Status Badge Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-glass-border-subtle gap-4">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-success-emerald shadow-sm shadow-success-emerald/50"></div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Active Plan &amp; Subscription Finite State Machine (FSM)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Subscription #SUB-2026-1001 • Cloud CRM SaaS (Professional Edition)</p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start md:self-auto">
+<span class="px-3 py-1 rounded-full bg-success-emerald/15 text-success-emerald font-tech text-label-sm font-bold flex items-center gap-1">
+  <span class="material-symbols-outlined text-[15px]">check_circle</span>
+  <span>FSM STATE: ACTIVE</span>
+</span>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant" title="Refresh Live State">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+</button>
+</div>
+</div>
+
+<!-- FSM Lifecycle Pipeline Visualizer (README Section 4) -->
+<div class="my-6 p-5 rounded-lg bg-surface-container-lowest/70 border border-white/80 shadow-sm">
+  <div class="flex items-center justify-between mb-3">
+    <span class="text-xs font-tech uppercase tracking-wider font-bold text-outline">Subscription Lifecycle Pipeline</span>
+    <span class="text-xs font-tech text-primary font-bold">Rule Guard: Auto-Close = Off, Allow-Pause = True</span>
+  </div>
+  <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-xs font-tech font-bold">
+    <div class="p-2.5 rounded-lg bg-surface-container text-outline flex flex-col items-center gap-1">
+      <span class="material-symbols-outlined text-[18px]">edit_note</span>
+      <span>1. DRAFT</span>
+      <span class="text-[9px] text-outline font-normal">Created</span>
+    </div>
+    <div class="p-2.5 rounded-lg bg-surface-container text-outline flex flex-col items-center gap-1">
+      <span class="material-symbols-outlined text-[18px]">send</span>
+      <span>2. QUOTATION</span>
+      <span class="text-[9px] text-outline font-normal">Sent to Acme</span>
+    </div>
+    <div class="p-2.5 rounded-lg bg-surface-container text-outline flex flex-col items-center gap-1">
+      <span class="material-symbols-outlined text-[18px]">done_all</span>
+      <span>3. CONFIRMED</span>
+      <span class="text-[9px] text-outline font-normal">Signed</span>
+    </div>
+    <div class="p-2.5 rounded-lg bg-primary-container text-white flex flex-col items-center gap-1 shadow-md shadow-primary/20 ring-2 ring-primary-container/30">
+      <span class="material-symbols-outlined text-[18px]">bolt</span>
+      <span>4. ACTIVE</span>
+      <span class="text-[9px] text-white/90 font-normal">Billing Hourly</span>
+    </div>
+    <div class="p-2.5 rounded-lg bg-surface-container text-outline flex flex-col items-center gap-1">
+      <span class="material-symbols-outlined text-[18px]">pause_circle</span>
+      <span>5. PAUSED / CLOSE</span>
+      <span class="text-[9px] text-outline font-normal">Available</span>
+    </div>
+  </div>
+</div>
+
+<!-- Top Metric Highlights Strip (README Domain Model) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+<div class="p-5 rounded-lg bg-surface-container-lowest/60 border border-white/80 shadow-sm">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Monthly Active Subscription</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface tabular-nums">$190.00</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">/month</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5 text-primary text-label-sm font-label-sm font-tech">
+<span class="material-symbols-outlined text-[15px]">event_repeat</span>
+<span>Next Billing: Nov 10, 2026</span>
+</div>
+</div>
+
+<div class="p-5 rounded-lg bg-surface-container-lowest/60 border border-caution-rose/30 shadow-sm relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 bg-caution-rose/10 rounded-full blur-xl pointer-events-none"></div>
+<span class="font-label-md text-label-md text-caution-rose font-semibold">Outstanding Balance</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-headline-lg text-headline-lg font-bold text-caution-rose tabular-nums">$90.00</span>
+<span class="font-label-sm text-label-sm text-caution-rose font-medium">Due in 15 days</span>
+</div>
+<div class="mt-2 flex items-center gap-1 text-caution-rose font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span>INV-2026-1002 Partially Paid ($100 settled)</span>
+</div>
+</div>
+
+<div class="p-5 rounded-lg bg-surface-container-lowest/60 border border-white/80 shadow-sm relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 bg-success-emerald/10 rounded-full blur-xl pointer-events-none"></div>
+<span class="font-label-md text-label-md text-success-emerald font-semibold">Total Revenue Settled YTD</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface tabular-nums">$2,090.00</span>
+<span class="font-label-sm text-label-sm text-success-emerald font-bold">100% On-Time</span>
+</div>
+<div class="mt-2 flex items-center gap-1 text-success-emerald font-label-sm text-label-sm font-tech">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>Multi-Method Ledger Reconciled</span>
+</div>
+</div>
+</div>
+
+<!-- Real-Time Spend Forecast Trend Card (Unchanged Graphic, README Recurrence Context) -->
+<div class="p-5 rounded-lg bg-surface-container-lowest/70 border border-white/80 mb-6">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">ssid_chart</span>
+<span class="font-title-md text-title-md font-bold text-on-surface">Acme Corp 12-Month Scheduled Recurrence &amp; Invoicing Telemetry</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary bg-primary-fixed/50 px-3 py-1 rounded-full font-tech font-bold">Zero-Duplicate Worker Verified</span>
+</div>
+<!-- SVG Line Chart Mockup (Unchanged) -->
+<div class="h-28 w-full relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 800 120">
+<defs>
+<lineargradient id="curveGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#1D61E7" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#38B6FF" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="lineGrad" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0%" stop-color="#005881"></stop>
+<stop offset="50%" stop-color="#1D61E7"></stop>
+<stop offset="100%" stop-color="#10B981"></stop>
+</lineargradient>
+</defs>
+<path d="M 0,90 Q 200,85 400,60 T 800,20 L 800,120 L 0,120 Z" fill="url(#curveGradient)"></path>
+<path d="M 0,90 Q 200,85 400,60 T 800,20" fill="none" stroke="url(#lineGrad)" stroke-linecap="round" stroke-width="3.5"></path>
+<!-- Trajectory Target Dot -->
+<circle class="animate-ping" cx="800" cy="20" fill="#10B981" r="5"></circle>
+<circle cx="800" cy="20" fill="#10B981" r="4"></circle>
+</svg>
+<div class="absolute bottom-1 right-2 bg-success-emerald/10 border border-success-emerald/20 text-success-emerald px-2.5 py-0.5 rounded-full text-label-sm font-tech font-bold">
+  Next Scheduled Midnight Auto-Invoice: Nov 10, 2026
+</div>
+</div>
+</div>
+
+<!-- Active Subscriptions & Contract Lines (README Data Model) -->
+<div class="space-y-3">
+  <div class="flex items-center justify-between pb-2">
+    <h4 class="font-title-md text-title-md font-bold text-on-surface">Your Subscribed Services &amp; Hardware</h4>
+    <span class="text-xs text-outline font-tech">Showing 3 Products for Acme Corp</span>
+  </div>
+
+  <!-- Item 1: Cloud CRM SaaS (Professional Edition) -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-surface-container-lowest/80 border border-white/80 hover:bg-white transition-all shadow-sm gap-4">
+    <div class="flex items-center gap-4">
+      <div class="w-11 h-11 rounded-full bg-secondary-fixed/50 flex items-center justify-center text-primary font-bold shadow-inner">
+        <span class="material-symbols-outlined text-[24px]">cloud_sync</span>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h4 class="font-title-md text-title-md text-on-surface font-bold">Cloud CRM SaaS</h4>
+          <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary text-label-sm font-tech font-bold">Variant: Professional Edition (+$70.00)</span>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Plan: Monthly Pro Subscription • Base $120.00 + Surcharge $70.00</p>
+      </div>
+    </div>
+    <div class="flex items-center justify-between sm:justify-end gap-6">
+      <div class="text-right">
+        <span class="font-headline-sm text-headline-sm font-bold text-on-surface tabular-nums">$190.00</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">/mo</span>
+        <p class="font-label-sm text-label-sm text-success-emerald font-semibold font-tech">Promo WELCOME20 applied</p>
+      </div>
+      <button class="px-4 py-2 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-tech text-label-sm font-bold border border-glass-border-subtle transition-all flex items-center gap-1.5" onclick="alert('Pause request sent to staff per Plan allow_pause rules.')">
+        <span class="material-symbols-outlined text-[16px]">pause</span>
+        <span>Pause Plan</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Item 2: VoIP Hardware Gateway Bundle -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-surface-container-lowest/80 border border-white/80 hover:bg-white transition-all shadow-sm gap-4">
+    <div class="flex items-center gap-4">
+      <div class="w-11 h-11 rounded-full bg-secondary-container/50 flex items-center justify-center text-secondary font-bold shadow-inner">
+        <span class="material-symbols-outlined text-[24px]">router</span>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h4 class="font-title-md text-title-md text-on-surface font-bold">VoIP Hardware Gateway</h4>
+          <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary text-label-sm font-tech font-bold">Variant: Dual Wireless Handsets (+$95.00)</span>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Type: GOODS • Hardware Gateway Station (1 Unit Active)</p>
+      </div>
+    </div>
+    <div class="flex items-center justify-between sm:justify-end gap-6">
+      <div class="text-right">
+        <span class="font-headline-sm text-headline-sm font-bold text-on-surface tabular-nums">$545.00</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">one-time</span>
+        <p class="font-label-sm text-label-sm text-primary font-semibold font-tech">Net 30 Settled</p>
+      </div>
+      <span class="px-3.5 py-1.5 rounded-full bg-success-emerald/15 text-success-emerald font-tech text-label-sm font-bold flex items-center gap-1">
+        <span class="material-symbols-outlined text-[15px]">inventory_2</span> Active
+      </span>
+    </div>
+  </div>
+
+  <!-- Item 3: Quotation in Review (README Step 3) -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-surface-container-lowest/80 border border-primary-container/30 hover:bg-white transition-all shadow-sm gap-4" id="quotes-section">
+    <div class="flex items-center gap-4">
+      <div class="w-11 h-11 rounded-full bg-primary-fixed/50 flex items-center justify-center text-primary-container font-bold shadow-inner">
+        <span class="material-symbols-outlined text-[24px]">description</span>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h4 class="font-title-md text-title-md text-on-surface font-bold">New Offer: Quote #QUO-2026-0042</h4>
+          <span class="bg-primary-container text-white px-2 py-0.5 rounded-full text-label-sm font-tech font-bold">Template: Annual Cloud Enterprise</span>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Includes Brand: Odoo Variant Surcharge (+$560.00) • Valid until Nov 14, 2026</p>
+      </div>
+    </div>
+    <div class="flex items-center justify-between sm:justify-end gap-6">
+      <div class="text-right">
+        <span class="font-headline-sm text-headline-sm font-bold text-on-surface tabular-nums">$1,760.00</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">/yr</span>
+        <p class="font-label-sm text-label-sm text-primary font-semibold font-tech">15-Day Lock Window</p>
+      </div>
+      <button class="px-4 py-2 rounded-full btn-gradient-primary text-white font-tech text-label-sm font-bold shadow-md shadow-primary/25 active:scale-95 transition-all flex items-center gap-1.5" onclick="alert('Quotation accepted! Transitioning to CONFIRMED and activating billing schedule.')">
+        <span class="material-symbols-outlined text-[16px]">check</span>
+        <span>Accept &amp; Sign</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+</div>
+</section>
+
+<!-- 5. Invoices & Billing Lifecycle Section (README Section 7) -->
+<section class="space-y-6" id="invoices-ledger">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <span class="px-3.5 py-1 rounded-full bg-primary-fixed text-primary font-tech text-label-sm font-bold uppercase tracking-wider">
+        Automated Billing Engine
+      </span>
+      <h2 class="font-headline-lg text-headline-lg font-bold text-on-surface mt-2">
+        Invoices &amp; Tax Deductions
+      </h2>
+      <p class="font-body-md text-body-md text-on-surface-variant">
+        Zero-duplicate idempotent invoices generated on schedule with itemized tax and discount breakdowns.
+      </p>
+    </div>
+
+    <!-- Settle All Button -->
+    <button class="btn-gradient-primary text-white font-label-lg px-6 py-3 rounded-full flex items-center gap-2 shadow-md shadow-primary/30 active:scale-95 transition-all self-start sm:self-auto font-tech font-bold" onclick="alert('Opening secure payment gateway to settle $90.00 remaining balance via Card or Wire.')">
+      <span class="material-symbols-outlined text-[18px]">payments</span>
+      <span>Pay Outstanding Balance ($90.00)</span>
+    </button>
+  </div>
+
+  <!-- Invoices Table Slate -->
+  <div class="glass-card-ambient rounded-xl p-6 overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="border-b border-glass-border-subtle text-xs font-tech uppercase text-outline">
+          <th class="pb-3 px-3">Invoice #</th>
+          <th class="pb-3 px-3">Date</th>
+          <th class="pb-3 px-3">Due Date</th>
+          <th class="pb-3 px-3">Description / Line Items</th>
+          <th class="pb-3 px-3">Total Amount</th>
+          <th class="pb-3 px-3">Amount Paid</th>
+          <th class="pb-3 px-3">Status</th>
+          <th class="pb-3 px-3 text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-glass-border-subtle text-sm">
+        <!-- Row 1: Partially Paid -->
+        <tr class="hover:bg-white/60 transition-colors">
+          <td class="py-4 px-3 font-tech font-bold text-primary">INV-2026-1002</td>
+          <td class="py-4 px-3 text-on-surface-variant font-tech">Oct 16, 2026</td>
+          <td class="py-4 px-3 text-caution-rose font-tech font-bold">Nov 15, 2026</td>
+          <td class="py-4 px-3 text-on-surface">
+            <div class="font-bold">Cloud CRM SaaS (Professional Edition)</div>
+            <div class="text-xs text-outline">1 Seat • Month 2 Recurrence</div>
+          </td>
+          <td class="py-4 px-3 font-bold tabular-nums">$190.00</td>
+          <td class="py-4 px-3 font-bold tabular-nums text-success-emerald">$100.00</td>
+          <td class="py-4 px-3">
+            <span class="px-3 py-1 rounded-full bg-caution-rose/15 text-caution-rose font-tech text-xs font-bold flex items-center gap-1 w-max">
+              <span class="w-1.5 h-1.5 rounded-full bg-caution-rose"></span>
+              PARTIALLY PAID
+            </span>
+          </td>
+          <td class="py-4 px-3 text-right">
+            <div class="flex items-center justify-end gap-2">
+              <button class="px-3 py-1.5 rounded-full bg-primary-container text-white text-xs font-tech font-bold hover:brightness-105 shadow-sm" onclick="alert('Settling $90.00 balance on INV-2026-1002 via Credit Card...')">
+                Pay $90
+              </button>
+              <button class="p-1.5 rounded-full hover:bg-surface-container text-primary" title="Download PDF" onclick="alert('Downloading invoice PDF for INV-2026-1002...')">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Row 2: Paid -->
+        <tr class="hover:bg-white/60 transition-colors">
+          <td class="py-4 px-3 font-tech font-bold text-primary">INV-2026-1001</td>
+          <td class="py-4 px-3 text-on-surface-variant font-tech">Aug 15, 2026</td>
+          <td class="py-4 px-3 text-on-surface-variant font-tech">Sep 15, 2026</td>
+          <td class="py-4 px-3 text-on-surface">
+            <div class="font-bold">Cloud CRM SaaS (Professional Edition)</div>
+            <div class="text-xs text-outline">Month 1 Activation • Idempotent Cycle</div>
+          </td>
+          <td class="py-4 px-3 font-bold tabular-nums">$190.00</td>
+          <td class="py-4 px-3 font-bold tabular-nums text-success-emerald">$190.00</td>
+          <td class="py-4 px-3">
+            <span class="px-3 py-1 rounded-full bg-success-emerald/15 text-success-emerald font-tech text-xs font-bold flex items-center gap-1 w-max">
+              <span class="w-1.5 h-1.5 rounded-full bg-success-emerald"></span>
+              PAID
+            </span>
+          </td>
+          <td class="py-4 px-3 text-right">
+            <div class="flex items-center justify-end gap-2">
+              <span class="text-xs text-outline font-tech">Settled (Wire)</span>
+              <button class="p-1.5 rounded-full hover:bg-surface-container text-primary" title="Download PDF" onclick="alert('Downloading invoice PDF for INV-2026-1001...')">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Row 3: Paid Hardware -->
+        <tr class="hover:bg-white/60 transition-colors">
+          <td class="py-4 px-3 font-tech font-bold text-primary">INV-2026-0988</td>
+          <td class="py-4 px-3 text-on-surface-variant font-tech">Jul 20, 2026</td>
+          <td class="py-4 px-3 text-on-surface-variant font-tech">Aug 20, 2026</td>
+          <td class="py-4 px-3 text-on-surface">
+            <div class="font-bold">VoIP Hardware Gateway (Dual Handsets)</div>
+            <div class="text-xs text-outline">Base $450.00 + Surcharge $95.00</div>
+          </td>
+          <td class="py-4 px-3 font-bold tabular-nums">$545.00</td>
+          <td class="py-4 px-3 font-bold tabular-nums text-success-emerald">$545.00</td>
+          <td class="py-4 px-3">
+            <span class="px-3 py-1 rounded-full bg-success-emerald/15 text-success-emerald font-tech text-xs font-bold flex items-center gap-1 w-max">
+              <span class="w-1.5 h-1.5 rounded-full bg-success-emerald"></span>
+              PAID
+            </span>
+          </td>
+          <td class="py-4 px-3 text-right">
+            <div class="flex items-center justify-end gap-2">
+              <span class="text-xs text-outline font-tech">Settled (Card)</span>
+              <button class="p-1.5 rounded-full hover:bg-surface-container text-primary" title="Download PDF" onclick="alert('Downloading invoice PDF for INV-2026-0988...')">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 6. Payment Ledger & Receipts (README Section 7) -->
+<section class="space-y-6" id="payments-stream">
+  <div class="flex items-center justify-between">
+    <div>
+      <span class="px-3.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-tech text-label-sm font-bold uppercase tracking-wider">
+        Multi-Method Payment Ledger
+      </span>
+      <h2 class="font-headline-lg text-headline-lg font-bold text-on-surface mt-2">
+        Payment Receipts &amp; Bank Reconciliations
+      </h2>
+    </div>
+    <div class="text-right">
+      <div class="text-xs font-tech text-outline">Total Balance Outstanding:</div>
+      <div class="font-headline-sm text-caution-rose font-bold">$90.00</div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Receipt 1: Wire Transfer -->
+    <div class="glass-card-ambient rounded-xl p-6 flex flex-col justify-between">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2 font-tech font-bold text-primary">
+            <span class="material-symbols-outlined text-[20px]">account_balance</span>
+            <span>Ref: WIRE-REF-9921</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full bg-success-emerald/15 text-success-emerald font-tech text-xs font-bold">Allocated in Full</span>
+        </div>
+        <div class="flex items-baseline justify-between border-b border-glass-border-subtle pb-3">
+          <span class="text-2xl font-bold font-tech text-on-surface tabular-nums">$190.00</span>
+          <span class="text-xs text-outline font-tech">Method: ACH Bank Wire</span>
+        </div>
+        <p class="text-xs text-on-surface-variant font-tech">Allocated to Invoice: <strong>INV-2026-1001</strong> • Cleared Aug 15, 2026</p>
+      </div>
+      <div class="flex items-center justify-between pt-4 mt-3 border-t border-glass-border-subtle text-xs text-outline font-tech">
+        <span>Verified by Fastify Gateway</span>
+        <button class="text-primary hover:underline font-bold" onclick="alert('Viewing Bank Settlement Receipt WIRE-REF-9921')">View Receipt →</button>
+      </div>
+    </div>
+
+    <!-- Receipt 2: Partial Credit Card -->
+    <div class="glass-card-ambient rounded-xl p-6 flex flex-col justify-between">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2 font-tech font-bold text-primary">
+            <span class="material-symbols-outlined text-[20px]">credit_card</span>
+            <span>Ref: PAY-2026-1002</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full bg-caution-rose/15 text-caution-rose font-tech text-xs font-bold">Partial Installment</span>
+        </div>
+        <div class="flex items-baseline justify-between border-b border-glass-border-subtle pb-3">
+          <span class="text-2xl font-bold font-tech text-on-surface tabular-nums">$100.00</span>
+          <span class="text-xs text-outline font-tech">Method: Visa •••• 4242</span>
+        </div>
+        <p class="text-xs text-on-surface-variant font-tech">Allocated to Invoice: <strong>INV-2026-1002</strong> • Cleared Oct 16, 2026</p>
+      </div>
+      <div class="flex items-center justify-between pt-4 mt-3 border-t border-glass-border-subtle text-xs text-outline font-tech">
+        <span>Remaining Balance on Invoice: $90.00</span>
+        <button class="text-primary hover:underline font-bold" onclick="alert('Viewing Card Transaction PAY-2026-1002')">View Receipt →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Interactive Product Variant Surcharge Calculator (README Section 2 & 3) -->
+<section class="max-w-4xl mx-auto" id="pricing-calculator">
+<div class="glass-card-interactive rounded-xl p-8 md:p-12 relative overflow-hidden">
+<div class="text-center max-w-xl mx-auto mb-10">
+<span class="px-3.5 py-1 rounded-full bg-primary-fixed text-primary font-tech text-label-sm font-bold uppercase tracking-wider">
+  Pricing Engine Formula
+</span>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface mt-3">
+  Interactive Variant Surcharge Engine
+</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 font-tech text-xs">
+  $$\text{Effective Unit Price} = \text{Base Sales Price} + \sum \text{Variant Surcharges}$$
+</p>
+</div>
+
+<!-- Interactive Slider & Calculation Panel -->
+<div class="space-y-8">
+<div>
+<div class="flex justify-between items-center mb-3">
+<label class="font-title-md text-title-md font-bold text-on-surface" for="seat-slider">Select Number of User Seats</label>
+<span class="font-headline-sm text-headline-sm text-primary font-bold tabular-nums" id="seat-count-label">5 Seats</span>
+</div>
+<input class="w-full h-3 bg-surface-container-high rounded-full appearance-none cursor-pointer accent-primary focus:outline-none" id="seat-slider" max="50" min="1" step="1" type="range" value="5"/>
+<div class="flex justify-between text-body-sm font-tech text-on-surface-variant mt-2">
+<span>1 Seat (Starter)</span>
+<span>10 Seats (Team)</span>
+<span>50 Seats (Enterprise)</span>
+</div>
+</div>
+
+<!-- Dynamic Output Bento (README Spec) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-glass-border-subtle">
+<div class="p-6 rounded-lg bg-surface-container-lowest/80 border border-white/80">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Monthly CRM Pro + Brand Variant</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-display-hero text-[40px] leading-tight font-extrabold text-primary tabular-nums" id="monthly-total">$950.00</span>
+<span class="font-body-md text-body-md text-on-surface-variant font-tech">/mo</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-2 font-tech text-xs">Computed at ($120 Base + $70 Professional Variant) × Seats</p>
+</div>
+
+<div class="p-6 rounded-lg bg-surface-container-lowest/80 border border-white/80">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Annual Enterprise + Odoo Brand Surcharge</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-display-hero text-[40px] leading-tight font-extrabold text-tertiary-container tabular-nums" id="annual-total">$8,800.00</span>
+<span class="font-body-md text-body-md text-tertiary font-bold font-tech">/yr</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-2 font-tech text-xs">Base $1,200 + Odoo Brand Surcharge $560 = $1,760/seat/yr</p>
+</div>
+</div>
+
+<div class="text-center pt-2">
+<button class="btn-gradient-primary text-white font-tech text-label-lg px-8 py-3.5 rounded-full inline-flex items-center gap-2 hover:shadow-lg transition-all" onclick="alert('Quotation requested for selected seat tier! Staff notified.')">
+<span>Request Custom Plan Quotation</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 8. Automated Billing Guarantee & Trust Badges -->
+<section class="rounded-xl bg-[#0B1E59] text-white p-8 md:p-14 relative overflow-hidden shadow-2xl border border-white/10">
+<!-- Ambient Cyan Rim Lighting (Unchanged) -->
+<div class="absolute -top-32 -right-32 w-96 h-96 bg-primary-container/30 rounded-full blur-[90px] pointer-events-none"></div>
+<div class="absolute -bottom-32 -left-32 w-96 h-96 bg-tertiary-fixed/15 rounded-full blur-[80px] pointer-events-none"></div>
+
+<div class="relative z-10 max-w-3xl space-y-6">
+<span class="px-3.5 py-1 rounded-full bg-white/10 text-secondary-fixed font-tech text-label-sm font-semibold tracking-wide border border-white/15">
+  Midnight Billing Worker Active • 00:00:00 UTC Daily
+</span>
+<h2 class="font-display-hero text-headline-lg md:text-display-hero font-extrabold leading-tight tracking-tight">
+  Zero-Duplicate Autonomous Billing Guarantees.
+</h2>
+<p class="font-body-lg text-body-lg text-secondary-fixed/90 max-w-2xl leading-relaxed">
+  BrightLoop executes all subscription cycles through cryptographic idempotency keys and row-level database locks (`SELECT ... FOR UPDATE`), preventing missed renewals or duplicate charges.
+</p>
+
+<!-- Compliance Trust Badges -->
+<div class="pt-6 flex flex-wrap items-center gap-6 text-secondary-fixed/70 text-body-sm font-body-sm border-t border-white/10">
+<div class="flex items-center gap-1.5 font-tech text-xs">
+<span class="material-symbols-outlined text-[18px] text-white">verified_user</span>
+<span>Idempotency Key: hash(sub_id + cycle_date)</span>
+</div>
+<div class="flex items-center gap-1.5 font-tech text-xs">
+<span class="material-symbols-outlined text-[18px] text-white">shield</span>
+<span>Redis Distributed Queue (BullMQ)</span>
+</div>
+<div class="flex items-center gap-1.5 font-tech text-xs">
+<span class="material-symbols-outlined text-[18px] text-white">lock</span>
+<span>Argon2id &amp; HttpOnly RBAC Guard</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Footer (Brand Anchor Shared Component) -->
+<footer class="mt-28 w-full rounded-t-lg bg-surface-container-lowest dark:bg-inverse-surface border-t border-glass-border-subtle shadow-none relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-8 py-10 max-w-7xl mx-auto gap-8">
+<!-- Brand & Copyright -->
+<div class="space-y-2 text-center md:text-left">
+<div class="flex items-center justify-center md:justify-start gap-2.5">
+<div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center p-1.5 text-white">
+<img src="logo-icon.svg" alt="BrightLoop" class="w-full h-full" />
+</div>
+<span class="text-headline-sm font-headline-sm text-on-surface font-brand font-bold">BrightLoop</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant font-tech text-xs">
+  © 2026 BrightLoop Technologies Inc. Autonomous Subscription Management System • Customer Portal
+</p>
+</div>
+<!-- Links Cluster -->
+<div class="flex flex-wrap items-center justify-center gap-6 text-xs font-tech">
+<a class="text-on-surface-variant hover:text-primary transition-all" href="#">Security Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-all" href="#">Billing Terms</a>
+<a class="text-on-surface-variant hover:text-primary transition-all" href="#">API SLA</a>
+<a class="text-on-surface-variant hover:text-primary transition-all" href="#">Download Receipts</a>
+</div>
+</div>
+</footer>
+
+<!-- Interactive Surcharge Calculator Logic -->
+<script>
+  const seatSlider = document.getElementById('seat-slider');
+  const seatCountLabel = document.getElementById('seat-count-label');
+  const monthlyTotal = document.getElementById('monthly-total');
+  const annualTotal = document.getElementById('annual-total');
+
+  function updatePricing() {
+    const seats = parseInt(seatSlider.value, 10);
+    seatCountLabel.textContent = `${seats} Seat${seats > 1 ? 's' : ''}`;
+
+    // Base $120 + Pro Surcharge $70 = $190/mo/seat
+    const monthlyCalc = seats * 190;
+    monthlyTotal.textContent = `$${monthlyCalc.toLocaleString()}.00`;
+
+    // Base $1,200 + Odoo Brand Variant $560 = $1,760/yr/seat
+    const annualCalc = seats * 1760;
+    annualTotal.textContent = `$${annualCalc.toLocaleString()}.00`;
+  }
+
+  if (seatSlider) {
+    seatSlider.addEventListener('input', updatePricing);
+  }
+</script>
+</body></html>

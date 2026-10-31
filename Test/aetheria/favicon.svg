@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="fav-primary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0FF" />
+      <stop offset="50%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#1D61E7" />
+    </linearGradient>
+    <linearGradient id="fav-secondary" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#0B1E59" />
+    </linearGradient>
+    <radialGradient id="fav-pulse" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00F0FF" />
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background disc for ultra-clear visibility on dark or light tabs -->
+  <rect width="64" height="64" rx="16" fill="#070D18" />
+  <rect width="62" height="62" x="1" y="1" rx="15" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.5" />
+
+  <g transform="translate(6, 6) scale(0.52)">
+    <!-- Base ribbon -->
+    <path d="M 32 32 C 18 32 10 40 10 50 C 10 60 18 68 32 68 C 42 68 49 61 56 50 C 63 39 70 32 80 32 C 90 32 96 40 96 50 C 96 60 88 68 76 68 C 66 68 59 61 52 50 C 45 39 39 32 32 32 Z" 
+          stroke="url(#fav-secondary)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Overlapping ribbon -->
+    <path d="M 28 65 C 38 65 46 58 53 49 C 61 38 69 32 80 32 C 91 32 96 40 96 50 C 96 60 88 68 76 68" 
+          stroke="url(#fav-primary)" stroke-width="12" stroke-linecap="round" />
+
+    <!-- Highlight core -->
+    <circle cx="50" cy="50" r="10" fill="url(#fav-pulse)" opacity="0.9" />
+    <circle cx="50" cy="50" r="4" fill="#FFFFFF" />
+  </g>
+</svg>
