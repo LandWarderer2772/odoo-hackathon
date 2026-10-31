@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Space Grotesk', monospace, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #050912;
+  color: #f1f5f9;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-tech {
+  font-family: var(--font-mono);
+}
+
+@keyframes logo-shimmer {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.8)) drop-shadow(0 0 35px rgba(29, 97, 231, 0.4));
+  }
+}
+
+.animate-logo-glow {
+  animation: logo-shimmer 4s ease-in-out infinite;
+}
