@@ -1,0 +1,399 @@
+================================================================================
+AETHERIA BACKEND API & FRONTEND INTEGRATION WORKFLOW SPECIFICATION
+================================================================================
+Version: 1.0.0
+Base URL: http://localhost:4000
+Frontend Routing: http://localhost:3000/[tenantSlug] (e.g., /brightloop, /technova)
+Auth Scheme: Bearer JWT Token in "Authorization: Bearer <token>" header OR "token" HttpOnly Cookie
+
+--------------------------------------------------------------------------------
+1. GLOBAL CONVENTIONS & HEADERS
+--------------------------------------------------------------------------------
+All API responses follow a uniform JSON structure:
+Success Response:
+{
+  "success": true,
+  "message": "Optional human-readable message",
+  "data": { ... } or [ ... ],
+  "meta": { ... }
+}
+
+Error Response:
+{
+  "success": false,
+  "message": "Error description",
+  "errors": [ { "field": "email", "message": "Invalid email address" } ]
+}
+
+Tenant Resolution Modes:
+1. Path-Based (Preferred for public portal):
+   GET /api/t/:tenantSlug/plans
+   GET /api/t/:tenantSlug/products
+2. Header-Based (Alternative for API clients):
+   x-tenant-slug: brightloop
+3. Token-Based (Automatic for authenticated requests):
+   The backend resolves business_id automatically from the user's verified JWT.
+
+--------------------------------------------------------------------------------
+2. PRE-SEEDED DEMO CREDENTIALS
+--------------------------------------------------------------------------------
+* Super Admin:
+  Email: admin@aetheria.com | Password: SuperAdmin@12345! | Role: SUPER_ADMIN
+
+* Brightloop Tenant (slug: brightloop):
+  Admin: admin@brightloop.com | Password: Brightloop@12345! | Role: BUSINESS_ADMIN
+  Staff: staff@brightloop.com | Password: Brightloop@12345! | Role: STAFF
+
+* TechNova Tenant (slug: technova):
+  Admin: admin@technova.com   | Password: Technova@12345!   | Role: BUSINESS_ADMIN
+
+--------------------------------------------------------------------------------
+3. USER JOURNEY 1: PUBLIC TENANT LANDING & BRANDING RESOLUTION
+--------------------------------------------------------------------------------
+Trigger: User navigates to http://localhost:3000/brightloop
+
+Step 1.1: Fetch Tenant Brand Identity
+Endpoint: GET /api/tenants/resolve/:slug
+Example:  GET /api/tenants/resolve/brightloop
+Auth:     None (Public)
+Response Data:
+{
+  "id": "e98e00d8-...",
+  "name": "Brightloop Software",
+  "slug": "brightloop",
+  "logoUrl": "https://placehold.co/200x60?text=Brightloop",
+  "primaryColor": "#4F46E5",
+  "secondaryColor": "#1E293B",
+  "email": "contact@brightloop.com",
+  "phone": "+1 555-0199",
+  "address": "123 Cloud Way, Tech City"
+}
+Frontend Action:
+Dynamically apply primaryColor and secondaryColor to navbar, buttons, and logo.
+
+Step 1.2: Fetch Available Subscription Offerings for this Tenant
+Endpoint: GET /api/t/:tenantSlug/plans?currentlyAvailable=true
+Example:  GET /api/t/brightloop/plans?currentlyAvailable=true
+Auth:     None (Public)
+Response Data:
+[
+  {
+    "id": "plan-uuid-1",
+    "name": "Monthly Pro Subscription",
+    "code": "BL-MONTHLY-PRO",
+    "description": "Monthly recurring billing for CRM Pro",
+    "billingCycle": "MONTHLY",
+    "intervalCount": 1,
+    "price": "190.00",
+    "minQuantity": 1,
+    "allowEarlyClosure": true,
+    "allowPausing": true,
+    "allowRenewal": true
+  },
+  {
+    "id": "plan-uuid-2",
+    "name": "Annual Enterprise Retainer",
+    "code": "BL-ANNUAL-ENT",
+    "billingCycle": "YEARLY",
+    "intervalCount": 1,
+    "price": "1800.00",
+    "minQuantity": 1
+  }
+]
+Frontend Action:
+Render pricing cards showcasing plan name, cycle, price, and features.
+
+Step 1.3: Fetch Catalog Goods & Services with Variants
+Endpoint: GET /api/t/:tenantSlug/products
+Example:  GET /api/t/brightloop/products
+Auth:     None (Public)
+Response Data:
+[
+  {
+    "id": "prod-uuid-1",
+    "name": "Cloud CRM SaaS",
+    "type": "SERVICE",
+    "salesPrice": "120.00",
+    "variants": [
+      { "id": "var-1", "name": "Starter Edition", "priceExtra": "0.00" },
+      { "id": "var-2", "name": "Professional Edition", "priceExtra": "70.00" },
+      { "id": "var-3", "name": "Enterprise Edition", "priceExtra": "180.00" }
+    ]
+  }
+]
+
+--------------------------------------------------------------------------------
+4. USER JOURNEY 2: AUTHENTICATION & SESSION
+--------------------------------------------------------------------------------
+Step 2.1: Login
+Endpoint: POST /api/auth/login
+Body:
+{
+  "email": "admin@brightloop.com",
+  "password": "Brightloop@12345!",
+  "tenantSlug": "brightloop" // Optional, verifies tenant membership
+}
+Response Data:
+{
+  "token": "eyJhbGciOiJIUzI1NiIsIn...",
+  "user": {
+    "id": "user-uuid",
+    "email": "admin@brightloop.com",
+    "firstName": "Sarah",
+    "lastName": "Connor",
+    "role": "BUSINESS_ADMIN",
+    "businessId": "tenant-uuid"
+  },
+  "business": {
+    "id": "tenant-uuid",
+    "name": "Brightloop Software",
+    "slug": "brightloop",
+    "primaryColor": "#4F46E5"
+  }
+}
+Frontend Action:
+Store token in memory/localStorage or read from HttpOnly cookie. Redirect to:
+- If role === 'CUSTOMER': /brightloop/portal
+- If role === 'BUSINESS_ADMIN' or 'STAFF': /brightloop/dashboard
+
+Step 2.2: Get Current Session Profile
+Endpoint: GET /api/auth/me
+Headers:  Authorization: Bearer <token>
+Response: Returns current authenticated user and tenant profile.
+
+Step 2.3: Register a New Tenant (Self-Serve Business Onboarding)
+Endpoint: POST /api/auth/register
+Body:
+{
+  "businessName": "Acme Subscriptions",
+  "slug": "acme",
+  "email": "owner@acme.com",
+  "password": "SecurePassword@123!",
+  "firstName": "John",
+  "lastName": "Doe",
+  "phone": "+1 555-9988",
+  "primaryColor": "#2563EB",
+  "secondaryColor": "#1E293B"
+}
+Response: 201 Created with JWT token and created Business and Admin User.
+
+Step 2.4: Real-time Slug Availability Check (During Registration Typing)
+Endpoint: GET /api/tenants/check-slug/:slug
+Example:  GET /api/tenants/check-slug/acme
+Response: { "slug": "acme", "isAvailable": true }
+
+Step 2.5: Password Reset Flow
+Request Token:
+POST /api/auth/forgot-password
+Body: { "email": "user@example.com" }
+Response: { "message": "...", "resetToken": "crypto-token-string" }
+
+Submit New Password:
+POST /api/auth/reset-password
+Body: { "token": "crypto-token-string", "newPassword": "NewPassword@123!" }
+
+--------------------------------------------------------------------------------
+5. USER JOURNEY 3: CUSTOMER SELF-SERVICE PORTAL (/brightloop/portal)
+--------------------------------------------------------------------------------
+Role Required: CUSTOMER (or Staff/Admin testing)
+Headers: Authorization: Bearer <token>
+
+Step 3.1: View My Active Subscriptions
+Endpoint: GET /api/subscriptions
+Query:    status=ACTIVE (Optional filter)
+Response Data:
+[
+  {
+    "id": "sub-uuid-1",
+    "subscriptionNumber": "SUB-2026-0001",
+    "status": "ACTIVE",
+    "startDate": "2026-10-01T00:00:00Z",
+    "nextBillingDate": "2026-11-01T00:00:00Z",
+    "totalAmount": "190.00",
+    "plan": { "name": "Monthly Pro Subscription", "billingCycle": "MONTHLY" },
+    "items": [
+      { "product": { "name": "Cloud CRM SaaS" }, "quantity": 1, "unitPrice": "190.00" }
+    ]
+  }
+]
+
+Step 3.2: View My Invoices
+Endpoint: GET /api/invoices
+Response Data:
+[
+  {
+    "id": "inv-uuid-1",
+    "invoiceNumber": "INV-2026-0001",
+    "status": "CONFIRMED", // DRAFT, CONFIRMED, PARTIALLY_PAID, PAID
+    "invoiceDate": "2026-10-01T00:00:00Z",
+    "dueDate": "2026-10-15T00:00:00Z",
+    "amountTotal": "190.00",
+    "amountPaid": "0.00",
+    "balanceDue": "190.00"
+  }
+]
+
+Step 3.3: View or Download Printable HTML Invoice
+Endpoint: GET /api/invoices/:id/html
+Response: Clean, enterprise printable HTML document formatted with tenant branding.
+
+Step 3.4: View My Payment Receipts
+Endpoint: GET /api/payments
+Response Data:
+[
+  {
+    "id": "pay-uuid-1",
+    "paymentReference": "PAY-2026-1001",
+    "method": "CREDIT_CARD",
+    "amount": "190.00",
+    "paymentDate": "2026-10-05T00:00:00Z",
+    "allocations": [
+      { "invoice": { "invoiceNumber": "INV-2026-0001", "amount": "190.00" } }
+    ]
+  }
+]
+
+--------------------------------------------------------------------------------
+6. USER JOURNEY 4: BUSINESS ADMIN & STAFF DASHBOARD (/brightloop/dashboard)
+--------------------------------------------------------------------------------
+Role Required: BUSINESS_ADMIN or STAFF
+Headers: Authorization: Bearer <token>
+
+--- A. REVENUE & FINANCIAL TELEMETRY ---
+Endpoint: GET /api/reports/analytics
+Response Data:
+{
+  "currency": "USD",
+  "mrr": 2480.00,
+  "arr": 29760.00,
+  "cashCollected": 18240.00,
+  "agedReceivables": {
+    "current": 4500.00,
+    "1_30_days": 1200.00,
+    "31_60_days": 650.00,
+    "61_90_days": 200.00,
+    "90_plus_days": 0.00,
+    "totalOverdue": 2050.00
+  },
+  "activeSubscriptionsCount": 18,
+  "churnRate": 0.0
+}
+Frontend Action:
+Render KPI Metric Cards (MRR, ARR, Cash) and Bar Chart for Aged Receivables.
+
+--- B. PRODUCT & VARIANT CATALOG MANAGEMENT ---
+List Products:
+GET /api/products
+
+Create Product:
+POST /api/products
+Body:
+{
+  "name": "Cloud Storage Add-on",
+  "type": "SERVICE", // SERVICE or GOODS
+  "salesPrice": 25.00,
+  "costPrice": 8.00,
+  "notes": "100GB secure cloud vault",
+  "variants": [
+    { "name": "100GB Standard", "sku": "STG-100", "priceExtra": 0.00 },
+    { "name": "500GB Expanded", "sku": "STG-500", "priceExtra": 45.00 }
+  ]
+}
+
+Add Variant to Existing Product:
+POST /api/products/:productId/variants
+Body: { "name": "1TB Enterprise", "sku": "STG-1TB", "priceExtra": 85.00 }
+
+--- C. SUBSCRIPTION PLAN MANAGEMENT ---
+Create Plan:
+POST /api/plans
+Body:
+{
+  "name": "Quarterly Growth Plan",
+  "code": "GROWTH-QTR",
+  "billingCycle": "MONTHLY",
+  "intervalCount": 3, // Billed every 3 months
+  "price": 540.00,
+  "minQuantity": 1,
+  "startDate": "2026-10-01T00:00:00Z",
+  "allowEarlyClosure": true,
+  "allowPausing": true,
+  "allowRenewal": true
+}
+
+--- D. SUBSCRIPTION LIFECYCLE FSM ---
+1. List Subscriptions:
+   GET /api/subscriptions
+2. Transition State:
+   PATCH /api/subscriptions/:id/status
+   Body: { "action": "CONFIRM" } // Valid actions: CONFIRM, PAUSE, RESUME, CLOSE
+3. Auto-Convert Accepted Quotation into Subscription:
+   POST /api/quotations/:id/convert
+
+--- E. INVOICING & PAYMENT LEDGER ---
+1. Trigger Scheduled Recurring Billing Run (Midnight Billing Engine):
+   POST /api/invoices/process-recurring-billing
+   Response: Scans all active subscriptions due for renewal, advances billing dates,
+   and generates new invoices with tax and discount calculations.
+
+2. Record a Payment & Allocate Against Invoice:
+   POST /api/payments
+   Body:
+   {
+     "invoiceId": "inv-uuid",
+     "amount": 100.00,
+     "method": "BANK_TRANSFER", // BANK_TRANSFER, CREDIT_CARD, CASH, CHECK
+     "notes": "Wire transfer received"
+   }
+   Response:
+   Automatically updates invoice status:
+   - Partial payment -> status becomes "PARTIALLY_PAID"
+   - Settled in full -> status becomes "PAID"
+   - Overpayment (> remaining balance) -> rejected with 400 Bad Request
+
+--- F. STAFF & USER MANAGEMENT (Admin Only) ---
+Add Staff Member:
+POST /api/users/staff
+Body:
+{
+  "email": "alex@brightloop.com",
+  "password": "Password@123!",
+  "firstName": "Alex",
+  "lastName": "Vance",
+  "role": "STAFF" // STAFF or BUSINESS_ADMIN
+}
+
+List Staff:
+GET /api/users
+
+--------------------------------------------------------------------------------
+7. ENTERPRISE BYODB (BRING YOUR OWN DATABASE / TAILSCALE)
+--------------------------------------------------------------------------------
+Tenants can optionally self-host their database and connect via Tailscale private IP.
+
+1. Test Connection:
+POST /api/tenants/test-db
+Headers: Authorization: Bearer <admin_token>
+Body:
+{
+  "connectionUrl": "postgresql://postgres:secret@100.64.0.10:5432/brightloop_db"
+}
+Response:
+{
+  "success": true,
+  "message": "Self-hosted database reachable",
+  "data": { "success": true, "latencyMs": 42 }
+}
+
+2. Save Custom DB URL:
+PATCH /api/tenants/:id
+Body:
+{
+  "customDbUrl": "postgresql://postgres:secret@100.64.0.10:5432/brightloop_db"
+}
+Result:
+Subsequent requests to /brightloop automatically route to their private DB.
+
+================================================================================
+END OF SPECIFICATION
+================================================================================
