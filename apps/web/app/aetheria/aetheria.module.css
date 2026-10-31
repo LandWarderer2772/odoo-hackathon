@@ -1,0 +1,371 @@
+.aetheria {
+  color-scheme: light;
+  --bg: #f3f8fc;
+  --bg-raised: #eaf2fa;
+  --surface: rgba(255, 255, 255, .78);
+  --surface-strong: #fff;
+  --surface-soft: rgba(255, 255, 255, .74);
+  --text: #172438;
+  --muted: #586a80;
+  --subtle: #71829a;
+  --line: rgba(48, 76, 115, .11);
+  --line-strong: rgba(48, 76, 115, .18);
+  --blue: #1676ce;
+  --blue-strong: #1d61e7;
+  --blue-soft: rgba(29, 97, 231, .09);
+  --green: #078b62;
+  --rose: #d93c5f;
+  --shadow: 0 18px 55px rgba(39, 74, 115, .1);
+  --page-glow: rgba(56, 182, 255, .13);
+}
+
+.aetheria[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #080d18;
+  --bg-raised: #0d1422;
+  --surface: rgba(15, 23, 42, .76);
+  --surface-strong: #111b2c;
+  --surface-soft: rgba(17, 27, 44, .68);
+  --text: #edf3fc;
+  --muted: #99a8bc;
+  --subtle: #708199;
+  --line: rgba(194, 213, 242, .11);
+  --line-strong: rgba(194, 213, 242, .19);
+  --blue: #38b6ff;
+  --blue-strong: #3987ff;
+  --blue-soft: rgba(56, 182, 255, .14);
+  --green: #48d6a0;
+  --rose: #ff6682;
+  --shadow: 0 18px 55px rgba(0, 0, 0, .28);
+  --page-glow: rgba(25, 82, 170, .14);
+}
+
+.aetheria, .aetheria * { box-sizing: border-box; }
+.aetheria { scroll-behavior: smooth; scroll-padding-top: 90px; }
+.aetheria { margin: 0; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; line-height: 1.6; transition: background .3s, color .3s; }
+.aetheria::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 50% -20%, var(--page-glow), transparent 52%), radial-gradient(ellipse at 0% 56%, rgba(29, 97, 231, .06), transparent 34%); }
+.aetheria :global(main > .hero), .aetheria :global(main > .telemetry-shell), .aetheria :global(main > section), .aetheria :global(main > .site-footer) { position: relative; z-index: 1; }
+.aetheria :global(.shader-backdrop) { position: fixed; inset: 0; z-index: 0; display: block; width: 100vw; height: 100vh; pointer-events: none; opacity: .34; transition: opacity .4s ease; }
+.aetheria[data-theme="dark"] :global(.shader-backdrop) { opacity: 0; }
+.aetheria :global(button), .aetheria :global(input) { font: inherit; }
+.aetheria :global(button), .aetheria :global(a) { -webkit-tap-highlight-color: transparent; }
+.aetheria :global(a) { color: inherit; text-decoration: none; }
+.aetheria :global(button:focus-visible), .aetheria :global(a:focus-visible), .aetheria :global(input:focus-visible) { outline: 3px solid var(--blue); outline-offset: 3px; }
+.aetheria :global(::selection) { background: var(--blue); color: #fff; }
+.aetheria :global(.material-symbols) { font-family: 'Material Symbols Outlined'; font-weight: normal; font-style: normal; font-size: 20px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-flex; white-space: nowrap; word-wrap: normal; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; font-feature-settings: 'liga'; }
+.aetheria :global(.section-shell) { width: min(1200px, calc(100% - 64px)); margin-inline: auto; }
+.aetheria :global(.site-header) { height: 78px; position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 84%, transparent); border-bottom: 1px solid var(--line); backdrop-filter: blur(22px); }
+.aetheria :global(.nav-shell) { height: 100%; max-width: 1400px; padding: 0 40px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+.aetheria :global(.wordmark) { display: inline-flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 800; letter-spacing: -.7px; white-space: nowrap; }
+.aetheria :global(.brand-mark) { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 12px; color: white; background: linear-gradient(145deg, #58d1ff, #3476f2); box-shadow: 0 6px 20px rgba(56, 182, 255, .25); }
+.aetheria :global(.brand-mark .material-symbols) { font-size: 20px; }
+.aetheria :global(.nav-links) { display: flex; gap: 34px; align-items: center; margin-left: auto; margin-right: auto; color: var(--muted); font-size: 12px; font-weight: 600; }
+.aetheria :global(.nav-links a), .aetheria :global(.site-footer nav a) { transition: color .2s; }
+.aetheria :global(.nav-links a:hover), .aetheria :global(.site-footer nav a:hover) { color: var(--blue); }
+.aetheria :global(.nav-actions) { display: flex; align-items: center; gap: 16px; }
+.aetheria :global(.theme-toggle) { border: 0; background: transparent; color: var(--muted); display: inline-flex; align-items: center; gap: 8px; padding: 8px 0; cursor: pointer; font-size: 11px; font-weight: 700; }
+.aetheria :global(.theme-toggle > .material-symbols) { color: var(--blue); font-size: 17px; }
+.aetheria :global(.toggle-track) { width: 30px; height: 17px; border: 1px solid var(--line-strong); background: var(--surface-strong); border-radius: 20px; padding: 2px; display: flex; transition: .2s; }
+.aetheria :global(.toggle-thumb) { width: 11px; height: 11px; border-radius: 50%; background: var(--blue); transition: transform .2s; }
+.aetheria[data-theme="light"] :global(.toggle-thumb) { transform: translateX(12px); }
+.aetheria :global(.button) { min-height: 48px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; border-radius: 99px; padding: 0 22px; font-size: 12px; font-weight: 700; transition: transform .2s, box-shadow .2s, background .2s, border-color .2s; cursor: pointer; }
+.aetheria :global(.button:hover) { transform: translateY(-2px); }
+.aetheria :global(.button .material-symbols) { font-size: 17px; }
+.aetheria :global(.button-small) { min-height: 40px; padding: 0 17px; font-size: 11px; }
+.aetheria :global(.button-primary) { color: #fff; background: linear-gradient(115deg, #42c7f8, #2663e5); box-shadow: 0 8px 25px rgba(29, 97, 231, .29); }
+.aetheria :global(.button-primary:hover) { box-shadow: 0 10px 32px rgba(29, 97, 231, .43); }
+.aetheria :global(.button-glass) { color: var(--text); background: var(--surface); border: 1px solid var(--line-strong); box-shadow: inset 0 1px rgba(255,255,255,.04); }
+.aetheria :global(.button-glass:hover) { border-color: color-mix(in srgb, var(--blue) 58%, transparent); background: var(--blue-soft); }
+.aetheria :global(.mobile-menu-button) { display: none; border: 0; color: var(--text); background: transparent; padding: 8px; }
+
+.aetheria :global(.hero) { position: relative; min-height: 515px; display: flex; align-items: center; padding-top: 70px; padding-bottom: 65px; overflow: hidden; }
+.aetheria :global(.hero-copy) { position: relative; z-index: 1; width: min(720px, 73%); }
+.aetheria :global(.hero-orb) { position: absolute; border-radius: 50%; filter: blur(2px); pointer-events: none; }
+.aetheria :global(.orb-one) { width: 430px; height: 430px; right: 0; top: 50px; background: radial-gradient(circle, rgba(29, 97, 231, .18), rgba(56, 182, 255, .045) 45%, transparent 70%); animation: orb-drift 14s ease-in-out infinite alternate; }
+.aetheria :global(.orb-two) { width: 280px; height: 280px; right: 110px; top: 110px; border: 1px solid rgba(56, 182, 255, .12); box-shadow: 0 0 70px rgba(29, 97, 231, .1), inset 0 0 60px rgba(29, 97, 231, .08); animation: orb-drift 18s ease-in-out infinite alternate-reverse; }
+.aetheria :global(.announcement), .aetheria :global(.eyebrow) { display: flex; align-items: center; gap: 9px; color: var(--blue); font-size: 9px; font-weight: 800; letter-spacing: 1.25px; }
+.aetheria :global(.announcement) { border: 1px solid var(--line); background: var(--surface-soft); border-radius: 99px; width: fit-content; padding: 8px 12px; margin-bottom: 25px; letter-spacing: .75px; }
+.aetheria :global(.live-dot) { display: inline-block; width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; background: #38d69a; box-shadow: 0 0 10px rgba(56, 214, 154, .8); animation: live-pulse 2s ease-out infinite; }
+.aetheria :global(.announcement-version) { display: inline-flex; align-items: center; gap: 4px; color: var(--muted); border-left: 1px solid var(--line-strong); padding-left: 9px; }
+.aetheria :global(.announcement-version .material-symbols) { font-size: 13px; }
+.aetheria :global(h1), .aetheria :global(h2), .aetheria :global(h3), .aetheria :global(p), .aetheria :global(figure) { margin-top: 0; }
+.aetheria :global(.hero h1) { max-width: 690px; margin-bottom: 18px; font-size: clamp(42px, 6.15vw, 72px); line-height: 1.05; font-weight: 700; letter-spacing: -4px; }
+.aetheria :global(.hero h1 span), .aetheria :global(.text-gradient) { color: transparent; background: linear-gradient(100deg, #71dcff 0%, #48afff 48%, #6886ff 100%); background-clip: text; -webkit-background-clip: text; }
+.aetheria :global(.hero-lede) { max-width: 570px; color: var(--muted); font-size: 15px; line-height: 1.85; margin-bottom: 27px; }
+.aetheria :global(.hero-actions) { display: flex; flex-wrap: wrap; gap: 12px; }
+.aetheria :global(.trust-row) { margin-top: 45px; }
+.aetheria :global(.trust-row > span) { color: var(--subtle); display: block; font-size: 10px; margin-bottom: 13px; }
+.aetheria :global(.customer-logos) { max-width: 570px; display: flex; align-items: center; justify-content: space-between; gap: 17px; color: var(--muted); opacity: .8; }
+.aetheria :global(.customer-logos b) { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; letter-spacing: .4px; }
+.aetheria :global(.customer-logos .material-symbols) { font-size: 16px; }
+.aetheria :global(.hero-stamp) { position: absolute; right: 2%; bottom: 90px; display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 18px; border: 1px solid var(--line-strong); background: var(--surface); backdrop-filter: blur(20px); box-shadow: var(--shadow); transform: rotate(-4deg); animation: stamp-float 5s ease-in-out infinite; }
+.aetheria :global(.stamp-icon) { width: 34px; height: 34px; display: grid; place-items: center; color: var(--green); background: color-mix(in srgb, var(--green) 14%, transparent); border-radius: 12px; }
+.aetheria :global(.stamp-icon .material-symbols) { font-size: 18px; }
+.aetheria :global(.hero-stamp b), .aetheria :global(.hero-stamp small) { display: block; }
+.aetheria :global(.hero-stamp b) { font-size: 10px; }
+.aetheria :global(.hero-stamp small) { color: var(--muted); font-size: 9px; }
+.aetheria :global(.stamp-arrow) { margin-left: 9px; color: var(--blue); }
+
+.aetheria :global(.telemetry-shell) { position: relative; z-index: 2; }
+.aetheria :global(.glass-panel) { background: var(--surface); border: 1px solid var(--line); backdrop-filter: blur(18px) saturate(140%); box-shadow: var(--shadow), inset 0 1px rgba(255,255,255,.035); }
+.aetheria :global(.telemetry) { border-radius: 25px; padding: 27px; overflow: hidden; }
+.aetheria :global(.telemetry-heading) { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 22px; }
+.aetheria :global(.telemetry-heading .eyebrow) { margin-bottom: 8px; }
+.aetheria :global(.telemetry-heading h2) { font-size: 19px; line-height: 1.4; letter-spacing: -.6px; margin: 0 0 4px; }
+.aetheria :global(.telemetry-heading p) { margin: 0; color: var(--muted); font-size: 11px; }
+.aetheria :global(.amp) { color: var(--blue); }
+.aetheria :global(.sync-status) { display: flex; align-items: center; gap: 7px; color: var(--muted); border: 1px solid var(--line); background: var(--surface-soft); border-radius: 99px; padding: 8px 11px; white-space: nowrap; font-size: 10px; }
+.aetheria :global(.sync-status .material-symbols) { color: var(--green); font-size: 15px; animation: icon-spin 5s linear infinite; }
+.aetheria :global(.metric-grid) { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.aetheria :global(.metric-card) { min-width: 0; padding: 15px 16px; border-radius: 16px; background: var(--surface-soft); border: 1px solid var(--line); }
+.aetheria :global(.metric-label) { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; }
+.aetheria :global(.metric-card .metric-label) { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.aetheria :global(.metric-label .material-symbols) { font-size: 17px; color: var(--blue); }
+.aetheria :global(.metric-label .rose) { color: var(--rose); }
+.aetheria :global(.metric-label .green) { color: var(--green); }
+.aetheria :global(.metric-card > strong) { display: block; margin-top: 12px; font-size: 24px; letter-spacing: -1px; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.aetheria :global(.metric-unit) { color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: 0; margin-left: 4px; }
+.aetheria :global(.negative), .aetheria :global(.rose-text) { color: var(--rose); }
+.aetheria :global(.positive), .aetheria :global(.green-text) { color: var(--green); }
+.aetheria :global(.metric-card > small) { display: block; color: var(--muted); font-size: 9px; margin-top: 5px; }
+.aetheria :global(.spend-chart-card) { display: grid; grid-template-columns: 210px 1fr; gap: 20px; padding: 18px 14px 10px; margin-top: 12px; border: 1px solid var(--line); border-radius: 17px; background: color-mix(in srgb, var(--surface-soft) 74%, transparent); }
+.aetheria :global(.chart-copy) { padding: 5px 0 0 5px; }
+.aetheria :global(.chart-copy .metric-label) { font-size: 8px; }
+.aetheria :global(.chart-target) { margin-top: 14px; color: var(--green); font-size: 21px; font-weight: 700; letter-spacing: -.5px; }
+.aetheria :global(.chart-target span) { display: block; color: var(--muted); font-size: 9px; font-weight: 500; letter-spacing: 0; }
+.aetheria :global(.chart-legend) { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; color: var(--muted); font-size: 8px; margin-top: 17px; }
+.aetheria :global(.chart-legend i) { width: 12px; height: 2px; background: #8491a4; border-radius: 3px; margin-left: 2px; }
+.aetheria :global(.chart-legend .legend-blue) { background: var(--blue); }
+.aetheria :global(.chart-wrap) { min-width: 0; position: relative; padding: 4px 0 20px 38px; }
+.aetheria :global(.chart-wrap svg) { display: block; width: 100%; height: 122px; overflow: visible; }
+.aetheria :global(.chart-y-labels) { position: absolute; left: 0; top: 0; bottom: 26px; display: flex; flex-direction: column; justify-content: space-between; color: var(--subtle); font-size: 8px; }
+.aetheria :global(.gridline) { fill: none; stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 5; }
+.aetheria :global(.chart-area) { fill: url(#chartFill); }
+.aetheria :global(.chart-line) { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.5; stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: chart-draw 2.4s cubic-bezier(.2,.65,.3,1) .35s forwards; }
+.aetheria :global(.muted-line) { stroke: #8c9bb0; stroke-width: 1.7; stroke-dasharray: 5 5; opacity: .65; }
+.aetheria :global(.main-line) { stroke: var(--blue); filter: drop-shadow(0 0 5px rgba(56,182,255,.4)); }
+.aetheria :global(.chart-point) { fill: var(--blue); stroke: var(--bg-raised); stroke-width: 3; }
+.aetheria :global(.chart-x-labels) { position: absolute; bottom: 0; left: 38px; right: 0; display: flex; justify-content: space-between; color: var(--subtle); font-size: 8px; }
+.aetheria :global(.vendor-list) { margin-top: 11px; }
+.aetheria :global(.vendor-row) { display: grid; grid-template-columns: 34px minmax(145px, 1.1fr) 100px minmax(150px, 1fr) auto; gap: 12px; align-items: center; min-height: 61px; padding: 8px 9px; border-bottom: 1px solid var(--line); transition: background .2s; }
+.aetheria :global(.vendor-row:last-child) { border-bottom: 0; }
+.aetheria :global(.vendor-row:hover) { background: var(--blue-soft); border-radius: 13px; }
+.aetheria :global(.vendor-icon) { width: 31px; height: 31px; display: grid; place-items: center; background: var(--blue-soft); color: var(--blue); border-radius: 11px; }
+.aetheria :global(.vendor-icon .material-symbols) { font-size: 16px; }
+.aetheria :global(.vendor-name strong), .aetheria :global(.vendor-name span), .aetheria :global(.vendor-amount strong), .aetheria :global(.vendor-amount span) { display: block; }
+.aetheria :global(.vendor-name strong), .aetheria :global(.vendor-amount strong) { font-size: 10px; font-weight: 700; }
+.aetheria :global(.vendor-name span), .aetheria :global(.vendor-amount span) { color: var(--muted); font-size: 9px; }
+.aetheria :global(.vendor-amount) { font-variant-numeric: tabular-nums; }
+.aetheria :global(.vendor-note) { color: var(--muted); font-size: 9px; }
+.aetheria :global(.status-pill) { display: inline-flex; align-items: center; gap: 6px; color: var(--green); background: color-mix(in srgb, var(--green) 10%, transparent); border: 1px solid color-mix(in srgb, var(--green) 22%, transparent); border-radius: 99px; padding: 5px 8px; white-space: nowrap; font-size: 8px; font-weight: 700; }
+.aetheria :global(.status-pill > span) { width: 5px; height: 5px; background: currentColor; border-radius: 50%; }
+.aetheria :global(.status-warning) { color: #eda84b; background: rgba(237, 168, 75, .1); border-color: rgba(237, 168, 75, .2); }
+
+.aetheria :global(.content-section) { padding-top: 110px; }
+.aetheria :global(.section-heading) { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 32px; }
+.aetheria :global(.section-heading .eyebrow) { margin-bottom: 12px; }
+.aetheria :global(.section-heading h2), .aetheria :global(.impact-copy h2) { margin: 0; font-size: clamp(32px, 4vw, 46px); line-height: 1.16; letter-spacing: -2px; }
+.aetheria :global(.section-heading > p) { max-width: 390px; margin: 0 0 4px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+.aetheria :global(.feature-grid) { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.aetheria :global(.feature-card) { min-height: 250px; padding: 19px 17px 16px; border-radius: 18px; display: flex; flex-direction: column; transition: transform .2s, border-color .2s, box-shadow .2s; }
+.aetheria :global(.feature-card:hover) { transform: translateY(-4px); border-color: color-mix(in srgb, var(--blue) 45%, var(--line)); box-shadow: var(--shadow), 0 0 30px rgba(56,182,255,.08); }
+.aetheria :global(.feature-top) { display: flex; justify-content: space-between; align-items: center; margin-bottom: 19px; }
+.aetheria :global(.feature-icon) { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 14px; color: var(--blue); background: var(--blue-soft); }
+.aetheria :global(.feature-icon .material-symbols) { font-size: 20px; }
+.aetheria :global(.feature-index) { color: var(--subtle); font-size: 9px; letter-spacing: 1px; }
+.aetheria :global(.feature-card h3) { font-size: 14px; line-height: 1.45; margin: 0 0 9px; letter-spacing: -.3px; }
+.aetheria :global(.feature-card > p) { color: var(--muted); font-size: 10px; line-height: 1.75; margin: 0 0 16px; }
+.aetheria :global(.feature-proof) { display: flex; align-items: center; gap: 6px; margin-top: auto; color: var(--blue); font-size: 8px; font-weight: 700; }
+.aetheria :global(.feature-proof .material-symbols) { font-size: 14px; }
+.aetheria :global(.feature-proof .proof-arrow) { margin-left: auto; color: var(--muted); }
+
+.aetheria :global(.impact-section) { margin-top: 110px; padding: 78px 0; background: linear-gradient(110deg, transparent, var(--blue-soft), transparent); border-block: 1px solid var(--line); }
+.aetheria :global(.impact-layout) { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: center; }
+.aetheria :global(.impact-copy .eyebrow) { margin-bottom: 17px; }
+.aetheria :global(.impact-copy h2) { font-size: clamp(38px, 4.5vw, 54px); }
+.aetheria :global(.impact-copy > p) { max-width: 350px; margin: 16px 0 18px; color: var(--muted); font-size: 12px; line-height: 1.85; }
+.aetheria :global(.text-link) { display: inline-flex; align-items: center; gap: 7px; color: var(--blue); font-size: 11px; font-weight: 700; }
+.aetheria :global(.text-link .material-symbols) { font-size: 15px; }
+.aetheria :global(.calculator) { border-radius: 22px; padding: 24px; }
+.aetheria :global(.calc-top) { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.aetheria :global(.calc-top h3) { margin: 5px 0 0; font-size: 15px; }
+.aetheria :global(.employee-count) { font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.aetheria :global(.employee-count small) { color: var(--muted); font-size: 9px; font-weight: 500; }
+.aetheria :global(input[type="range"]) { width: 100%; height: 5px; appearance: none; border-radius: 9px; background: linear-gradient(to right, var(--blue) var(--range-progress), var(--line-strong) var(--range-progress)); cursor: pointer; }
+.aetheria :global(input[type="range"]::-webkit-slider-thumb) { appearance: none; width: 17px; height: 17px; background: var(--blue); border: 4px solid var(--surface-strong); border-radius: 50%; box-shadow: 0 0 0 1px var(--blue); }
+.aetheria :global(input[type="range"]::-moz-range-thumb) { width: 11px; height: 11px; background: var(--blue); border: 3px solid var(--surface-strong); border-radius: 50%; box-shadow: 0 0 0 1px var(--blue); }
+.aetheria :global(.range-labels) { display: flex; justify-content: space-between; color: var(--subtle); font-size: 8px; margin-top: 9px; }
+.aetheria :global(.calc-results) { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--line); }
+.aetheria :global(.calc-results > div) { display: flex; flex-direction: column; }
+.aetheria :global(.calc-results strong) { margin-top: 8px; color: var(--blue); font-size: 29px; line-height: 1.2; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+.aetheria :global(.calc-results strong i) { font-size: 12px; font-style: normal; letter-spacing: 0; }
+.aetheria :global(.calc-results small) { color: var(--muted); margin-top: 4px; font-size: 8px; }
+.aetheria :global(.calc-button) { margin-top: 22px; width: 100%; }
+
+.aetheria :global(.testimonials-section) { padding-top: 100px; }
+.aetheria :global(.quote-grid) { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+.aetheria :global(.quote-card) { margin: 0; min-height: 206px; padding: 19px; border-radius: 18px; display: flex; flex-direction: column; }
+.aetheria :global(.stars) { color: #efb44f; font-size: 13px; letter-spacing: 3px; }
+.aetheria :global(.quote-card blockquote) { margin: 13px 0 19px; color: var(--text); font-size: 11px; line-height: 1.8; }
+.aetheria :global(.quote-card figcaption) { display: flex; align-items: center; gap: 9px; margin-top: auto; }
+.aetheria :global(.avatar) { display: grid; place-items: center; width: 31px; height: 31px; flex: 0 0 31px; color: var(--blue); background: var(--blue-soft); border-radius: 50%; font-size: 9px; font-weight: 800; }
+.aetheria :global(.quote-card figcaption b), .aetheria :global(.quote-card figcaption small) { display: block; }
+.aetheria :global(.quote-card figcaption b) { font-size: 9px; }
+.aetheria :global(.quote-card figcaption small) { color: var(--muted); font-size: 8px; }
+.aetheria :global(.quote-card figcaption > .material-symbols) { color: var(--blue); opacity: .55; margin-left: auto; font-size: 21px; }
+
+.aetheria :global(.pricing-section) { padding-top: 110px; }
+.aetheria :global(.pricing-heading) { align-items: center; }
+.aetheria :global(.pricing-heading h2) { font-size: clamp(30px, 3.6vw, 42px); }
+.aetheria :global(.pricing-heading p) { color: var(--muted); font-size: 11px; margin: 8px 0 0; }
+.aetheria :global(.billing-toggle) { flex: 0 0 auto; display: flex; align-items: center; padding: 4px; gap: 2px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface-soft); }
+.aetheria :global(.billing-toggle button) { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 0; border-radius: 99px; background: transparent; color: var(--muted); cursor: pointer; font-size: 9px; font-weight: 700; }
+.aetheria :global(.billing-toggle button.selected) { color: var(--text); background: var(--surface-strong); box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.aetheria :global(.billing-toggle button span) { color: var(--green); background: color-mix(in srgb, var(--green) 12%, transparent); padding: 3px 6px; border-radius: 99px; font-size: 8px; }
+.aetheria :global(.pricing-grid) { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: stretch; }
+.aetheria :global(.price-card) { position: relative; padding: 23px 21px; border-radius: 19px; overflow: hidden; }
+.aetheria :global(.price-card.popular) { border-color: color-mix(in srgb, var(--blue) 50%, var(--line)); box-shadow: var(--shadow), 0 0 28px rgba(56,182,255,.1); }
+.aetheria :global(.popular-tag) { position: absolute; right: 15px; top: 15px; display: flex; align-items: center; gap: 4px; color: var(--blue); font-size: 8px; font-weight: 800; letter-spacing: .7px; }
+.aetheria :global(.popular-tag .material-symbols) { font-size: 13px; }
+.aetheria :global(.plan-eyebrow) { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; }
+.aetheria :global(.price-card h3) { margin: 7px 0 5px; font-size: 21px; letter-spacing: -.5px; }
+.aetheria :global(.plan-description) { min-height: 35px; margin: 0; color: var(--muted); font-size: 9px; line-height: 1.65; }
+.aetheria :global(.price) { min-height: 55px; display: flex; align-items: baseline; gap: 6px; margin-top: 10px; }
+.aetheria :global(.price strong) { font-size: 31px; line-height: 1.2; letter-spacing: -1.3px; }
+.aetheria :global(.price span) { color: var(--muted); font-size: 9px; }
+.aetheria :global(.billed-note) { min-height: 13px; margin-top: -5px; color: var(--subtle); font-size: 8px; }
+.aetheria :global(.plan-button) { width: 100%; min-height: 42px; justify-content: space-between; margin-top: 15px; padding-inline: 14px; font-size: 9px; }
+.aetheria :global(.plan-button .material-symbols) { font-size: 15px; }
+.aetheria :global(.plan-divider) { height: 1px; background: var(--line); margin: 18px 0 14px; }
+.aetheria :global(.price-card ul) { display: flex; flex-direction: column; gap: 11px; list-style: none; margin: 0; padding: 0; }
+.aetheria :global(.price-card li) { display: flex; align-items: flex-start; gap: 8px; color: var(--muted); font-size: 9px; line-height: 1.5; }
+.aetheria :global(.price-card li .material-symbols) { flex: 0 0 auto; color: var(--green); font-size: 14px; }
+.aetheria :global(.pricing-footnote) { display: flex; justify-content: center; align-items: center; gap: 7px; margin: 18px 0 0; color: var(--muted); font-size: 9px; }
+.aetheria :global(.pricing-footnote .material-symbols) { color: var(--green); font-size: 14px; }
+
+.aetheria :global(.closing-cta) { position: relative; isolation: isolate; overflow: hidden; margin-top: 105px; margin-bottom: 65px; padding: 56px 25px; text-align: center; border: 1px solid var(--line-strong); border-radius: 25px; background: linear-gradient(125deg, color-mix(in srgb, var(--surface-strong) 96%, #154b92), var(--surface-strong)); box-shadow: var(--shadow); }
+.aetheria :global(.cta-glow) { position: absolute; width: 540px; height: 300px; left: 50%; top: -180px; transform: translateX(-50%); border-radius: 50%; background: rgba(56, 182, 255, .22); filter: blur(90px); z-index: -1; }
+.aetheria :global(.closing-cta > .eyebrow) { justify-content: center; }
+.aetheria :global(.closing-cta h2) { margin: 15px 0 10px; font-size: clamp(34px, 4.4vw, 50px); line-height: 1.15; letter-spacing: -2px; }
+.aetheria :global(.closing-cta h2 span) { color: var(--blue); }
+.aetheria :global(.closing-cta > p) { max-width: 590px; margin: 0 auto 22px; color: var(--muted); font-size: 11px; line-height: 1.8; }
+.aetheria :global(.closing-cta .hero-actions) { justify-content: center; }
+.aetheria :global(.compliance-row) { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 21px; margin-top: 31px; color: var(--muted); }
+.aetheria :global(.compliance-row span) { display: inline-flex; align-items: center; gap: 6px; font-size: 8px; }
+.aetheria :global(.compliance-row .material-symbols) { color: var(--blue); font-size: 14px; }
+.aetheria :global(.site-footer) { border-top: 1px solid var(--line); background: var(--surface-soft); }
+.aetheria :global(.footer-shell) { min-height: 100px; max-width: 1280px; margin: auto; padding: 22px 32px; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+.aetheria :global(.footer-shell .wordmark) { font-size: 15px; }
+.aetheria :global(.footer-shell .brand-mark) { width: 27px; height: 27px; border-radius: 9px; }
+.aetheria :global(.footer-shell .brand-mark .material-symbols) { font-size: 16px; }
+.aetheria :global(.footer-shell p) { margin: 6px 0 0; color: var(--muted); font-size: 8px; }
+.aetheria :global(.site-footer nav) { display: flex; align-items: center; gap: 19px; color: var(--muted); font-size: 9px; }
+.aetheria :global(.footer-shell > .theme-toggle) { flex: 0 0 auto; }
+
+@keyframes live-pulse { 0% { box-shadow: 0 0 0 0 rgba(56, 214, 154, .42), 0 0 10px rgba(56, 214, 154, .55); } 70% { box-shadow: 0 0 0 6px rgba(56, 214, 154, 0), 0 0 12px rgba(56, 214, 154, .3); } 100% { box-shadow: 0 0 0 0 rgba(56, 214, 154, 0), 0 0 10px rgba(56, 214, 154, .5); } }
+@keyframes icon-spin { to { transform: rotate(360deg); } }
+@keyframes chart-draw { to { stroke-dashoffset: 0; } }
+@keyframes orb-drift { from { transform: translate3d(0, 0, 0) scale(.96); } to { transform: translate3d(-24px, 18px, 0) scale(1.05); } }
+@keyframes stamp-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+
+@media (min-width: 1500px) { .aetheria :global(.hero) { min-height: 570px; } }
+@media (max-width: 1000px) {
+  .aetheria :global(.section-shell) { width: min(100% - 48px, 850px); }
+  .aetheria :global(.nav-shell) { padding-inline: 24px; }
+  .aetheria :global(.nav-links) { gap: 19px; }
+  .aetheria :global(.hero-copy) { width: 78%; }
+  .aetheria :global(.hero-stamp) { right: 1%; bottom: 58px; }
+  .aetheria :global(.feature-grid) { grid-template-columns: repeat(2, 1fr); }
+  .aetheria :global(.feature-card) { min-height: 220px; }
+  .aetheria :global(.impact-layout) { gap: 35px; }
+  .aetheria :global(.vendor-row) { grid-template-columns: 34px minmax(125px, 1fr) 75px auto; }
+  .aetheria :global(.vendor-note) { display: none; }
+}
+@media (max-width: 700px) {
+  .aetheria { scroll-padding-top: 74px; }
+  .aetheria :global(.section-shell) { width: calc(100% - 34px); }
+  .aetheria :global(.site-header) { height: 66px; }
+  .aetheria :global(.nav-shell) { padding-inline: 17px; gap: 12px; }
+  .aetheria :global(.wordmark) { font-size: 17px; }
+  .aetheria :global(.mobile-menu-button) { display: inline-grid; place-items: center; order: 3; }
+  .aetheria :global(.mobile-menu-button .material-symbols) { font-size: 23px; }
+  .aetheria :global(.nav-actions) { margin-left: auto; gap: 12px; }
+  .aetheria :global(.nav-actions .theme-toggle > span:not(.toggle-track):not(.material-symbols)) { display: none; }
+  .aetheria :global(.nav-actions .button) { min-height: 36px; padding-inline: 12px; font-size: 9px; gap: 5px; }
+  .aetheria :global(.nav-actions .button .material-symbols) { font-size: 14px; }
+  .aetheria :global(.nav-links) { display: none; position: absolute; top: 65px; left: 0; right: 0; padding: 12px 20px 18px; background: var(--bg-raised); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); flex-direction: column; align-items: stretch; gap: 0; }
+  .aetheria :global(.nav-links.nav-open) { display: flex; }
+  .aetheria :global(.nav-links a) { padding: 12px 5px; border-bottom: 1px solid var(--line); }
+  .aetheria :global(.nav-links a:last-child) { border-bottom: 0; }
+  .aetheria :global(.hero) { min-height: 550px; align-items: flex-start; padding-top: 65px; padding-bottom: 35px; }
+  .aetheria :global(.hero-copy) { width: 100%; }
+  .aetheria :global(.hero h1) { max-width: 520px; font-size: clamp(43px, 11vw, 63px); letter-spacing: -2.7px; }
+  .aetheria :global(.hero-lede) { max-width: 470px; font-size: 13px; }
+  .aetheria :global(.announcement) { font-size: 7px; letter-spacing: .45px; }
+  .aetheria :global(.hero-orb) { top: 200px; right: -110px; opacity: .65; }
+  .aetheria :global(.hero-stamp) { right: 13px; bottom: 15px; transform: rotate(-2deg) scale(.9); transform-origin: bottom right; }
+  .aetheria :global(.trust-row) { margin-top: 32px; }
+  .aetheria :global(.customer-logos) { flex-wrap: wrap; justify-content: flex-start; column-gap: 17px; row-gap: 10px; max-width: 400px; }
+  .aetheria :global(.customer-logos b) { font-size: 9px; }
+  .aetheria :global(.telemetry) { padding: 17px 13px; border-radius: 19px; }
+  .aetheria :global(.telemetry-heading) { align-items: flex-start; }
+  .aetheria :global(.telemetry-heading h2) { font-size: 15px; }
+  .aetheria :global(.telemetry-heading p) { font-size: 9px; }
+  .aetheria :global(.sync-status) { font-size: 0; padding: 8px; }
+  .aetheria :global(.sync-status .material-symbols) { font-size: 17px; }
+  .aetheria :global(.metric-grid) { grid-template-columns: 1fr; gap: 7px; }
+  .aetheria :global(.metric-card) { padding: 10px 12px; display: grid; grid-template-columns: 1fr auto; align-items: center; }
+  .aetheria :global(.metric-card .metric-label) { grid-column: 1 / -1; font-size: 8px; }
+  .aetheria :global(.metric-card > strong) { margin-top: 3px; font-size: 19px; }
+  .aetheria :global(.metric-card > small) { text-align: right; font-size: 8px; margin-top: 3px; }
+  .aetheria :global(.spend-chart-card) { display: block; padding: 13px 10px 10px; }
+  .aetheria :global(.chart-copy) { display: flex; align-items: center; justify-content: space-between; gap: 7px; padding: 0 2px 8px; }
+  .aetheria :global(.chart-copy .metric-label) { max-width: 100px; line-height: 1.5; }
+  .aetheria :global(.chart-target) { margin: 0; text-align: right; font-size: 15px; }
+  .aetheria :global(.chart-target span) { font-size: 8px; }
+  .aetheria :global(.chart-legend) { display: none; }
+  .aetheria :global(.chart-wrap) { padding-left: 32px; }
+  .aetheria :global(.chart-wrap svg) { height: 100px; }
+  .aetheria :global(.chart-x-labels) { left: 32px; }
+  .aetheria :global(.vendor-row) { grid-template-columns: 29px minmax(105px, 1fr) auto; gap: 8px; min-height: 57px; padding: 7px 3px; }
+  .aetheria :global(.vendor-icon) { width: 27px; height: 27px; }
+  .aetheria :global(.vendor-name strong), .aetheria :global(.vendor-amount strong) { font-size: 9px; }
+  .aetheria :global(.vendor-name span), .aetheria :global(.vendor-amount span) { font-size: 8px; }
+  .aetheria :global(.status-pill) { grid-column: 2 / 4; justify-self: start; margin-top: -4px; padding: 3px 6px; font-size: 7px; }
+  .aetheria :global(.vendor-amount) { grid-column: 3; grid-row: 1; text-align: right; }
+  .aetheria :global(.content-section) { padding-top: 75px; }
+  .aetheria :global(.section-heading) { display: block; margin-bottom: 22px; }
+  .aetheria :global(.section-heading h2), .aetheria :global(.impact-copy h2) { font-size: 35px; letter-spacing: -1.5px; }
+  .aetheria :global(.section-heading > p) { margin-top: 13px; max-width: 460px; font-size: 11px; }
+  .aetheria :global(.feature-grid) { gap: 9px; }
+  .aetheria :global(.feature-card) { min-height: 240px; padding: 13px 12px; }
+  .aetheria :global(.feature-top) { margin-bottom: 13px; }
+  .aetheria :global(.feature-icon) { width: 34px; height: 34px; border-radius: 11px; }
+  .aetheria :global(.feature-card h3) { font-size: 12px; }
+  .aetheria :global(.feature-card > p) { font-size: 9px; }
+  .aetheria :global(.feature-proof) { font-size: 7px; }
+  .aetheria :global(.impact-section) { margin-top: 75px; padding: 55px 0; }
+  .aetheria :global(.impact-layout) { grid-template-columns: 1fr; gap: 22px; }
+  .aetheria :global(.impact-copy > p) { margin-block: 12px; }
+  .aetheria :global(.calculator) { padding: 17px; }
+  .aetheria :global(.calc-results) { gap: 10px; }
+  .aetheria :global(.calc-results strong) { font-size: 25px; }
+  .aetheria :global(.quote-grid) { grid-template-columns: 1fr; gap: 9px; }
+  .aetheria :global(.quote-card) { min-height: 0; padding: 16px; }
+  .aetheria :global(.quote-card blockquote) { margin: 9px 0 14px; }
+  .aetheria :global(.pricing-heading) { display: flex; flex-direction: column; align-items: flex-start; gap: 17px; }
+  .aetheria :global(.pricing-grid) { grid-template-columns: 1fr; gap: 11px; }
+  .aetheria :global(.price-card) { padding: 20px; }
+  .aetheria :global(.plan-description) { min-height: 0; }
+  .aetheria :global(.billing-toggle) { align-self: flex-start; }
+  .aetheria :global(.closing-cta) { margin-top: 75px; margin-bottom: 40px; padding: 42px 17px; }
+  .aetheria :global(.closing-cta h2) { font-size: 36px; letter-spacing: -1.5px; }
+  .aetheria :global(.closing-cta .hero-actions) { flex-direction: column; }
+  .aetheria :global(.compliance-row) { gap: 11px 17px; }
+  .aetheria :global(.footer-shell) { padding: 23px 18px; flex-wrap: wrap; gap: 15px; }
+  .aetheria :global(.site-footer nav) { order: 3; width: 100%; flex-wrap: wrap; gap: 11px 17px; }
+  .aetheria :global(.footer-shell > .theme-toggle) { margin-left: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aetheria, .aetheria *, .aetheria :global(*::before), .aetheria :global(*::after) { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
