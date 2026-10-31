@@ -1,12 +1,13 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { eq } from 'drizzle-orm';
-import { businesses, Business } from '@brightloop/db';
+import { businesses, Business, getTenantDb, Database } from '@brightloop/db';
 import { ForbiddenError, NotFoundError, UnauthorizedError } from '../utils/errors.js';
 
 declare module 'fastify' {
   interface FastifyRequest {
     tenant?: Business;
     businessId?: string;
+    tenantDb?: Database;
   }
 }
 
@@ -62,6 +63,7 @@ export async function resolveTenant(request: FastifyRequest, reply: FastifyReply
     }
     request.tenant = tenant;
     request.businessId = tenant.id;
+    request.tenantDb = getTenantDb(tenant.customDbUrl);
   }
 }
 

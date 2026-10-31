@@ -22,6 +22,12 @@ export const updateTenantSchema = z.object({
   email: z.string().email('Invalid email address').optional().nullable(),
   phone: z.string().optional().nullable(),
   address: z.string().optional().nullable(),
+  customDbUrl: z.string().optional().nullable(),
+});
+
+export const testDbConnectionSchema = z.object({
+  connectionUrl: z.string().min(10, 'PostgreSQL connection URL is required'),
 });
 
 export type UpdateTenantInput = z.infer<typeof updateTenantSchema>;
+export type TestDbConnectionInput = z.infer<typeof testDbConnectionSchema>;
