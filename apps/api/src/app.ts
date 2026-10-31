@@ -76,8 +76,11 @@ export async function buildApp(): Promise<FastifyInstance> {
       await tenantScope.register(productRoutes, { prefix: '/products' });
       await tenantScope.register(planRoutes, { prefix: '/plans' });
       await tenantScope.register(customerRoutes, { prefix: '/customers' });
+      await tenantScope.register(quotationRoutes, { prefix: '/quotations' });
       await tenantScope.register(subscriptionRoutes, { prefix: '/subscriptions' });
       await tenantScope.register(invoiceRoutes, { prefix: '/invoices' });
+      await tenantScope.register(paymentRoutes, { prefix: '/payments' });
+      await tenantScope.register(reportRoutes, { prefix: '/reports' });
     },
     { prefix: '/api/t/:tenantSlug' }
   );
