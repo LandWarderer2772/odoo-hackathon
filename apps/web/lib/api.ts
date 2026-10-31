@@ -730,10 +730,10 @@ class ApiClient {
   async createProduct(payload: {
     name: string
     type: 'SERVICE' | 'GOODS'
-    salesPrice: number
-    costPrice?: number
+    salesPrice: number | string
+    costPrice?: number | string
     notes?: string
-    variants?: { name: string; sku: string; priceExtra: number }[]
+    variants?: { name: string; sku?: string; priceExtra?: number | string }[]
   }): Promise<Product> {
     try {
       const res = await fetch(`${this.baseUrl}/api/products`, {
@@ -751,19 +751,24 @@ class ApiClient {
       }
     } catch (_) {}
 
+    const parseNum = (val: number | string | undefined, def = 0) => {
+      const n = typeof val === 'number' ? val : parseFloat(val || '0')
+      return isNaN(n) ? def : n
+    }
+
     const newProd: Product = {
       id: `prod-${Date.now()}`,
       name: payload.name,
       type: payload.type,
-      salesPrice: payload.salesPrice.toFixed(2),
-      costPrice: payload.costPrice?.toFixed(2) || '0.00',
+      salesPrice: parseNum(payload.salesPrice).toFixed(2),
+      costPrice: parseNum(payload.costPrice).toFixed(2),
       notes: payload.notes,
       variants:
         payload.variants?.map((v, i) => ({
           id: `var-${Date.now()}-${i}`,
           name: v.name,
-          sku: v.sku,
-          priceExtra: v.priceExtra.toFixed(2),
+          sku: v.sku || `SKU-${Date.now()}-${i}`,
+          priceExtra: parseNum(v.priceExtra).toFixed(2),
         })) || [],
     }
     SEED_PRODUCTS.push(newProd)
@@ -771,9 +776,10 @@ class ApiClient {
   }
 
   // Plans (Workflow Section 3 & 6.C)
-  async getPlans(slug = 'brightloop'): Promise<Plan[]> {
+  async getPlans(slug = 'brightloop', options?: { currentlyAvailable?: boolean }): Promise<Plan[]> {
     try {
-      const res = await fetch(`${this.baseUrl}/api/t/${slug}/plans?currentlyAvailable=true`, {
+      const query = options?.currentlyAvailable !== undefined ? `?currentlyAvailable=${options.currentlyAvailable}` : '?currentlyAvailable=true'
+      const res = await fetch(`${this.baseUrl}/api/t/${slug}/plans${query}`, {
         signal: AbortSignal.timeout(1200),
       })
       if (res.ok) {
@@ -782,6 +788,79 @@ class ApiClient {
       }
     } catch (_) {}
     return SEED_PLANS
+  }
+
+  async createPlan(payload: {
+    name: string
+    code: string
+    description?: string
+    billingCycle: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'YEARLY'
+    intervalCount: number
+    price: string
+    minQuantity?: number
+    allowPausing?: boolean
+    allowEarlyClosure?: boolean
+    allowRenewal?: boolean
+  }): Promise<Plan> {
+    try {
+      const res = await fetch(`${this.baseUrl}/api/plans`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.token}`,
+        },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(2000),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.data) return json.data
+      }
+    } catch (_) {}
+
+    const newPlan: Plan = {
+      id: `plan-${Date.now()}`,
+      name: payload.name,
+      code: payload.code,
+      description: payload.description,
+      billingCycle: payload.billingCycle,
+      intervalCount: payload.intervalCount,
+      price: payload.price,
+      minQuantity: payload.minQuantity ?? 1,
+      allowEarlyClosure: payload.allowEarlyClosure ?? true,
+      allowPausing: payload.allowPausing ?? true,
+      allowRenewal: payload.allowRenewal ?? true,
+    }
+    SEED_PLANS.unshift(newPlan)
+    return newPlan
+  }
+
+  async updateSubscriptionStatus(
+    id: string,
+    action: 'CONFIRM' | 'PAUSE' | 'RESUME' | 'CLOSE',
+    reason?: string
+  ): Promise<Subscription> {
+    const res = await this.transitionSubscription(id, action, reason)
+    const sub = SEED_SUBSCRIPTIONS.find((s) => s.id === id)
+    if (sub) {
+      sub.status = (res.newStatus as any) || sub.status
+      return { ...sub }
+    }
+    return {
+      id,
+      subscriptionNumber: `SUB-${id}`,
+      status: (res.newStatus as any) || 'ACTIVE',
+      startDate: new Date().toISOString().split('T')[0],
+      nextBillingDate: new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0],
+      totalAmount: '0.00',
+      customerName: 'Customer',
+      plan: { name: 'Plan', billingCycle: 'MONTHLY' },
+      items: [],
+    }
+  }
+
+  async triggerRecurringBilling(): Promise<{ processedCount: number; invoicesGenerated: number }> {
+    return this.runScheduledBilling()
   }
 
   // Staff Users (Workflow Section 6.F)

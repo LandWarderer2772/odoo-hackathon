@@ -8,14 +8,18 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "dependencies": {
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "devDependencies": {
     "@types/node": "^20.14.0",
-    "@types/react": "19.3.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5.5.4"
-  },
-  "dependencies": {
-    "next": "^16.4.3",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1"
   }
 }
