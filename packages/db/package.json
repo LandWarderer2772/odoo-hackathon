@@ -1,0 +1,11 @@
+{
+  "name": "@brightloop/db",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx src/seeds/index.ts"
+  }
+}

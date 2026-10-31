@@ -1,0 +1,10 @@
+{
+  "name": "@brightloop/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup",
+    "start": "node dist/server.js"
+  }
+}

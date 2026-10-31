@@ -1,0 +1,13 @@
+{
+  "name": "brightloop-subscription-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "db:generate": "pnpm --filter @brightloop/db db:generate",
+    "db:migrate": "pnpm --filter @brightloop/db db:migrate",
+    "db:seed": "pnpm --filter @brightloop/db db:seed"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
