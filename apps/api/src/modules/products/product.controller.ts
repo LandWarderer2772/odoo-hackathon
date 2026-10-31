@@ -17,7 +17,7 @@ export class ProductController {
     }
 
     const validated = createProductSchema.parse(request.body);
-    const result = await productService.createProduct(businessId, validated);
+    const result = await productService.createProduct(businessId, validated, request.tenantDb);
     return reply.status(201).send(successResponse(result, 'Product created successfully'));
   }
 
@@ -28,10 +28,14 @@ export class ProductController {
     }
 
     const query = request.query as { type?: 'SERVICE' | 'GOODS'; activeOnly?: string };
-    const result = await productService.listProducts(businessId, {
-      type: query.type,
-      activeOnly: query.activeOnly === 'true',
-    });
+    const result = await productService.listProducts(
+      businessId,
+      {
+        type: query.type,
+        activeOnly: query.activeOnly === 'true',
+      },
+      request.tenantDb
+    );
     return reply.send(successResponse(result));
   }
 
@@ -42,7 +46,7 @@ export class ProductController {
     }
 
     const { id } = request.params as { id: string };
-    const result = await productService.getProductById(businessId, id);
+    const result = await productService.getProductById(businessId, id, request.tenantDb);
     return reply.send(successResponse(result));
   }
 
@@ -54,7 +58,7 @@ export class ProductController {
 
     const { id } = request.params as { id: string };
     const validated = updateProductSchema.parse(request.body);
-    const result = await productService.updateProduct(businessId, id, validated);
+    const result = await productService.updateProduct(businessId, id, validated, request.tenantDb);
     return reply.send(successResponse(result, 'Product updated successfully'));
   }
 
@@ -65,7 +69,7 @@ export class ProductController {
     }
 
     const { id } = request.params as { id: string };
-    const result = await productService.deleteProduct(businessId, id);
+    const result = await productService.deleteProduct(businessId, id, request.tenantDb);
     return reply.send(successResponse(result, 'Product deactivated successfully'));
   }
 
@@ -77,7 +81,7 @@ export class ProductController {
 
     const { id: productId } = request.params as { id: string };
     const validated = createVariantSchema.parse(request.body);
-    const result = await productService.addVariant(businessId, productId, validated);
+    const result = await productService.addVariant(businessId, productId, validated, request.tenantDb);
     return reply.status(201).send(successResponse(result, 'Variant added successfully'));
   }
 
@@ -89,7 +93,13 @@ export class ProductController {
 
     const { id: productId, variantId } = request.params as { id: string; variantId: string };
     const validated = updateVariantSchema.parse(request.body);
-    const result = await productService.updateVariant(businessId, productId, variantId, validated);
+    const result = await productService.updateVariant(
+      businessId,
+      productId,
+      variantId,
+      validated,
+      request.tenantDb
+    );
     return reply.send(successResponse(result, 'Variant updated successfully'));
   }
 
@@ -100,7 +110,7 @@ export class ProductController {
     }
 
     const { id: productId, variantId } = request.params as { id: string; variantId: string };
-    const result = await productService.deleteVariant(businessId, productId, variantId);
+    const result = await productService.deleteVariant(businessId, productId, variantId, request.tenantDb);
     return reply.send(successResponse(result));
   }
 }

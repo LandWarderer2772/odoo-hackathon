@@ -1,5 +1,5 @@
 import { and, eq, lte, or, isNull, gte } from 'drizzle-orm';
-import { db, plans, Plan } from '@brightloop/db';
+import { db, plans, Plan, Database } from '@brightloop/db';
 import { CreatePlanInput, UpdatePlanInput } from './plan.schema.js';
 import { BadRequestError, NotFoundError } from '../../utils/errors.js';
 
@@ -7,12 +7,12 @@ export class PlanService {
   /**
    * Create a new subscription plan with lifecycle & billing cycle configurations
    */
-  async createPlan(businessId: string, input: CreatePlanInput) {
+  async createPlan(businessId: string, input: CreatePlanInput, targetDb: Database = db) {
     if (input.endDate && input.startDate && input.endDate < input.startDate) {
       throw new BadRequestError('Plan end date cannot be earlier than start date');
     }
 
-    const [plan] = await db
+    const [plan] = await targetDb
       .insert(plans)
       .values({
         businessId,
@@ -40,7 +40,8 @@ export class PlanService {
    */
   async listPlans(
     businessId: string,
-    options?: { activeOnly?: boolean; currentlyAvailable?: boolean }
+    options?: { activeOnly?: boolean; currentlyAvailable?: boolean },
+    targetDb: Database = db
   ) {
     const whereConditions = [eq(plans.businessId, businessId)];
 
@@ -59,7 +60,7 @@ export class PlanService {
       );
     }
 
-    return db.query.plans.findMany({
+    return targetDb.query.plans.findMany({
       where: and(...whereConditions),
       orderBy: (plans, { desc }) => [desc(plans.createdAt)],
     });
@@ -68,8 +69,8 @@ export class PlanService {
   /**
    * Get single plan with tenant isolation
    */
-  async getPlanById(businessId: string, planId: string) {
-    const plan = await db.query.plans.findFirst({
+  async getPlanById(businessId: string, planId: string, targetDb: Database = db) {
+    const plan = await targetDb.query.plans.findFirst({
       where: and(eq(plans.id, planId), eq(plans.businessId, businessId)),
     });
 
@@ -83,14 +84,19 @@ export class PlanService {
   /**
    * Update plan
    */
-  async updatePlan(businessId: string, planId: string, input: UpdatePlanInput) {
-    await this.getPlanById(businessId, planId);
+  async updatePlan(
+    businessId: string,
+    planId: string,
+    input: UpdatePlanInput,
+    targetDb: Database = db
+  ) {
+    await this.getPlanById(businessId, planId, targetDb);
 
     if (input.endDate && input.startDate && input.endDate < input.startDate) {
       throw new BadRequestError('Plan end date cannot be earlier than start date');
     }
 
-    const [updated] = await db
+    const [updated] = await targetDb
       .update(plans)
       .set({
         ...input,
@@ -105,10 +111,10 @@ export class PlanService {
   /**
    * Soft-delete / deactivate plan
    */
-  async deletePlan(businessId: string, planId: string) {
-    await this.getPlanById(businessId, planId);
+  async deletePlan(businessId: string, planId: string, targetDb: Database = db) {
+    await this.getPlanById(businessId, planId, targetDb);
 
-    const [deactivated] = await db
+    const [deactivated] = await targetDb
       .update(plans)
       .set({
         isActive: false,

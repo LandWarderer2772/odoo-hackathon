@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import { db, businesses } from '@brightloop/db';
+import { db, businesses, testDbConnection } from '@brightloop/db';
 import { UpdateTenantInput } from './tenant.schema.js';
 import { NotFoundError } from '../../utils/errors.js';
 
@@ -77,6 +77,13 @@ export class TenantService {
     return db.query.businesses.findMany({
       orderBy: (businesses, { desc }) => [desc(businesses.createdAt)],
     });
+  }
+
+  /**
+   * Test connectivity to a self-hosted / Tailscale database instance
+   */
+  async testTenantDb(connectionUrl: string) {
+    return testDbConnection(connectionUrl);
   }
 }
 

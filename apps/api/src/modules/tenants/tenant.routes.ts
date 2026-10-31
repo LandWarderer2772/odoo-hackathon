@@ -8,6 +8,14 @@ export const tenantRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.get('/resolve/:slug', tenantController.getTenantBySlug);
 
   // Protected routes
+  fastify.post(
+    '/test-db',
+    {
+      preHandler: [fastify.authenticate, requireBusinessAdmin],
+    },
+    tenantController.testDbConnection
+  );
+
   fastify.patch(
     '/:id',
     {

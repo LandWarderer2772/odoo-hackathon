@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { tenantService } from './tenant.service.js';
-import { checkSlugSchema, updateTenantSchema } from './tenant.schema.js';
+import { checkSlugSchema, updateTenantSchema, testDbConnectionSchema } from './tenant.schema.js';
 import { successResponse } from '../../utils/response.js';
 import { ForbiddenError } from '../../utils/errors.js';
 
@@ -28,6 +28,17 @@ export class TenantController {
 
     const updated = await tenantService.updateTenant(id, validated);
     return reply.send(successResponse(updated, 'Tenant profile updated successfully'));
+  }
+
+  async testDbConnection(request: FastifyRequest, reply: FastifyReply) {
+    const validated = testDbConnectionSchema.parse(request.body);
+    const result = await tenantService.testTenantDb(validated.connectionUrl);
+    return reply.send(
+      successResponse(
+        result,
+        result.success ? 'Self-hosted database reachable' : 'Database connection failed'
+      )
+    );
   }
 
   async listAllTenants(request: FastifyRequest, reply: FastifyReply) {

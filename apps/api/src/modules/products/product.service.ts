@@ -1,5 +1,5 @@
 import { and, eq } from 'drizzle-orm';
-import { db, products, productVariants, Product, ProductVariant } from '@brightloop/db';
+import { db, products, productVariants, Product, ProductVariant, Database } from '@brightloop/db';
 import {
   CreateProductInput,
   UpdateProductInput,
@@ -12,8 +12,8 @@ export class ProductService {
   /**
    * Create a product and optional initial variants
    */
-  async createProduct(businessId: string, input: CreateProductInput) {
-    const [product] = await db
+  async createProduct(businessId: string, input: CreateProductInput, targetDb: Database = db) {
+    const [product] = await targetDb
       .insert(products)
       .values({
         businessId,
@@ -28,7 +28,7 @@ export class ProductService {
     let createdVariants: ProductVariant[] = [];
 
     if (input.variants && input.variants.length > 0) {
-      createdVariants = await db
+      createdVariants = await targetDb
         .insert(productVariants)
         .values(
           input.variants.map((v) => ({
@@ -50,7 +50,11 @@ export class ProductService {
   /**
    * List products strictly within business tenant
    */
-  async listProducts(businessId: string, filter?: { type?: 'SERVICE' | 'GOODS'; activeOnly?: boolean }) {
+  async listProducts(
+    businessId: string,
+    filter?: { type?: 'SERVICE' | 'GOODS'; activeOnly?: boolean },
+    targetDb: Database = db
+  ) {
     const whereConditions = [eq(products.businessId, businessId)];
 
     if (filter?.type) {
@@ -61,7 +65,7 @@ export class ProductService {
       whereConditions.push(eq(products.isActive, true));
     }
 
-    return db.query.products.findMany({
+    return targetDb.query.products.findMany({
       where: and(...whereConditions),
       with: {
         variants: true,
@@ -73,8 +77,8 @@ export class ProductService {
   /**
    * Get single product with its variants, enforcing tenant isolation
    */
-  async getProductById(businessId: string, productId: string) {
-    const product = await db.query.products.findFirst({
+  async getProductById(businessId: string, productId: string, targetDb: Database = db) {
+    const product = await targetDb.query.products.findFirst({
       where: and(eq(products.id, productId), eq(products.businessId, businessId)),
       with: {
         variants: true,
@@ -91,10 +95,15 @@ export class ProductService {
   /**
    * Update product details
    */
-  async updateProduct(businessId: string, productId: string, input: UpdateProductInput) {
-    await this.getProductById(businessId, productId);
+  async updateProduct(
+    businessId: string,
+    productId: string,
+    input: UpdateProductInput,
+    targetDb: Database = db
+  ) {
+    await this.getProductById(businessId, productId, targetDb);
 
-    const [updated] = await db
+    const [updated] = await targetDb
       .update(products)
       .set({
         ...input,
@@ -109,10 +118,10 @@ export class ProductService {
   /**
    * Soft delete / deactivate product
    */
-  async deleteProduct(businessId: string, productId: string) {
-    await this.getProductById(businessId, productId);
+  async deleteProduct(businessId: string, productId: string, targetDb: Database = db) {
+    await this.getProductById(businessId, productId, targetDb);
 
-    const [deactivated] = await db
+    const [deactivated] = await targetDb
       .update(products)
       .set({
         isActive: false,
@@ -127,10 +136,15 @@ export class ProductService {
   /**
    * Add variant to an existing product
    */
-  async addVariant(businessId: string, productId: string, input: CreateVariantInput) {
-    await this.getProductById(businessId, productId);
+  async addVariant(
+    businessId: string,
+    productId: string,
+    input: CreateVariantInput,
+    targetDb: Database = db
+  ) {
+    await this.getProductById(businessId, productId, targetDb);
 
-    const [variant] = await db
+    const [variant] = await targetDb
       .insert(productVariants)
       .values({
         productId,
@@ -150,11 +164,12 @@ export class ProductService {
     businessId: string,
     productId: string,
     variantId: string,
-    input: UpdateVariantInput
+    input: UpdateVariantInput,
+    targetDb: Database = db
   ) {
-    await this.getProductById(businessId, productId);
+    await this.getProductById(businessId, productId, targetDb);
 
-    const variant = await db.query.productVariants.findFirst({
+    const variant = await targetDb.query.productVariants.findFirst({
       where: and(eq(productVariants.id, variantId), eq(productVariants.productId, productId)),
     });
 
@@ -162,7 +177,7 @@ export class ProductService {
       throw new NotFoundError('Variant not found for this product');
     }
 
-    const [updated] = await db
+    const [updated] = await targetDb
       .update(productVariants)
       .set({
         ...input,
@@ -177,10 +192,15 @@ export class ProductService {
   /**
    * Delete variant
    */
-  async deleteVariant(businessId: string, productId: string, variantId: string) {
-    await this.getProductById(businessId, productId);
+  async deleteVariant(
+    businessId: string,
+    productId: string,
+    variantId: string,
+    targetDb: Database = db
+  ) {
+    await this.getProductById(businessId, productId, targetDb);
 
-    const variant = await db.query.productVariants.findFirst({
+    const variant = await targetDb.query.productVariants.findFirst({
       where: and(eq(productVariants.id, variantId), eq(productVariants.productId, productId)),
     });
 
@@ -188,7 +208,7 @@ export class ProductService {
       throw new NotFoundError('Variant not found for this product');
     }
 
-    await db.delete(productVariants).where(eq(productVariants.id, variantId));
+    await targetDb.delete(productVariants).where(eq(productVariants.id, variantId));
     return { message: 'Variant deleted successfully' };
   }
 }

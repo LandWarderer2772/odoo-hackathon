@@ -12,7 +12,7 @@ export class PlanController {
     }
 
     const validated = createPlanSchema.parse(request.body);
-    const result = await planService.createPlan(businessId, validated);
+    const result = await planService.createPlan(businessId, validated, request.tenantDb);
     return reply.status(201).send(successResponse(result, 'Subscription plan created successfully'));
   }
 
@@ -23,10 +23,14 @@ export class PlanController {
     }
 
     const query = request.query as { activeOnly?: string; currentlyAvailable?: string };
-    const result = await planService.listPlans(businessId, {
-      activeOnly: query.activeOnly === 'true',
-      currentlyAvailable: query.currentlyAvailable === 'true',
-    });
+    const result = await planService.listPlans(
+      businessId,
+      {
+        activeOnly: query.activeOnly === 'true',
+        currentlyAvailable: query.currentlyAvailable === 'true',
+      },
+      request.tenantDb
+    );
     return reply.send(successResponse(result));
   }
 
@@ -37,7 +41,7 @@ export class PlanController {
     }
 
     const { id } = request.params as { id: string };
-    const result = await planService.getPlanById(businessId, id);
+    const result = await planService.getPlanById(businessId, id, request.tenantDb);
     return reply.send(successResponse(result));
   }
 
@@ -49,7 +53,7 @@ export class PlanController {
 
     const { id } = request.params as { id: string };
     const validated = updatePlanSchema.parse(request.body);
-    const result = await planService.updatePlan(businessId, id, validated);
+    const result = await planService.updatePlan(businessId, id, validated, request.tenantDb);
     return reply.send(successResponse(result, 'Plan updated successfully'));
   }
 
@@ -60,7 +64,7 @@ export class PlanController {
     }
 
     const { id } = request.params as { id: string };
-    const result = await planService.deletePlan(businessId, id);
+    const result = await planService.deletePlan(businessId, id, request.tenantDb);
     return reply.send(successResponse(result, 'Plan deactivated successfully'));
   }
 }
