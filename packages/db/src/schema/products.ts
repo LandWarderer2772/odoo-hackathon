@@ -1,6 +1,6 @@
 import { pgTable, uuid, text, boolean, timestamp, numeric, index } from 'drizzle-orm/pg-core';
-import { businesses } from './businesses.js';
-import { productTypeEnum } from './enums.js';
+import { businesses } from './businesses';
+import { productTypeEnum } from './enums';
 
 export const products = pgTable(
   'products',

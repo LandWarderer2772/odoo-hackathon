@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsup",
+    "dev": "echo Worker dev placeholder",
+    "build": "echo Worker build placeholder",
     "start": "node dist/index.js"
   }
 }

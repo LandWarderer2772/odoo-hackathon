@@ -1,5 +1,5 @@
 import { pgTable, uuid, text, boolean, timestamp, numeric, index } from 'drizzle-orm/pg-core';
-import { businesses } from './businesses.js';
+import { businesses } from './businesses';
 
 export const taxRules = pgTable(
   'tax_rules',

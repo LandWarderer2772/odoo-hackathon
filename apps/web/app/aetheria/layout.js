@@ -1,4 +1,4 @@
-import "./globals.css";
+import styles from "./aetheria.module.css";
 
 export const metadata = {
   title: "Aetheria — SaaS spend, brought into focus",
@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body className={styles.aetheria}>{children}</body>
     </html>
   );
 }

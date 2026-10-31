@@ -20,7 +20,7 @@ import {
   paymentAllocations,
   discounts,
   queryClient,
-} from '../index.js';
+} from '../index';
 import { eq } from 'drizzle-orm';
 
 async function seed() {
@@ -247,6 +247,7 @@ async function seed() {
       .values({
         businessId: brightloop.id,
         code: 'WELCOME20',
+        name: 'Welcome 20% Promo Discount',
         type: 'PERCENTAGE',
         value: '20.00',
         isActive: true,

@@ -1,10 +1,10 @@
 import { pgTable, uuid, text, timestamp, numeric, integer, index } from 'drizzle-orm/pg-core';
-import { businesses } from './businesses.js';
-import { customers } from './customers.js';
-import { plans } from './plans.js';
-import { products, productVariants } from './products.js';
-import { discounts } from './discounts.js';
-import { subscriptionStatusEnum } from './enums.js';
+import { businesses } from './businesses';
+import { customers } from './customers';
+import { plans } from './plans';
+import { products, productVariants } from './products';
+import { discounts } from './discounts';
+import { subscriptionStatusEnum } from './enums';
 
 export const subscriptions = pgTable(
   'subscriptions',

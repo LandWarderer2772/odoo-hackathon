@@ -1,8 +1,8 @@
 import { pgTable, uuid, text, timestamp, numeric, index } from 'drizzle-orm/pg-core';
-import { businesses } from './businesses.js';
-import { customers } from './customers.js';
-import { invoices } from './invoices.js';
-import { paymentMethodEnum } from './enums.js';
+import { businesses } from './businesses';
+import { customers } from './customers';
+import { invoices } from './invoices';
+import { paymentMethodEnum } from './enums';
 
 export const payments = pgTable(
   'payments',

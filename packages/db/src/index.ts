@@ -1,8 +1,8 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
-import * as schema from './schema/index.js';
+import * as schema from './schema/index';
 
-export * from './schema/index.js';
+export * from './schema/index';
 
 const connectionString =
   process.env.DATABASE_URL || 'postgresql://brightloop:brightloop_secret@localhost:5432/brightloop_db';

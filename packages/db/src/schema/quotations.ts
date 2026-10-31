@@ -1,9 +1,9 @@
 import { pgTable, uuid, timestamp, numeric, integer, index } from 'drizzle-orm/pg-core';
-import { businesses } from './businesses.js';
-import { customers } from './customers.js';
-import { plans } from './plans.js';
-import { products, productVariants } from './products.js';
-import { quotationStatusEnum } from './enums.js';
+import { businesses } from './businesses';
+import { customers } from './customers';
+import { plans } from './plans';
+import { products, productVariants } from './products';
+import { quotationStatusEnum } from './enums';
 
 export const quotations = pgTable(
   'quotations',

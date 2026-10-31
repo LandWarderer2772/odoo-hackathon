@@ -9,8 +9,8 @@
     "test": "tsx test/pricing.test.ts && tsx test/fsm.test.ts && tsx test/finance.test.ts"
   },
   "dependencies": {
-    "@brightloop/db": "workspace:*",
-    "@brightloop/types": "workspace:*",
+    "@brightloop/db": "*",
+    "@brightloop/types": "*",
     "@fastify/cookie": "^9.3.1",
     "@fastify/cors": "^9.0.1",
     "@fastify/jwt": "^8.0.1",

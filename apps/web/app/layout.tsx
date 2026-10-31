@@ -29,6 +29,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
           rel="stylesheet"
         />
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
         <style dangerouslySetInnerHTML={{ __html: `
           :root {
             --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;

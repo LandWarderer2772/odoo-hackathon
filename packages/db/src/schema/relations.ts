@@ -1,15 +1,15 @@
 import { relations } from 'drizzle-orm';
-import { businesses } from './businesses.js';
-import { users } from './users.js';
-import { products, productVariants } from './products.js';
-import { plans } from './plans.js';
-import { customers } from './customers.js';
-import { quotations, quotationItems } from './quotations.js';
-import { subscriptions, subscriptionItems } from './subscriptions.js';
-import { invoices, invoiceItems } from './invoices.js';
-import { taxRules } from './taxes.js';
-import { discounts } from './discounts.js';
-import { payments, paymentAllocations } from './payments.js';
+import { businesses } from './businesses';
+import { users } from './users';
+import { products, productVariants } from './products';
+import { plans } from './plans';
+import { customers } from './customers';
+import { quotations, quotationItems } from './quotations';
+import { subscriptions, subscriptionItems } from './subscriptions';
+import { invoices, invoiceItems } from './invoices';
+import { taxRules } from './taxes';
+import { discounts } from './discounts';
+import { payments, paymentAllocations } from './payments';
 
 export const businessesRelations = relations(businesses, ({ many }) => ({
   users: many(users),

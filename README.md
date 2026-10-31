@@ -90,7 +90,7 @@ graph TD
 
 | Layer | Technology | Rationale |
 |---|---|---|
-| **Monorepo Engine** | **Turborepo** + `pnpm` | High-cache velocity, clear boundary separation between apps and packages. |
+| **Monorepo Engine** | **Turborepo** + `npm` Workspaces | High-cache velocity, clear boundary separation between apps and packages. |
 | **Frontend Framework** | **Next.js 15 (App Router)** | Server-side rendering, optimized client routing, clean route groupings for `(portal)` vs `(admin)`. |
 | **UI Components & Styling** | **Tailwind CSS + shadcn/ui** | Accessible, responsive, customizable design system adhering to strict enterprise standards. |
 | **State & Data Fetching** | **TanStack Query v5 + Zustand** | Optimistic mutations, automatic cache invalidation, and seamless server synchronization. |
@@ -138,7 +138,7 @@ odoo-hackathon/
 │   └── config/                      # Shared ESLint, Prettier, and TypeScript configurations
 ├── docker-compose.yml               # Local PostgreSQL 16 & Redis 7 containers
 ├── turbo.json                       # Turborepo task pipeline configuration
-└── pnpm-workspace.yaml
+└── package.json                     # Monorepo root & npm workspaces configuration
 ```
 
 ---
@@ -469,15 +469,15 @@ The finance executive overview provides instantaneous visibility into company re
 ## 🚀 Local Development & Quickstart
 
 ### Prerequisites
-* **Node.js**: `v20.x` or `v22.x` (LTS)
-* **pnpm**: `v9.x`
+* **Node.js**: `v20.x`, `v22.x`, or `v26.x`
+* **npm**: `v10.x`+
 * **Docker & Docker Compose**: For local PostgreSQL and Redis instances
 
 ### 1. Clone & Install Dependencies
 ```bash
 git clone https://github.com/your-org/odoo-hackathon.git
 cd odoo-hackathon
-pnpm install
+npm install
 ```
 
 ### 2. Start Infrastructure Containers
@@ -498,14 +498,14 @@ FRONTEND_URL=http://localhost:3000
 
 ### 4. Run Migrations & Seed Database
 ```bash
-pnpm db:generate
-pnpm db:migrate
-pnpm db:seed
+npm run db:generate
+npm run db:migrate
+npm run db:seed
 ```
 
 ### 5. Launch Full-Stack Applications
 ```bash
-pnpm dev
+npm run dev
 ```
 * **Customer Portal & Admin Dashboard:** `http://localhost:3000`
 * **Fastify REST API & Swagger UI:** `http://localhost:4000/docs`
@@ -515,7 +515,7 @@ pnpm dev
 
 ## 🎭 Seed Data & Demo Walkthrough (Judge Evaluation Script)
 
-The seed script (`pnpm db:seed`) hydrates the system with Brightloop Software's operational data model:
+The seed script (`npm run db:seed`) hydrates the system with Brightloop Software's operational data model:
 
 ### Pre-Configured Personas & Logins
 | Persona | Email | Password | Role & Permissions |
