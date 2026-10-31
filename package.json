@@ -7,6 +7,7 @@
     "lint": "turbo lint",
     "db:generate": "pnpm --filter @brightloop/db db:generate",
     "db:migrate": "pnpm --filter @brightloop/db db:migrate",
+    "db:push": "pnpm --filter @brightloop/db db:push",
     "db:seed": "pnpm --filter @brightloop/db db:seed"
   },
   "packageManager": "pnpm@9.0.0"
